@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仙卷创作 - 寻仙唐迹</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <!-- 外部资源 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'celestial-blue': '#4A6FA5',
+                        'moon-white': '#F0F4F8',
+                        'golden': '#D4AF37',
+                        'ochre': '#CC7722',
+                        'jade-green': '#3A7D44',
+                    },
+                    fontFamily: {
+                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+                        'classic': ['"Noto Serif SC"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 引入公共组件和样式 -->
+    <script src="components.js"></script>
+    <script>document.write(styleComponent);</script>
+
+    <style>
+        #soulQuizApp,
+        #creationPanel {
+            position: relative;
+            background-color: rgba(255, 250, 240, 0.95);
+            border-radius: 1.5rem;
+            border: 1px solid #d4b896;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            padding: 28px;
+            color: #5c3d2e;
+            font-family: 'Ma Shan Zheng', cursive, sans-serif;
+            overflow: hidden;
+        }
+
+        #creationPanel {
+            font-family: 'Ma Shan Zheng', cursive, sans-serif;
+            color: #5c3d2e;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #creationPanel h3 {
+            font-size: 1.8rem;
+            color: #5c3d2e;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+
+        #creationPanel p.description {
+            text-align: center;
+            color: #a0522d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .creation-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .creation-field label {
+            font-size: 1rem;
+            color: #8b4513;
+        }
+
+        .creation-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            border: 1px solid #d4b896;
+            background: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+            color: #5c3d2e;
+            font-family: 'Noto Serif SC', serif;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .creation-select:focus {
+            outline: none;
+            border-color: #8b4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.15);
+        }
+
+        .creation-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #8b6a4a;
+        }
+
+        .creation-meta span {
+            font-weight: 600;
+        }
+
+        .creation-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        #creationPanel button.generate {
+            background-color: #8b4513;
+            border: none;
+            border-radius: 999px;
+            color: #fffaf0;
+            padding: 0.85rem 1.5rem;
+            font-size: 1.05rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            cursor: pointer;
+            transition: background-color 0.25s ease, transform 0.2s ease;
+        }
+
+        #creationPanel button.generate:hover:not(:disabled) {
+            background-color: #a0522d;
+            transform: translateY(-1px);
+        }
+
+        #creationPanel button.generate:disabled {
+            background-color: #cdb9a5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .creation-image {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px dashed #d4b896;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            min-height: 120px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .creation-image img {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 0.75rem;
+            object-fit: contain;
+            max-height: 300px;
+            display: block;
+        }
+
+        .creation-image .placeholder {
+            color: #a38a6b;
+            font-size: 0.95rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        #soulQuizApp *,
+        #soulQuizApp *::before,
+        #soulQuizApp *::after {
+            box-sizing: border-box;
+        }
+
+        #soulQuizApp.english-mode {
+            font-family: 'Inter', sans-serif;
+        }
+
+        #soulQuizApp .language-switcher {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 5;
+        }
+
+        #soulQuizApp .lang-btn {
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #soulQuizApp.english-mode .lang-btn {
+            font-family: 'Inter', sans-serif;
+        }
+
+        #soulQuizApp .lang-btn:hover {
+            background-color: #a0522d;
+        }
+
+        #soulQuizApp header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px dashed #d4b896;
+        }
+
+        #soulQuizApp h1 {
+            font-size: 2.4rem;
+            color: #5c3d2e;
+            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        #soulQuizApp.english-mode h1 {
+            font-family: 'Inter', sans-serif;
+        }
+
+        #soulQuizApp .subtitle {
+            font-size: 1.05rem;
+            color: #a0522d;
+            line-height: 1.8;
+        }
+
+        #soulQuizApp .intro {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        #soulQuizApp .intro p {
+            margin-bottom: 4px;
+        }
+
+        #soulQuizApp .progress-bar {
+            height: 10px;
+            background-color: #f5e8d0;
+            border-radius: 999px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        #soulQuizApp .progress {
+            height: 100%;
+            background-color: #8b4513;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        #soulQuizApp .question-container {
+            display: none;
+            margin-bottom: 24px;
+        }
+
+        #soulQuizApp .question-container.active {
+            display: block;
+        }
+
+        #soulQuizApp .question-number {
+            text-align: center;
+            color: #a0522d;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        #soulQuizApp .question {
+            font-size: 1.35rem;
+            margin-bottom: 18px;
+            color: #5c3d2e;
+            text-align: center;
+        }
+
+        #soulQuizApp .options {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        #soulQuizApp .option {
+            background-color: #f5e8d0;
+            border: 2px solid #d4b896;
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 1.05rem;
+        }
+
+        #soulQuizApp .option:hover {
+            background-color: #e8d9c5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        #soulQuizApp .option.selected {
+            background-color: #d4b896;
+            border-color: #8b4513;
+        }
+
+        #soulQuizApp .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        #soulQuizApp button {
+            background-color: #8b4513;
+            color: white;
+            border: none;
+            padding: 10px 26px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #soulQuizApp button:hover:not(:disabled) {
+            background-color: #a0522d;
+            transform: translateY(-2px);
+        }
+
+        #soulQuizApp button:disabled {
+            background-color: #d0c3b4;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        #soulQuizApp .result-container {
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #soulQuizApp .immortal-realm {
+            font-size: 1.6rem;
+            color: #8b4513;
+            margin: 12px 0;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #f5e8d0, #e8d9c5);
+            border-radius: 999px;
+            display: inline-block;
+            border: 2px solid #d4b896;
+        }
+
+        #soulQuizApp .realm-subtitle {
+            font-size: 1.2rem;
+            color: #a0522d;
+            margin-bottom: 18px;
+            font-style: italic;
+        }
+
+        #soulQuizApp .poet-name {
+            font-size: 2.1rem;
+            margin: 12px 0;
+        }
+
+        #soulQuizApp .poet-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #d4b896;
+            margin: 16px auto;
+            box-shadow: 0 5px 16px rgba(0, 0, 0, 0.18);
+        }
+
+        #soulQuizApp .realm-description,
+        #soulQuizApp .poet-description,
+        #soulQuizApp .modern-guide {
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        #soulQuizApp .realm-description {
+            background-color: #f5e8d0;
+            border-left: 5px solid #8b4513;
+        }
+
+        #soulQuizApp .poet-description {
+            background-color: #fdf7ef;
+            border: 1px solid #d4b896;
+        }
+
+        #soulQuizApp .modern-guide {
+            background-color: #f5e8d0;
+            border-right: 5px solid #8b4513;
+        }
+
+        #soulQuizApp .personality-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 18px 0;
+        }
+
+        #soulQuizApp .trait {
+            background-color: #d4b896;
+            color: #5c3d2e;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+        }
+
+        #soulQuizApp .poem-example {
+            background-color: #fdf7ef;
+            border-radius: 12px;
+            border: 1px dashed #d4b896;
+            padding: 16px;
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        #soulQuizApp .poem-translation {
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        #soulQuizApp .poem-original {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.1rem;
+        }
+
+        #soulQuizApp .poem-notes {
+            font-size: 0.85rem;
+            color: #6b4a3a;
+            margin-top: 6px;
+        }
+
+        #soulQuizApp .data-source {
+            text-align: center;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed #d4b896;
+            font-size: 0.9rem;
+            color: #a0522d;
+        }
+
+        @media (max-width: 768px) {
+            #soulQuizApp {
+                padding: 20px;
+            }
+
+            #soulQuizApp h1 {
+                font-size: 2rem;
+            }
+
+            #soulQuizApp .question {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-moon-white font-classic text-gray-800 overflow-x-hidden">
+    <main>
+        <!-- 页面标题 -->
+        <section class="py-28 px-6 md:px-12 bg-gradient-to-b from-moon-white/80 to-celestial-blue/10 relative">
+            <div class="container mx-auto max-w-6xl text-center relative z-10">
+                <h1
+                    class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold scroll-reveal">
+                    仙卷创作
+                </h1>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg scroll-reveal">
+                    先完成唐朝游仙志测试，找到与你气质契合的诗人，再以其风格挑选仙人意象与仙境场景，生成属于你的五言绝句。
+                </p>
+                <div class="w-32 h-1 bg-golden mx-auto mt-6 scroll-reveal"></div>
+            </div>
+        </section>
+
+        <!-- 游仙志测试 + 仙卷创作 -->
+        <section class="py-16 px-6 md:px-12 bg-moon-white/80 relative">
+            <div class="container mx-auto max-w-6xl">
+                <div class="grid lg:grid-cols-2 gap-10">
+                    <!-- 唐朝游仙志 -->
+                    <div class="scroll-reveal">
+                        <div id="soulQuizApp">
+                            <div class="language-switcher">
+                                <button id="lang-btn" class="lang-btn">English</button>
+                            </div>
+
+                            <header>
+                                <h1 id="main-title">唐朝游仙志</h1>
+                                <p class="subtitle" id="main-subtitle">与唐代诗人的精神对话</p>
+                            </header>
+
+                            <div class="intro chinese-text">
+                                <p>在盛唐的诗意星空下，游仙诗如璀璨星河，</p>
+                                <p>照亮了文人墨客的精神归途。</p>
+                                <p>李白的天马行空，李商隐的朦胧深邃，</p>
+                                <p>李贺的诡奇想象，白居易的入世超然——</p>
+                                <p>每一种游仙方式都是独特的精神写照。</p>
+                                <p>这个测试将带你穿越千年诗境，</p>
+                                <p>找到与你气质最契合的唐代诗人知己。</p>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress" id="progress"></div>
+                            </div>
+
+                            <!-- 8 个问题 -->
+                            <div class="question-container active" id="question1">
+                                <div class="question-number">第1题/共8题</div>
+                                <div class="question">1. 你心中理想的超凡体验是：</div>
+                                <div class="options">
+                                    <div class="option" data-value="EN">与群仙共饮，畅游九霄</div>
+                                    <div class="option" data-value="IS">独坐云间，静观星移</div>
+                                    <div class="option" data-value="FJ">在人间修行，普度众生</div>
+                                    <div class="option" data-value="TP">探索宇宙，思考真理</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question2">
+                                <div class="question-number">第2题/共8题</div>
+                                <div class="question">2. 你更相信仙境存在于：</div>
+                                <div class="options">
+                                    <div class="option" data-value="SJ">现实中的名山大川</div>
+                                    <div class="option" data-value="NP">想象构建的奇幻世界</div>
+                                    <div class="option" data-value="FI">内心的觉悟与修行</div>
+                                    <div class="option" data-value="TE">哲理思辨的境界</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question3">
+                                <div class="question-number">第3题/共8题</div>
+                                <div class="question">3. 面对人生困境，你倾向于：</div>
+                                <div class="options">
+                                    <div class="option" data-value="TJ">理性分析，寻找根本原因</div>
+                                    <div class="option" data-value="FE">寻求情感支持，共同面对</div>
+                                    <div class="option" data-value="JS">制定计划，逐步解决</div>
+                                    <div class="option" data-value="PN">随缘应对，相信转机</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question4">
+                                <div class="question-number">第4题/共8题</div>
+                                <div class="question">4. 你的生活方式更接近：</div>
+                                <div class="options">
+                                    <div class="option" data-value="JT">井井有条，目标明确</div>
+                                    <div class="option" data-value="PF">随性自在，享受过程</div>
+                                    <div class="option" data-value="FJ">服务他人，承担责任</div>
+                                    <div class="option" data-value="TI">独立思考，保持距离</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question5">
+                                <div class="question-number">第5题/共8题</div>
+                                <div class="question">5. 在诗歌创作中，你更看重：</div>
+                                <div class="options">
+                                    <div class="option" data-value="FE">情感的真诚表达</div>
+                                    <div class="option" data-value="NP">想象的奇特瑰丽</div>
+                                    <div class="option" data-value="SI">现实的深刻反映</div>
+                                    <div class="option" data-value="TJ">哲理的深邃表达</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question6">
+                                <div class="question-number">第6题/共8题</div>
+                                <div class="question">6. 你希望被后人记住的是：</div>
+                                <div class="options">
+                                    <div class="option" data-value="EN">豪迈奔放的个性</div>
+                                    <div class="option" data-value="IT">深邃内敛的智慧</div>
+                                    <div class="option" data-value="SJ">踏实可靠的品格</div>
+                                    <div class="option" data-value="PF">自由不羁的灵魂</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question7">
+                                <div class="question-number">第7题/共8题</div>
+                                <div class="question">7. 在社交中，你通常是：</div>
+                                <div class="options">
+                                    <div class="option" data-value="EF">主动交流，热情洋溢</div>
+                                    <div class="option" data-value="IT">安静观察，深度交谈</div>
+                                    <div class="option" data-value="FE">关注氛围，促进和谐</div>
+                                    <div class="option" data-value="TI">理性分析，提供见解</div>
+                                </div>
+                            </div>
+
+                            <div class="question-container" id="question8">
+                                <div class="question-number">第8题/共8题</div>
+                                <div class="question">8. 面对理想与现实冲突，你选择：</div>
+                                <div class="options">
+                                    <div class="option" data-value="NP">坚守理想，不改初心</div>
+                                    <div class="option" data-value="SJ">调整目标，务实前进</div>
+                                    <div class="option" data-value="FJ">寻求平衡，兼顾两者</div>
+                                    <div class="option" data-value="TJ">重新规划，系统解决</div>
+                                </div>
+                            </div>
+
+                            <div class="navigation">
+                                <button id="prev-btn" disabled>上一题</button>
+                                <button id="next-btn">下一题</button>
+                            </div>
+
+                            <div class="result-container" id="result-container">
+                                <h2 id="result-title">诗魂测试结果</h2>
+                                <div class="immortal-realm" id="immortal-realm">浪漫飞升型</div>
+                                <div class="realm-subtitle" id="realm-subtitle">直上九霄揽明月</div>
+
+                                <div class="poet-name" id="poet-name">李白</div>
+                                <div class="poet-period" id="poet-period">盛唐诗人 · <span id="realm-type">浪漫飞升型</span></div>
+                                <div class="personality-type" id="personality-type">ENFP 竞选者</div>
+
+                                <div class="personality-traits" id="personality-traits"></div>
+
+                                <img class="poet-image" id="poet-image"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/a/a6/%E6%9D%8E%E7%99%BD.png"
+                                    alt="诗人画像">
+
+                                <div class="realm-description" id="realm-description"></div>
+                                <div class="poet-description" id="poet-description"></div>
+                                <div class="poem-example" id="poem-example"></div>
+                                <div class="modern-guide" id="modern-guide"></div>
+
+                                <div class="data-source" id="data-source">数据来源：《全唐诗》游仙诗数据集</div>
+
+                                <button class="restart-btn" id="restart-btn">重新测试</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 仙卷创作 -->
+                    <div class="scroll-reveal">
+                        <div id="creationPanel">
+                            <h3>仙卷创作</h3>
+                            <p class="description">请先完成测试，继承诗人风骨，再选定意象与场景生成专属仙卷。</p>
+                            <div class="creation-meta">
+                                <span>当前诗人：<span id="currentPoetBadge">待完成测试</span></span>
+                                <button class="text-sm text-celestial-blue hover:text-golden transition-colors"
+                                    type="button" onclick="scrollToQuiz()">返回测试</button>
+                            </div>
+                            <div class="creation-field">
+                                <label for="imagerySelect">仙人意象</label>
+                                <select id="imagerySelect" class="creation-select"></select>
+                            </div>
+                            <div class="creation-field">
+                                <label for="sceneSelect">仙境场景</label>
+                                <select id="sceneSelect" class="creation-select"></select>
+                            </div>
+                            <div class="creation-meta text-sm">
+                                <span>意象：<span id="selectedImageryLabel">仙娥</span></span>
+                                <span>场景：<span id="selectedSceneLabel">云海</span></span>
+                            </div>
+                            <div class="creation-actions">
+                                <button id="generatePoemBtn" class="generate" type="button">
+                                    生成仙卷
+                                </button>
+                                <div
+                                    class="w-full mx-auto bg-amber-50 rounded-xl shadow-inner overflow-hidden relative border-2 border-amber-200">
+                                    <div class="p-5 flex flex-col gap-4">
+                                        <div class="text-center text-celestial-blue" id="poemContent">
+                                            <p class="font-calligraphy text-2xl leading-relaxed">
+                                                云海霭无声，<br>
+                                                仙娥向天青，<br>
+                                                剑光星斗惊，<br>
+                                                长啸入云平。
+                                            </p>
+                                        </div>
+                                        <!-- 图片显示区域，放在诗句下方 -->
+                                        <div class="creation-image" id="creationImageWrapper">
+                                            <p class="placeholder" id="imagePlaceholder">生成仙卷后，可同步调用豆包生图展示仙境意象。</p>
+                                            <img id="creationImage" alt="仙卷意象图" style="display:none;">
+                                        </div>
+                                        <div class="text-right text-xs text-gray-500 space-y-1 mt-auto">
+                                            <p id="poemSignature">辛丑年秋 制于唐境仙踪</p>
+                                            <p id="poetStyleLabel" class="text-celestial-blue/70">风格：待定</p>
+                                        </div>
+                                    </div>
+                                    <div class="absolute left-0 top-0 bottom-0 w-4 bg-amber-200"></div>
+                                    <div class="absolute right-0 top-0 bottom-0 w-4 bg-amber-200"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 生成成功提示弹窗 -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeSuccessModal()"></div>
+        <div class="relative bg-white rounded-xl shadow-2xl max-w-md w-full p-6 m-4 text-center">
+            <div class="w-16 h-16 bg-jade-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa fa-check text-2xl text-jade-green"></i>
+            </div>
+            <h3 class="font-calligraphy text-2xl text-celestial-blue mb-2">仙卷已生成</h3>
+            <p class="text-gray-600 mb-6">根据诗魂风格与所选意象，诗句与仙境图稿均已同步生成。</p>
+            <button
+                class="w-full py-3 bg-celestial-blue text-white rounded-full hover:bg-celestial-blue/90 transition-all duration-300"
+                onclick="closeSuccessModal()">
+                确定
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        /* ====== 右侧创作面板：基础数据 ====== */
+        const imageryOptions = [' 西王母 ', ' 王子喬 ', ' 麻姑 ', ' 玉皇大帝 ', ' 弄玉 ', ' 黃帝 ', 
+        ' 安期生 ', ' 東方朔 ', ' 浮丘公 ', ' 劉晨 ', ' 阮肇 ', ' 織女 ', ' 嫦娥 ', ' 廣成子 ', ' 黄初平 '
+        , ' 青童君 ', ' 三茅真君 ', ' 上元夫人 ', ' 蕭史 ', ' 玉女 ', ' 許飛瓊 ', ' 羽人 ', ' 玉清元始天尊 '
+        , ' 赤鬆子 ', ' 杜蘭香 ', ' 萼綠華 ', ' 馮夷 ', ' 牽牛 ', ' 三官大帝 ', ' 太上老君 ', ' 羲和 ', 
+        ' 瑤姬 ', ' 紫陽真人 ', ' 董雙成 ', ' 扶桑大帝 ', ' 劉根 ', ' 宓妃 ', ' 明星玉女 ', ' 南華真人 ', 
+        ' 甯封子 ', ' 七真 ', ' 琴高 ', ' 蘇仙君 ', ' 太一神 ', ' 衛叔卿 ', ' 魏伯陽 ', ' 魏夫人 ', ' 徐福 '
+        , ' 禺強 ', ' 玉真公主 ', ' 紫微北極大帝 ', ' 白石先生 ', ' 包山神 ', ' 貝宮夫人 ', ' 布龍兒 ', 
+        ' 蔡經 ', ' 沖虛真人 ', ' 东华帝君 ', ' 東妃 ', ' 東王公 ', ' 洞靈真人 ', ' 鳧伯 ', ' 韓終 ',
+        ' 韓眾 ', ' 河上公 ', ' 賀郎仙 ', ' 洪崖先生 ', ' 壺公 ', ' 黃公 ', ' 江妃二女 ', ' 絳闕夫人 ',
+        ' 金骨仙 ', ' 九炁真翁 ', ' 九天真妃 ', ' 九陽君 ', ' 巨靈 ', ' 雷公 ', ' 李八伯 ', ' 李騰空 ',
+        ' 靈威丈人 ', ' 劉綱 ', ' 六丁 ', ' 龍伯 ', ' 盧敖 ', ' 呂洞賓 ', ' 羅公遠 ', ' 毛女 ', ' 茅盈 ',
+        ' 木公 ', ' 南方炎帝 ', ' 彭祖 ', ' 騎羊子 ', ' 潛君 ', ' 秦王女 ', ' 青女 ', ' 青溪道士 ', ' 青腰侍女 ',
+        ' 清虛真人 ', ' 阮籍 ', ' 三門赤帝 ', ' 三清 ', ' 上陽君 ', ' 少姑 ', ' 神農 ', ' 沈羲 ', ' 素女 ',
+        ' 太白金星 ', ' 太一元君 ', ' 太乙救苦天尊 ', ' 王方平 ', ' 王烈 ', ' 巫山神女 ', ' 無央公子 ', ' 五老 ',
+        ' 西城王君 ', ' 西方皓灵皇老天君 ', ' 西妃 ', ' 仙娥 ', ' 羨門子 ', ' 謝靈運 ', ' 謝自然 ', ' 許遜 ',
+        ' 玉晨君 ', ' 玉妃 ', ' 玉華仙子 ', ' 雲英 ', ' 張道陵 ', ' 趙煜 ', ' 鐘離權 ', ' 燭龍 ', ' 颛顼 ',
+        ' 子安 ', ' 子明 ', ' 紫府仙人 ', ' 紫陽宮女'
+];
+        const sceneOptions = ['云海', '瑶台', '丹丘', '松岫', '星河', '蓬山', '月阙', '烟峦'];
+
+        const poetSignatures = {
+            '李白': ['剑光星斗惊', '长啸入云平'],
+            '李贺': ['鬼灯寒未灭', '铜龙夜自鸣'],
+            '王翰': ['霜旗飞酒烈', '沙塞梦千程'],
+            '宋之问': ['桂帆穿古渡', '青简记仪形'],
+            '李商隐': ['香魂留月殿', '梦雨驻瑶亭'],
+            '孟浩然': ['鹿门烟雨晚', '渔舟泊静汀'],
+            '常建': ['幽泉涵石镜', '轻篁映鹤翎'],
+            '张九龄': ['华台凌紫陌', '孤心对远星'],
+            '吴筠': ['丹鼎含秋意', '玄门启夜经'],
+            '陈子昂': ['高风凌汉阙', '孤怀动朔旌'],
+            '卢照邻': ['金石庄吾志', '长歌慰道情'],
+            '韦应物': ['淡月悬疏竹', '清心对远钟'],
+            '白居易': ['香炉连市井', '歌行济世情'],
+            '韩愈': ['文锋开古训', '独步匡时名'],
+            '张籍': ['笔照军州路', '心连百姓声'],
+            '王绩': ['东皋高举酒', '竹里晚留晴'],
+            '默认': ['松月明溪口', '清风在我身']
+        };
+
+        const sceneTemplates = ['{scene}霭无声', '{scene}月初升', '{scene}风露明', '{scene}烟水轻'];
+        const imageryTemplates = ['{immortal}向天青', '{immortal}携霞行', '{immortal}步云汀', '{immortal}倚鹤鸣'];
+        const DOUBAO_PROXY_ENDPOINT = '/api/doubao-image';
+        const DEEPSEEK_API_ENDPOINT = '/api/deepseek-poem';
+
+        /* ====== 唐朝游仙志：双语文本 ====== */
+        const translations = {
+            zh: {
+                title: "唐朝游仙志",
+                subtitle: "与唐代诗人的精神对话",
+                intro: [
+                    "在盛唐的诗意星空下，游仙诗如璀璨星河，",
+                    "照亮了文人墨客的精神归途。",
+                    "李白的天马行空，李商隐的朦胧深邃，",
+                    "李贺的诡奇想象，白居易的入世超然——",
+                    "每一种游仙方式都是独特的精神写照。",
+                    "这个测试将带你穿越千年诗境，",
+                    "找到与你气质最契合的唐代诗人知己。"
+                ],
+                langBtn: "English",
+                prevBtn: "上一题",
+                nextBtn: "下一题",
+                resultBtn: "查看结果",
+                restartBtn: "重新测试",
+                resultTitle: "诗魂测试结果",
+                dataSource: "数据来源：《全唐诗》游仙诗数据集",
+                questions: [
+                    {
+                        number: "第1题/共8题",
+                        text: "1. 你心中理想的超凡体验是：",
+                        options: [
+                            "与群仙共饮，畅游九霄",
+                            "独坐云间，静观星移",
+                            "在人间修行，普度众生",
+                            "探索宇宙，思考真理"
+                        ]
+                    },
+                    {
+                        number: "第2题/共8题",
+                        text: "2. 你更相信仙境存在于：",
+                        options: [
+                            "现实中的名山大川",
+                            "想象构建的奇幻世界",
+                            "内心的觉悟与修行",
+                            "哲理思辨的境界"
+                        ]
+                    },
+                    {
+                        number: "第3题/共8题",
+                        text: "3. 面对人生困境，你倾向于：",
+                        options: [
+                            "理性分析，寻找根本原因",
+                            "寻求情感支持，共同面对",
+                            "制定计划，逐步解决",
+                            "随缘应对，相信转机"
+                        ]
+                    },
+                    {
+                        number: "第4题/共8题",
+                        text: "4. 你的生活方式更接近：",
+                        options: [
+                            "井井有条，目标明确",
+                            "随性自在，享受过程",
+                            "服务他人，承担责任",
+                            "独立思考，保持距离"
+                        ]
+                    },
+                    {
+                        number: "第5题/共8题",
+                        text: "5. 在诗歌创作中，你更看重：",
+                        options: [
+                            "情感的真诚表达",
+                            "想象的奇特瑰丽",
+                            "现实的深刻反映",
+                            "哲理的深邃表达"
+                        ]
+                    },
+                    {
+                        number: "第6题/共8题",
+                        text: "6. 你希望被后人记住的是：",
+                        options: [
+                            "豪迈奔放的个性",
+                            "深邃内敛的智慧",
+                            "踏实可靠的品格",
+                            "自由不羁的灵魂"
+                        ]
+                    },
+                    {
+                        number: "第7题/共8题",
+                        text: "7. 在社交中，你通常是：",
+                        options: [
+                            "主动交流，热情洋溢",
+                            "安静观察，深度交谈",
+                            "关注氛围，促进和谐",
+                            "理性分析，提供见解"
+                        ]
+                    },
+                    {
+                        number: "第8题/共8题",
+                        text: "8. 面对理想与现实冲突，你选择：",
+                        options: [
+                            "坚守理想，不改初心",
+                            "调整目标，务实前进",
+                            "寻求平衡，兼顾两者",
+                            "重新规划，系统解决"
+                        ]
+                    }
+                ]
+            },
+            en: {
+                title: "Discover Your Tang Dynasty Poet Soul",
+                subtitle: "Which Poet's Spiritual Journey Matches Yours?",
+                intro: [
+                    "Under the poetic starry sky of the High Tang, wonderland-traveling poems shine like a galaxy, illuminating the spiritual journeys of literati.",
+                    "Li Bai's unbridled imagination, Li Shangyin's misty profundity, Li He's bizarre fantasy, Bai Juyi's worldly transcendence—each way of wonderland traveling is a unique spiritual portrait.",
+                    "This test will guide you through a millennium of poetic realms to find the Tang Dynasty poet that best matches your inner self."
+                ],
+                langBtn: "中文",
+                prevBtn: "Previous",
+                nextBtn: "Next",
+                resultBtn: "View Result",
+                restartBtn: "Restart Test",
+                resultTitle: "Poetic Soul Test Result",
+                dataSource: "Data Source: Quan Tang Shi Wonderland Poems Dataset",
+                questions: [
+                    {
+                        number: "Question 1 of 8",
+                        text: "1. Your ideal transcendent experience is:",
+                        options: [
+                            "Feasting with immortals, roaming the highest heavens",
+                            "Sitting alone among clouds, watching stars shift in silence",
+                            "Cultivating in the human world, delivering all beings from suffering",
+                            "Exploring the universe, contemplating truth"
+                        ]
+                    },
+                    {
+                        number: "Question 2 of 8",
+                        text: "2. You believe wonderland exists in:",
+                        options: [
+                            "Famous mountains and great rivers in reality",
+                            "Fantasy worlds constructed by imagination",
+                            "Inner enlightenment and spiritual practice",
+                            "The realm of philosophical speculation"
+                        ]
+                    },
+                    {
+                        number: "Question 3 of 8",
+                        text: "3. When facing life difficulties, you tend to:",
+                        options: [
+                            "Analyze rationally, find root causes",
+                            "Seek emotional support, face together",
+                            "Make plans, solve step by step",
+                            "Go with the flow, believe in turnaround"
+                        ]
+                    },
+                    {
+                        number: "Question 4 of 8",
+                        text: "4. Your lifestyle is closer to:",
+                        options: [
+                            "Orderly, with clear goals",
+                            "Spontaneous, enjoying the process",
+                            "Serving others, taking responsibility",
+                            "Independent thinking, keeping distance"
+                        ]
+                    },
+                    {
+                        number: "Question 5 of 8",
+                        text: "5. In poetry creation, you value more:",
+                        options: [
+                            "Sincere expression of emotion",
+                            "Strange and magnificent imagination",
+                            "Profound reflection of reality",
+                            "Deep expression of philosophy"
+                        ]
+                    },
+                    {
+                        number: "Question 6 of 8",
+                        text: "6. You hope to be remembered by posterity for:",
+                        options: [
+                            "Bold and unrestrained personality",
+                            "Profound and reserved wisdom",
+                            "Reliable and steadfast character",
+                            "Free and untamed soul"
+                        ]
+                    },
+                    {
+                        number: "Question 7 of 8",
+                        text: "7. In social situations, you are usually:",
+                        options: [
+                            "Proactive in communication, enthusiastic",
+                            "Quiet observer, deep conversation",
+                            "Focus on atmosphere, promote harmony",
+                            "Rational analysis, provide insights"
+                        ]
+                    },
+                    {
+                        number: "Question 8 of 8",
+                        text: "8. Facing conflict between ideal and reality, you choose:",
+                        options: [
+                            "Hold fast to ideals, remain true to original aspiration",
+                            "Adjust goals, advance practically",
+                            "Seek balance, consider both",
+                            "Replan, solve systematically"
+                        ]
+                    }
+                ]
+            }
+        };
+
+        /* ====== 问题与人格映射 ====== */
+        const questions = [
+            { id: 1, text: "", options: [] }, // 内容由 translations 决定
+            { id: 2, text: "", options: [] },
+            { id: 3, text: "", options: [] },
+            { id: 4, text: "", options: [] },
+            { id: 5, text: "", options: [] },
+            { id: 6, text: "", options: [] },
+            { id: 7, text: "", options: [] },
+            { id: 8, text: "", options: [] }
+        ];
+
+        const questionMapping = {
+            1: { EN: ['E', 'N'], IS: ['I', 'S'], FJ: ['F', 'J'], TP: ['T', 'P'] },
+            2: { SJ: ['S', 'J'], NP: ['N', 'P'], FI: ['F', 'I'], TE: ['T', 'E'] },
+            3: { TJ: ['T', 'J'], FE: ['F', 'E'], JS: ['J', 'S'], PN: ['P', 'N'] },
+            4: { JT: ['J', 'T'], PF: ['P', 'F'], FJ: ['F', 'J'], TI: ['T', 'I'] },
+            5: { FE: ['F', 'E'], NP: ['N', 'P'], SI: ['S', 'I'], TJ: ['T', 'J'] },
+            6: { EN: ['E', 'N'], IT: ['I', 'T'], SJ: ['S', 'J'], PF: ['P', 'F'] },
+            7: { EF: ['E', 'F'], IT: ['I', 'T'], FE: ['F', 'E'], TI: ['T', 'I'] },
+            8: { NP: ['N', 'P'], SJ: ['S', 'J'], FJ: ['F', 'J'], TJ: ['T', 'J'] }
+        };
+
+        /* ====== 16型人格数据 ====== */
+        const immortalRealms = {
+            "ENFP": {
+                realm: { zh: "浪漫飞升型", en: "Romantic Ascension Type" },
+                subtitle: { zh: "直上九霄揽明月", en: "Soaring to the Heavens to Embrace the Moon" },
+                name: { zh: "竞选者", en: "Campaigner" },
+                poet: { zh: "李白", en: "Li Bai" },
+                period: { zh: "盛唐诗人", en: "High Tang Poet" },
+                image: "https://upload.wikimedia.org/wikipedia/commons/a/a6/%E6%9D%8E%E7%99%BD.png",
+                traits: { zh: ["热情", "有创造力", "乐观", "善于交际", "理想主义"], en: ["Enthusiastic", "Creative", "Optimistic", "Sociable", "Idealistic"] },
+                realmDescription: {
+                    zh: "你的精神世界壮丽恢弘，充满奇思妙想。你相信仙境并非遥不可及，而是可以通过豪情与想象直接抵达。如同李白笔下的“霓为衣兮风为马”，你渴望挣脱世俗束缚，在浩瀚宇宙中自由翱翔。你的游仙之路是主动的、张扬的，以磅礴的气势创造属于自己的仙境。",
+                    en: "Your spiritual world is magnificent and full of whimsical ideas. You believe that wonderland is not unreachable but can be directly accessed through passion and imagination. Like Li Bai's 'rainbow garments and wind-steeds,' you yearn to break free from worldly constraints and soar freely in the vast universe. Your path to wonderland is active and flamboyant, creating your own celestial realm with majestic momentum."
+                },
+                poetDescription: {
+                    zh: "李白是唐代最典型的浪漫游仙诗人，被誉为“诗仙”。他的《古风》系列等游仙诗充满奇特的想象和夸张的修辞，直接描绘仙境、仙人，体现了最纯粹的游仙精神。他相信“仙人抚我顶，结发受长生”，将个人情感与天地精神相往来，创造了中国诗歌史上最绚丽的游仙世界。",
+                    en: "Li Bai is the most iconic romantic wonderland poet of the Tang Dynasty, revered as the 'Poetic Immortal.' His 'Ancient Airs' series and other wonderland poems are filled with unique imagination and exaggerated rhetoric, directly depicting wonderlands and immortals, embodying the purest spirit of wonderland traveling. He believed that 'immortals stroke my head, bestowing eternal life,' connecting personal emotions with the spirit of heaven and earth, creating the most magnificent wonderland world in the history of Chinese poetry."
+                },
+                poem: {
+                    translation: "Rainbow garments, wind-steeds, ride through the air,<br>Cloud-borne lords descend in procession fair.<br>Tigers strum zithers, phoenix-drawn cars wait,<br>Immortals in rows pass through heaven's gate.",
+                    original: "霓为衣兮风为马，云之君兮纷纷而来下。<br>虎鼓瑟兮鸾回车，仙之人兮列如麻。",
+                    notes: ["虹霓：仙人之衣", "风为马：乘风而行", "鸾车：仙人坐骑"]
+                },
+                modernGuide: {
+                    zh: "在现代社会中，你可以通过艺术创作、旅行探险、保持好奇心和想象力来延续这种浪漫飞升的游仙精神。尝试写作、绘画或音乐创作，让你的想象力自由驰骋；去探索未知的地方，体验不同的文化；保持对世界的好奇，永远不要停止梦想。",
+                    en: "In modern society, you can continue this romantic ascension spirit through artistic creation, travel adventures, and maintaining curiosity and imagination. Try writing, painting, or music creation to let your imagination run free; explore unknown places and experience different cultures; maintain curiosity about the world and never stop dreaming."
+                }
+            },
+            "ENTP": {
+                realm: { zh: "浪漫飞升型", en: "Romantic Ascension Type" },
+                subtitle: { zh: "直上九霄揽明月", en: "Soaring to the Heavens to Embrace the Moon" },
+                name: { zh: "辩论家", en: "Debater" },
+                poet: { zh: "李贺", en: "Li He" },
+                period: { zh: "中唐诗人", en: "Middle Tang Poet" },
+                image: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Drawing_of_the_Chinese_poet_Li_He.jpg",
+                traits: { zh: ["聪明", "创新", "直言不讳", "知识渊博", "善于分析"], en: ["Intelligent", "Innovative", "Outspoken", "Knowledgeable", "Analytical"] },
+                realmDescription: {
+                    zh: "你的精神世界壮丽恢弘，充满奇思妙想。你像李贺一样，创造独特而诡异的仙境，用前所未有的想象力构建超凡世界。你的游仙之路充满创新与突破，不甘于平凡的表达方式。",
+                    en: "Your spiritual world is magnificent and whimsical. Like Li He, you create unique and eerie wonderlands, constructing transcendent worlds with unprecedented imagination. Your path to wonderland is full of innovation and breakthroughs, refusing ordinary expression."
+                },
+                poetDescription: {
+                    zh: "李贺被称为“诗鬼”，他的《梦天》《天上谣》等游仙诗诡奇绚丽，创造了一个与众不同的神仙世界。他的诗歌想象奇特，语言瑰丽，如“老兔寒蟾泣天色”般的意象，展现了他独特的游仙视角。",
+                    en: "Li He is known as the 'Poetic Ghost.' His wonderland poems such as 'Dreaming of Heaven' and 'Ballad of the Sky' are strange and magnificent, creating a distinctive world of immortals. His poetry features unique imagination and gorgeous language, with imagery like 'the old rabbit and cold toad weep the sky's hue,' showing his unique perspective on wonderland travel."
+                },
+                poem: {
+                    translation: "The old rabbit and cold toad mourn heaven’s hue,<br>Cloud towers half open, white walls slanting through.<br>The jade wheel rolls the dew to wet moonlight,<br>On osmanthus paths, phoenix pendants unite.",
+                    original: "老兔寒蟾泣天色，云楼半开壁斜白。<br>玉轮轧露湿团光，鸾佩相逢桂香陌。",
+                    notes: ["寒蟾：月中之蟾蜍", "鸾佩：仙人饰物"]
+                },
+                modernGuide: {
+                    zh: "在现代生活中，你可以通过创新思维、知识探索和独特表达来实践浪漫飞升的游仙精神。勇于表达独特见解，在专业领域追求突破，创造属于自己的风格。",
+                    en: "In modern life, practice this romantic ascension spirit through innovative thinking, knowledge exploration, and unique expression. Boldly present distinctive opinions, pursue breakthroughs in your field, and craft your own signature style."
+                }
+            },
+            "ESFP": {
+                realm: { zh: "浪漫飞升型", en: "Romantic Ascension Type" },
+                subtitle: { zh: "直上九霄揽明月", en: "Soaring to the Heavens to Embrace the Moon" },
+                name: { zh: "表演者", en: "Entertainer" },
+                poet: { zh: "王翰", en: "Wang Han" },
+                period: { zh: "盛唐诗人", en: "High Tang Poet" },
+                image: "https://tse1.mm.bing.net/th/id/OIP.07t6e9CbLkEbe8_nZcx8XgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["热情", "友善", "活泼", "务实", "享受生活"], en: ["Enthusiastic", "Friendly", "Lively", "Practical", "Enjoys Life"] },
+                realmDescription: {
+                    zh: "你像王翰一样，在壮丽的边塞风光中寻找仙境，将现实的冒险与精神的超脱结合。你的游仙之路充满行动与体验，在实践中触摸超凡。",
+                    en: "Like Wang Han, you seek wonderland amid magnificent frontier scenes, blending real adventures with spiritual transcendence. Your path is filled with action and experience, touching the transcendent through practice."
+                },
+                poetDescription: {
+                    zh: "王翰在《赋得明星玉女坛，送廉察尉华阴》中描绘“三十六梯入河汉”的奇幻仙境，展现了盛唐诗人豪迈奔放的游仙情怀。",
+                    en: "In 'Ode to the Bright Star and Jade Maiden Altar,' Wang Han depicts the fantastical wonderland of 'thirty-six ladders leading to the Milky Way,' displaying the bold and unrestrained wonderland sentiment of High Tang poets."
+                },
+                poem: {
+                    translation: "Thirty-six ladders rise into the Milky Way,<br>Woodcutters often see fair-browed fays.<br>Immortal carts prepare to ride five-colored clouds,<br>Fragrant fans half open bathe the sky in rays.",
+                    original: "三十六梯入河汉，樵人往往见蛾眉。<br>仙车欲驾五云飞，香扇斜开九华照。",
+                    notes: ["蛾眉：指仙女", "五云：五彩祥云"]
+                },
+                modernGuide: {
+                    zh: "多参与社交与体验活动，用热情感染他人，在现实冒险中延续浪漫游仙精神。",
+                    en: "Engage in social and experiential activities, spread enthusiasm, and extend this romantic spirit through real-life adventures."
+                }
+            },
+            "ESTP": {
+                realm: { zh: "浪漫飞升型", en: "Romantic Ascension Type" },
+                subtitle: { zh: "直上九霄揽明月", en: "Soaring to the Heavens to Embrace the Moon" },
+                name: { zh: "企业家", en: "Entrepreneur" },
+                poet: { zh: "宋之问", en: "Song Zhiwen" },
+                period: { zh: "初唐诗人", en: "Early Tang Poet" },
+                image: "https://th.bing.com/th/id/R.7dbf1d3159c779863a02fd0a6f06663d?rik=ePiC4kQXkXBeNg&riu=http%3a%2f%2fzdimg.lifeweek.com.cn%2fbg%2f20180331%2f1522491724540kpiuh.jpg!pdPic&ehk=i2FaW64%2bZ8%2bEwvl7T3u2zLTR8lE8N4ZRndpbxtJ6x24%3d&risl=&pid=ImgRaw&r=0",
+                traits: { zh: ["精力充沛", "务实", "灵活", "冒险精神", "善于交际"], en: ["Energetic", "Practical", "Flexible", "Adventurous", "Sociable"] },
+                realmDescription: {
+                    zh: "你在现实游历中体验超凡，将人间胜景升华为仙境享受。注重当下体验，在行动中感受永恒。",
+                    en: "You experience transcendence through real journeys, elevating earthly scenery into wonderland pleasures. You value present experience and sense eternity through action."
+                },
+                poetDescription: {
+                    zh: "宋之问的《王子乔》《緱山庙》等游仙诗描绘与仙人同游的奇幻境界，展现唐代文人对长生的追求。",
+                    en: "Song Zhiwen's wonderland poems depict fantastical realms of traveling with immortals, showcasing the Tang literati's pursuit of immortality."
+                },
+                poem: {
+                    translation: "Prince Ziqiao has joined immortals far away,<br>Flutes and cranes drift lightly through the day.<br>We only hear the blue sea’s changes told,<br>Yet never see the white clouds homeward rolled.",
+                    original: "王子宾仙去，飘颻笙鹤飞。<br>徒闻沧海变，不见白云归。",
+                    notes: ["王子乔：传说仙人", "笙鹤：象征升仙"]
+                },
+                modernGuide: {
+                    zh: "勇于尝试新事物，在行动与冒险中保持激情，创造属于你的非凡旅程。",
+                    en: "Dare to try new things, maintain passion through action and adventure, and craft your extraordinary journey."
+                }
+            },
+            "INFP": {
+                realm: { zh: "禅意栖居型", en: "Zen Dwelling Type" },
+                subtitle: { zh: "山水之中见真意", en: "Finding Truth in Mountains and Waters" },
+                name: { zh: "调停者", en: "Mediator" },
+                poet: { zh: "李商隐", en: "Li Shangyin" },
+                period: { zh: "晚唐诗人", en: "Late Tang Poet" },
+                image: "https://th.bing.com/th/id/R.6bc0e7d731806f7794206e3fa2768b04?rik=pIely7EdWvAyLA&riu=http%3a%2f%2fpic.baike.soso.com%2fp%2f20131230%2f20131230010655-1518975724.jpg&ehk=URoBpugZCFymNZAnJiMOtZS7jEpHhG6Lbozus1DNaeA%3d&risl=&pid=ImgRaw&r=0",
+                traits: { zh: ["理想主义", "有创造力", "敏感", "深邃", "诗意"], en: ["Idealistic", "Creative", "Sensitive", "Profound", "Poetic"] },
+                realmDescription: {
+                    zh: "你追求的超脱在当下山水草木之间，如李商隐般于朦胧诗意中体悟永恒，真正的仙境是内心感悟的升华。",
+                    en: "You seek transcendence amid present mountains and flora. Like Li Shangyin, you sense eternity within misty poetry; true wonderland is the elevation of inner perception."
+                },
+                poetDescription: {
+                    zh: "李商隐在《重过圣女祠》《海上谣》等诗中创造朦胧仙境，将情感与想象融合，展现晚唐文人的细腻。",
+                    en: "Li Shangyin creates hazy wonderlands that blend emotion with imagination, showcasing the delicacy of Late Tang literati."
+                },
+                poem: {
+                    translation: "White stone gate with moss of emerald hue,<br>Banished from Upper Pure, my return delayed.<br>All spring, dream-rain keeps pattering on tiles,<br>Divine winds all day fail to fill the flags.",
+                    original: "白石岩扉碧藓滋，上清沦谪得归迟。<br>一春梦雨常飘瓦，尽日灵风不满旗。",
+                    notes: ["上清：道教最高天界", "灵风：神异之风"]
+                },
+                modernGuide: {
+                    zh: "以艺术与写作为心灵出口，保持细腻感受力，在复杂情绪中找到平衡。",
+                    en: "Use art and writing as outlets, retain your sensitivity, and find balance amid complex emotions."
+                }
+            },
+            "INFJ": {
+                realm: { zh: "禅意栖居型", en: "Zen Dwelling Type" },
+                subtitle: { zh: "山水之中见真意", en: "Finding Truth in Mountains and Waters" },
+                name: { zh: "提倡者", en: "Advocate" },
+                poet: { zh: "孟浩然", en: "Meng Haoran" },
+                period: { zh: "盛唐诗人", en: "High Tang Poet" },
+                image: "https://tse1.mm.bing.net/th/id/OIP.y6oDzlFByuD6ikaHyEIMAQHaGK?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["理想主义", "有洞察力", "有原则", "富有同情心", "有远见"], en: ["Idealistic", "Insightful", "Principled", "Compassionate", "Visionary"] },
+                realmDescription: {
+                    zh: "你在山水田园中找到心灵归宿，用淡泊态度面对繁华，游仙之路充满对自然的深情与洞见。",
+                    en: "You find spiritual home in landscapes, facing worldly splendor with detachment; your path is filled with affection for nature and deep insight."
+                },
+                poetDescription: {
+                    zh: "孟浩然终身隐居鹿门山，在《宿天台桐柏观》中写“纷吾远游意，学彼长生道”，展现山水游仙。",
+                    en: "Meng Haoran lived reclusively at Mount Lumen; his works show the pursuit of transcendence through landscape wandering."
+                },
+                poem: {
+                    translation: "Sailing with trusted winds, I moor at evening clouds,<br>Longing for azure isles, loving Red City’s shrouds.",
+                    original: "海行信风帆，夕宿逗云岛。<br>缅寻沧洲趣，近爱赤城好。",
+                    notes: ["沧洲：理想隐居地", "赤城：仙山名"]
+                },
+                modernGuide: {
+                    zh: "关注社会议题、帮助他人，并以长远视角坚持理想。",
+                    en: "Attend to social issues, help others, and uphold ideals with long-term vision."
+                }
+            },
+            "ISFP": {
+                realm: { zh: "禅意栖居型", en: "Zen Dwelling Type" },
+                subtitle: { zh: "山水之中见真意", en: "Finding Truth in Mountains and Waters" },
+                name: { zh: "探险家", en: "Adventurer" },
+                poet: { zh: "常建", en: "Chang Jian" },
+                period: { zh: "盛唐诗人", en: "High Tang Poet" },
+                image: "https://tse4.mm.bing.net/th/id/OIP.G-gHelQ4-v6A7SSBpOJ2cgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["温和", "敏感", "艺术气质", "灵活", "善解人意"], en: ["Gentle", "Sensitive", "Artistic", "Flexible", "Empathetic"] },
+                realmDescription: {
+                    zh: "你在幽静景色中发现不凡诗意，追求与自然的完美融合。",
+                    en: "You find extraordinary poetry in tranquil scenery, seeking perfect harmony with nature."
+                },
+                poetDescription: {
+                    zh: "常建诗歌意境清幽，在《仙谷遇毛女》中描绘山水偶遇仙踪的体验。",
+                    en: "Chang Jian's serene poetry depicts chance encounters with immortals in landscapes."
+                },
+                poem: {
+                    translation: "At brook’s mouth, shallow stones gleam clear,<br>Entering, twin peaks soar, sparse pines in whispering air.",
+                    original: "溪口水石浅，泠泠明药丛。<br>入溪双峰峻，松栝疏幽风。",
+                    notes: ["毛女：神话中的仙女", "玉童：仙童称谓"]
+                },
+                modernGuide: {
+                    zh: "发展艺术爱好，在日常中发现美，以灵活心态应对变化。",
+                    en: "Cultivate artistic hobbies, discover beauty in daily life, and adapt flexibly to change."
+                }
+            },
+            "ISTP": {
+                realm: { zh: "禅意栖居型", en: "Zen Dwelling Type" },
+                subtitle: { zh: "山水之中见真意", en: "Finding Truth in Mountains and Waters" },
+                name: { zh: "鉴赏家", en: "Virtuoso" },
+                poet: { zh: "张九龄", en: "Zhang Jiuling" },
+                period: { zh: "盛唐诗人", en: "High Tang Poet" },
+                image: "https://tse2.mm.bing.net/th/id/OIP.z5cIj-8WnCoBcvSBm315jwHaKM?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["务实", "冷静", "善观察", "独立", "灵活"], en: ["Practical", "Calm", "Observant", "Independent", "Flexible"] },
+                realmDescription: {
+                    zh: "你以冷静目光观察世界，在实践中体悟生命真谛，游仙之路朴素却深刻。",
+                    en: "You observe the world calmly and grasp life's truths through practice; your wonderland path is simple yet profound."
+                },
+                poetDescription: {
+                    zh: "张九龄诗歌庄重典雅，在《登城楼望西山作》中表达对仙境的向往与人生思索。",
+                    en: "Zhang Jiuling's solemn poetry expresses longing for wonderlands and reflections on life."
+                },
+                poem: {
+                    translation: "City tower rests by southern ford, day and night eyes seek western peaks,<br>Where phoenixes and cranes reside, high amid the misty streaks.",
+                    original: "城楼枕南浦，日夕顾西山。<br>宛宛鸾鹤处，高高烟雾间。",
+                    notes: ["仙井：寓意长生", "洪厓：仙人名"]
+                },
+                modernGuide: {
+                    zh: "学习实用技能，保持观察者心态，以独立思考应对复杂局势。",
+                    en: "Learn practical skills, keep an observer mindset, and rely on independent thinking in complex situations."
+                }
+            },
+            "INTP": {
+                realm: { zh: "玄妙哲思型", en: "Mystical Philosophical Type" },
+                subtitle: { zh: "思接千载探玄机", en: "Connecting with Millennia to Explore Mysteries" },
+                name: { zh: "逻辑学家", en: "Logician" },
+                poet: { zh: "吴筠", en: "Wu Yun" },
+                period: { zh: "道士诗人", en: "Daoist Poet" },
+                image: "https://pic1.zhimg.com/v2-f8ace0e21ec0c9c0f2ed8c0bb2fa1697_720w.jpg?source=172ae18b",
+                traits: { zh: ["理性", "好奇", "创新", "独立", "逻辑思维"], en: ["Rational", "Curious", "Innovative", "Independent", "Logical"] },
+                realmDescription: {
+                    zh: "你在哲思中触及超凡，如吴筠般在修行里探索天地奥秘，仙境位于逻辑与想象的边界。",
+                    en: "You reach transcendence through philosophy, exploring cosmic mysteries like Wu Yun; your wonderland lies at the edge of logic and imagination."
+                },
+                poetDescription: {
+                    zh: "吴筠《游仙二十四首》《步虚词》系统阐述其游仙思想，将道教修炼与诗歌融合。",
+                    en: "Wu Yun's works systematically present his wonderland thought, fusing Daoist cultivation with poetry."
+                },
+                poem: {
+                    translation: "Opening books to view the past, my heart shakes pondering now,<br>Through all ages silence reigns, why does the world so bustle bow?",
+                    original: "启册观往载，摇怀考今情。<br>终古已寂寂，举世何营营。",
+                    notes: ["往载：史书", "营营：俗务纷扰"]
+                },
+                modernGuide: {
+                    zh: "广泛阅读、深入讨论，勇于提出新观点，用智慧照亮前行之路。",
+                    en: "Read widely, engage in deep discussions, and propose new ideas, letting wisdom light the way."
+                }
+            },
+            "INTJ": {
+                realm: { zh: "玄妙哲思型", en: "Mystical Philosophical Type" },
+                subtitle: { zh: "思接千载探玄机", en: "Connecting with Millennia to Explore Mysteries" },
+                name: { zh: "建筑师", en: "Architect" },
+                poet: { zh: "陈子昂", en: "Chen Zi'ang" },
+                period: { zh: "初唐诗人", en: "Early Tang Poet" },
+                image: "https://n.sinaimg.cn/sinakd10120/165/w1080h685/20210904/7854-6a9f704497ca528ae70a258d864f8fe0.jpg",
+                traits: { zh: ["战略思维", "独立", "果断", "有远见", "理性"], en: ["Strategic", "Independent", "Decisive", "Visionary", "Rational"] },
+                realmDescription: {
+                    zh: "你用深邃眼光看待历史，在困境中保持精神独立，你的仙境是智慧与远见构筑的堡垒。",
+                    en: "You view history with deep insight and remain mentally independent in adversity; your wonderland is a fortress built of wisdom and foresight."
+                },
+                poetDescription: {
+                    zh: "陈子昂以哲理诗著称，在《与东方左史虬修竹篇》中借修竹言志，展现坚守理想的超越方式。",
+                    en: "Chen Zi'ang's philosophical poetry shows transcendence through steadfast ideals."
+                },
+                poem: {
+                    translation: "Dragon seedlings sprout on southern peaks, lone emeralds towering fair,<br>Ridges rise in craggy ranks, while mist and rain descend midair.",
+                    original: "龙种生南岳，孤翠郁亭亭。<br>峰岭上崇崒，烟雨下微冥。",
+                    notes: ["龙种：高洁之竹", "南岳：衡山"]
+                },
+                modernGuide: {
+                    zh: "制定长远规划，坚持独立判断，在变化中把握不变的本质。",
+                    en: "Make long-term plans, stick to independent judgment, and grasp enduring truths amid change."
+                }
+            },
+            "ISTJ": {
+                realm: { zh: "玄妙哲思型", en: "Mystical Philosophical Type" },
+                subtitle: { zh: "思接千载探玄机", en: "Connecting with Millennia to Explore Mysteries" },
+                name: { zh: "物流师", en: "Logistician" },
+                poet: { zh: "卢照邻", en: "Lu Zhaolin" },
+                period: { zh: "初唐诗人", en: "Early Tang Poet" },
+                image: "https://tse2.mm.bing.net/th/id/OIP.--S8GtDheQYW8opQ-MYGnwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["务实", "责任感", "注重细节", "可靠", "传统"], en: ["Practical", "Responsible", "Detail-oriented", "Reliable", "Traditional"] },
+                realmDescription: {
+                    zh: "你在传统价值中寻找永恒真理，仙境建立在秩序与责任之上，是踏实思考的精神家园。",
+                    en: "You seek eternal truth in tradition; your wonderland rests on order and duty, a home built by steady thought."
+                },
+                poetDescription: {
+                    zh: "卢照邻《怀仙引》《羁卧山中》等诗表达对仙境的向往，展现以哲思寻求精神寄托的方式。",
+                    en: "Lu Zhaolin's poems express longing for wonderlands and show how philosophical reflection offers solace."
+                },
+                poem: {
+                    translation: "If someone dwells where mountains bend, I’d follow riding azure worms,<br>Push open ravine doors, visit cliff abodes, where rocky streams perform.",
+                    original: "若有人兮山之曲，驾青虬兮乘白鹿。<br>披涧户，访岩轩，石瀬潺湲横石径。",
+                    notes: ["青虬白鹿：神兽坐骑", "石瀬：山间溪流"]
+                },
+                modernGuide: {
+                    zh: "踏实工作、尊重传统，在继承中创新，用责任感构筑有意义的人生。",
+                    en: "Work diligently, honor tradition, innovate through inheritance, and build a meaningful life with responsibility."
+                }
+            },
+            "ISFJ": {
+                realm: { zh: "玄妙哲思型", en: "Mystical Philosophical Type" },
+                subtitle: { zh: "思接千载探玄机", en: "Connecting with Millennia to Explore Mysteries" },
+                name: { zh: "守护者", en: "Defender" },
+                poet: { zh: "韦应物", en: "Wei Yingwu" },
+                period: { zh: "中唐诗人", en: "Middle Tang Poet" },
+                image: "https://tse2.mm.bing.net/th/id/OIP.4siijB2wIXgMP0MyjVykQwHaJy?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["体贴", "责任心", "传统", "务实", "善解人意"], en: ["Considerate", "Responsible", "Traditional", "Practical", "Understanding"] },
+                realmDescription: {
+                    zh: "你在淡泊高远中蕴含深情，用温和方式表达深刻思考，仙境充满人文关怀。",
+                    en: "You carry deep affection within detachment, expressing profound thoughts gently; your wonderland brims with humanistic care."
+                },
+                poetDescription: {
+                    zh: "韦应物《饵黄精》中写“九蒸换凡骨”，展现通过修炼追求超凡的精神风貌。",
+                    en: "Wei Yingwu's works show the Middle Tang spirit of seeking transcendence through cultivation."
+                },
+                poem: {
+                    translation: "Sacred herbs emerge from western hills, I take and pluck their roots,<br>Nine steamings trade away mortal bones, as ancient lore imputes.",
+                    original: "灵药出西山，服食采其根。<br>九蒸换凡骨，经著上世言。",
+                    notes: ["黄精：道教灵药", "九蒸：炼制之法"]
+                },
+                modernGuide: {
+                    zh: "关怀家人与团队，营造和谐氛围，定期反思以保持内心平衡。",
+                    en: "Care for family and teams, foster harmony, and reflect regularly to keep inner balance."
+                }
+            },
+            "ENFJ": {
+                realm: { zh: "人间修行型", en: "Human Cultivation Type" },
+                subtitle: { zh: "尘世之中得超然", en: "Achieving Transcendence in the Mundane World" },
+                name: { zh: "主人公", en: "Protagonist" },
+                poet: { zh: "白居易", en: "Bai Juyi" },
+                period: { zh: "中唐诗人", en: "Middle Tang Poet" },
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/%E5%94%90%E5%90%8D%E8%87%A3%E5%83%8F-21-%E7%99%BD%E6%A8%82%E5%A4%A9.jpg/1280px-%E5%94%90%E5%90%8D%E8%87%A3%E5%83%8F-21-%E7%99%BD%E6%A8%82%E5%A4%A9.jpg",
+                traits: { zh: ["有魅力", "同情心", "领导力", "理想主义", "善沟通"], en: ["Charismatic", "Compassionate", "Leadership", "Idealistic", "Communicative"] },
+                realmDescription: {
+                    zh: "你在现实烟火中保持超然，用理解与服务实现精神自由，真正的仙境是你经营的当下。",
+                    en: "You stay transcendent amid worldly life, achieving freedom through understanding and service; your wonderland is the present you cultivate."
+                },
+                poetDescription: {
+                    zh: "白居易主张“文以载道”，在《寻王道士药堂》中展现入世又出世的智慧。",
+                    en: "Bai Juyi's works embody the wisdom of engaging with the world while remaining transcendent."
+                },
+                poem: {
+                    translation: "Step upon pines in search of ways, flowers greet at Apricot Hall,<br>Master White Stone guards his grotto, Yellow Sprout Maids brew elixir all.",
+                    original: "行行觅路缘松峤，步步寻花到杏坛。<br>白石先生小有洞，黄芽姹女大还丹。",
+                    notes: ["杏坛：孔子讲学处象征", "大还丹：长生之药"]
+                },
+                modernGuide: {
+                    zh: "发挥领导力、参与公益、善沟通协调，在服务他人中实现自我。",
+                    en: "Lead teams, engage in public welfare, communicate well, and realize yourself by serving others."
+                }
+            },
+            "ENTJ": {
+                realm: { zh: "人间修行型", en: "Human Cultivation Type" },
+                subtitle: { zh: "尘世之中得超然", en: "Achieving Transcendence in the Mundane World" },
+                name: { zh: "指挥官", en: "Commander" },
+                poet: { zh: "韩愈", en: "Han Yu" },
+                period: { zh: "中唐诗人", en: "Middle Tang Poet" },
+                image: "https://upload.wikimedia.org/wikipedia/commons/c/c6/%E9%9F%A9%E6%84%88.jpg",
+                traits: { zh: ["果断", "战略眼光", "领导力", "知识渊博", "高效"], en: ["Decisive", "Strategic", "Leader", "Knowledgeable", "Efficient"] },
+                realmDescription: {
+                    zh: "你勇于承担责任，在推动改革中寻找精神立足点，仙境是你亲手打造的理想世界。",
+                    en: "You shoulder responsibility and find spiritual footing by driving reform; your wonderland is the ideal world you build."
+                },
+                poetDescription: {
+                    zh: "韩愈在《记梦》中写与神官对话却最终选择留在人间，展现入世修行态度。",
+                    en: "Han Yu chooses to remain in the human world even after divine encounters, showing a worldly cultivation stance."
+                },
+                poem: {
+                    translation: "At night divine officials teach subtle horn and root,<br>They carry me through corners, torrents rolling underfoot.<br>In but a moment passes all one hundred twenty beats,<br>Yet I stay grounded in the world, embracing mortal feats.",
+                    original: "夜梦神官与我言，罗缕道妙角与根。<br>挈携陬维口澜翻，百二十刻须臾间。",
+                    notes: ["角根：事物本源", "陬维：天地四隅"]
+                },
+                modernGuide: {
+                    zh: "制定战略规划、推动变革、追求卓越，用行动创造价值。",
+                    en: "Make strategic plans, drive change, pursue excellence, and create value through action."
+                }
+            },
+            "ESTJ": {
+                realm: { zh: "人间修行型", en: "Human Cultivation Type" },
+                subtitle: { zh: "尘世之中得超然", en: "Achieving Transcendence in the Mundane World" },
+                name: { zh: "总经理", en: "Executive" },
+                poet: { zh: "张籍", en: "Zhang Ji" },
+                period: { zh: "中唐诗人", en: "Middle Tang Poet" },
+                image: "https://tse3.mm.bing.net/th/id/OIP.2sECiw6aJ4-w1EjRZKy1_gHaH8?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["务实", "组织力", "果断", "负责", "传统"], en: ["Practical", "Organized", "Decisive", "Responsible", "Traditional"] },
+                realmDescription: {
+                    zh: "你胸怀大志却脚踏实地，在秩序与成就中实现精神价值。",
+                    en: "You have great ambitions yet stay grounded, realizing spiritual value through order and achievement."
+                },
+                poetDescription: {
+                    zh: "张籍在《不食姑》《太白老人》中描绘人间修行的仙人，体现“大隐隐于市”的智慧。",
+                    en: "Zhang Ji’s poems portray immortals cultivating amid society, embodying the wisdom of 'great hermits hidden in cities.'"
+                },
+                poem: {
+                    translation: "Years in mountains turn my hair to verdant sheen,<br>Guarding qi I seldom speak, in contemplation spirits seen.",
+                    original: "几年山里住，已作绿毛身。<br>护气常稀语，存思自见神。",
+                    notes: ["绿毛身：超脱之象", "存思：内观修炼"]
+                },
+                modernGuide: {
+                    zh: "善于组织资源、承担责任、以实干赢得尊重。",
+                    en: "Organize resources well, take responsibility, and earn respect through concrete work."
+                }
+            },
+            "ESFJ": {
+                realm: { zh: "人间修行型", en: "Human Cultivation Type" },
+                subtitle: { zh: "尘世之中得超然", en: "Achieving Transcendence in the Mundane World" },
+                name: { zh: "执政官", en: "Consul" },
+                poet: { zh: "王绩", en: "Wang Ji" },
+                period: { zh: "初唐诗人", en: "Early Tang Poet" },
+                image: "https://tse2.mm.bing.net/th/id/OIP.jbkxAMT3-x0AIeBuFAsH9wAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+                traits: { zh: ["友善", "责任心", "乐于助人", "传统", "善交际"], en: ["Friendly", "Responsible", "Helpful", "Traditional", "Sociable"] },
+                realmDescription: {
+                    zh: "你性格开朗、善于交际，在和谐人际中寻找精神满足，仙境充满温情与关怀。",
+                    en: "You are cheerful and sociable, finding spiritual fulfillment in harmonious relationships; your wonderland overflows with warmth."
+                },
+                poetDescription: {
+                    zh: "王绩在《游仙四首》中既向往仙境又热爱现实生活，展现“入世而超然”的态度。",
+                    en: "Wang Ji’s works show longing for wonderlands while cherishing real life, reflecting engagement with transcendence."
+                },
+                poem: {
+                    translation: "Leaving east slope road awhile, I call on northern crag,<br>Cai Jing learns Dao anew, Wang Lie long wore the immortal tag.",
+                    original: "暂出东陂路，过访北岩前。<br>蔡经新学道，王烈旧成仙。",
+                    notes: ["蔡经、王烈：传说仙人", "东皋：王绩自号"]
+                },
+                modernGuide: {
+                    zh: "积极社交、服务社区、守护传统，用温暖营造和谐环境。",
+                    en: "Be active socially, serve the community, uphold tradition, and create harmony with warmth."
+                }
+            }
+        };
+
+        /* ====== 状态与元素引用 ====== */
+        let currentLang = 'zh';
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(8).fill(null);
+        let dimensionScores = {
+            'E': 0, 'I': 0, 'S': 0, 'N': 0,
+            'T': 0, 'F': 0, 'J': 0, 'P': 0
+        };
+        let currentPoet = null;
+        let currentPersonalityData = null;
+
+        let quizElements = {};
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage('create');
+            setupQuiz();
+            setupSelectionPanel();
+        });
+
+        function setupQuiz() {
+            quizElements = {
+                mainContainer: document.getElementById('soulQuizApp'),
+                langBtn: document.getElementById('lang-btn'),
+                questionContainers: document.querySelectorAll('#soulQuizApp .question-container'),
+                prevBtn: document.getElementById('prev-btn'),
+                nextBtn: document.getElementById('next-btn'),
+                restartBtn: document.getElementById('restart-btn'),
+                resultContainer: document.getElementById('result-container'),
+                introContainer: document.querySelector('#soulQuizApp .intro'),
+                progressBar: document.getElementById('progress')
+            };
+
+            initLanguage();
+            setupQuizEvents();
+            updateQuestionContent();
+            updateButtonState();
+        }
+
+        function setupQuizEvents() {
+            quizElements.langBtn.addEventListener('click', switchLanguage);
+            quizElements.prevBtn.addEventListener('click', goToPreviousQuestion);
+            quizElements.nextBtn.addEventListener('click', goToNextQuestion);
+            quizElements.restartBtn.addEventListener('click', restartTest);
+            quizElements.questionContainers.forEach(container => {
+                container.addEventListener('click', (event) => {
+                    const option = event.target.closest('.option');
+                    if (option) handleOptionClick(option);
+                });
+            });
+        }
+
+        function initLanguage() {
+            updateTextContent();
+            updateContainerClass();
+        }
+
+        function switchLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateTextContent();
+            updateContainerClass();
+            updateQuestionContent();
+            if (quizElements.resultContainer.style.display === 'block') {
+                updateResultContent();
+            }
+        }
+
+        function updateTextContent() {
+            const langData = translations[currentLang];
+            document.getElementById('main-title').textContent = langData.title;
+            document.getElementById('main-subtitle').textContent = langData.subtitle;
+            quizElements.introContainer.innerHTML = '';
+            langData.intro.forEach(line => {
+                const p = document.createElement('p');
+                p.textContent = line;
+                quizElements.introContainer.appendChild(p);
+            });
+            quizElements.langBtn.textContent = langData.langBtn;
+            quizElements.prevBtn.textContent = langData.prevBtn;
+            quizElements.nextBtn.textContent = currentQuestionIndex === quizElements.questionContainers.length - 1
+                ? langData.resultBtn : langData.nextBtn;
+            quizElements.restartBtn.textContent = langData.restartBtn;
+            document.getElementById('result-title').textContent = langData.resultTitle;
+            document.getElementById('data-source').textContent = langData.dataSource;
+        }
+
+        function updateQuestionContent() {
+            const langData = translations[currentLang];
+            quizElements.questionContainers.forEach((container, index) => {
+                const questionData = langData.questions[index];
+                container.querySelector('.question-number').textContent = questionData.number;
+                container.querySelector('.question').textContent = questionData.text;
+                container.querySelectorAll('.option').forEach((option, optIndex) => {
+                    option.textContent = questionData.options[optIndex];
+                });
+            });
+        }
+
+        function updateContainerClass() {
+            if (currentLang === 'en') {
+                quizElements.mainContainer.classList.add('english-mode');
+            } else {
+                quizElements.mainContainer.classList.remove('english-mode');
+            }
+        }
+
+        function handleOptionClick(option) {
+            const parent = option.parentElement;
+            parent.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            const questionId = parseInt(option.closest('.question-container').id.replace('question', ''), 10);
+            userAnswers[questionId - 1] = option.dataset.value;
+            updateButtonState();
+        }
+
+        function updateButtonState() {
+            const langData = translations[currentLang];
+            quizElements.prevBtn.disabled = currentQuestionIndex === 0;
+            const currentContainer = quizElements.questionContainers[currentQuestionIndex];
+            const answered = currentContainer.querySelector('.option.selected');
+            if (currentQuestionIndex === quizElements.questionContainers.length - 1) {
+                quizElements.nextBtn.textContent = langData.resultBtn;
+            } else {
+                quizElements.nextBtn.textContent = langData.nextBtn;
+            }
+            quizElements.nextBtn.disabled = !answered;
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex === quizElements.questionContainers.length - 1) {
+                showResult();
+                return;
+            }
+            quizElements.questionContainers[currentQuestionIndex].classList.remove('active');
+            currentQuestionIndex++;
+            quizElements.questionContainers[currentQuestionIndex].classList.add('active');
+            updateProgressBar();
+            updateButtonState();
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex === 0) return;
+            quizElements.questionContainers[currentQuestionIndex].classList.remove('active');
+            currentQuestionIndex--;
+            quizElements.questionContainers[currentQuestionIndex].classList.add('active');
+            updateProgressBar();
+            updateButtonState();
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizElements.questionContainers.length) * 100;
+            quizElements.progressBar.style.width = `${progress}%`;
+        }
+
+        function showResult() {
+            const selectedOptions = document.querySelectorAll('#soulQuizApp .option.selected');
+            if (selectedOptions.length < quizElements.questionContainers.length) return;
+            dimensionScores = { 'E': 0, 'I': 0, 'S': 0, 'N': 0, 'T': 0, 'F': 0, 'J': 0, 'P': 0 };
+            userAnswers.forEach((answer, index) => {
+                const dims = questionMapping[index + 1][answer];
+                dims.forEach(dim => dimensionScores[dim]++);
+            });
+            quizElements.questionContainers[currentQuestionIndex].classList.remove('active');
+            document.querySelector('#soulQuizApp .navigation').style.display = 'none';
+            document.querySelector('#soulQuizApp .progress-bar').style.display = 'none';
+            quizElements.resultContainer.style.display = 'block';
+            updateResultContent();
+        }
+
+        function updateResultContent() {
+            const personality = findMatchedPersonality();
+            const data = immortalRealms[personality.type];
+            document.getElementById('immortal-realm').textContent = data.realm[currentLang];
+            document.getElementById('realm-subtitle').textContent = data.subtitle[currentLang];
+            document.getElementById('poet-name').textContent = data.poet[currentLang];
+            document.getElementById('personality-type').textContent = `${personality.type} ${data.name[currentLang]}`;
+            document.getElementById('poet-period').innerHTML =
+                `${data.period[currentLang]} · <span id="realm-type">${data.realm[currentLang]}</span>`;
+            document.getElementById('realm-description').innerHTML = data.realmDescription[currentLang];
+            document.getElementById('poet-description').innerHTML = data.poetDescription[currentLang];
+            document.getElementById('modern-guide').innerHTML = data.modernGuide[currentLang];
+
+            const traitsContainer = document.getElementById('personality-traits');
+            traitsContainer.innerHTML = '';
+            data.traits[currentLang].forEach(trait => {
+                const span = document.createElement('div');
+                span.className = 'trait';
+                span.textContent = trait;
+                traitsContainer.appendChild(span);
+            });
+
+            const poetImage = document.getElementById('poet-image');
+            poetImage.style.display = 'block';
+            poetImage.onerror = () => {
+                poetImage.style.display = 'none';
+            };
+            poetImage.src = data.image;
+            poetImage.alt = data.poet[currentLang];
+
+            const poemExample = document.getElementById('poem-example');
+            poemExample.innerHTML = '';
+            if (currentLang === 'en') {
+                const translationDiv = document.createElement('div');
+                translationDiv.className = 'poem-translation';
+                translationDiv.innerHTML = data.poem.translation;
+                poemExample.appendChild(translationDiv);
+
+                const originalDiv = document.createElement('div');
+                originalDiv.className = 'poem-original';
+                originalDiv.innerHTML = data.poem.original;
+                poemExample.appendChild(originalDiv);
+
+                if (data.poem.notes && data.poem.notes.length > 0) {
+                    const notes = document.createElement('div');
+                    notes.className = 'poem-notes';
+                    notes.textContent = 'Note: ' + data.poem.notes.join('；');
+                    poemExample.appendChild(notes);
+                }
+            } else {
+                poemExample.innerHTML = data.poem.original;
+            }
+
+            currentPoet = data.poet.zh;
+            updateCreativePanelStatus(data);
+        }
+
+        function findMatchedPersonality() {
+            const code =
+                (dimensionScores.E >= dimensionScores.I ? 'E' : 'I') +
+                (dimensionScores.S >= dimensionScores.N ? 'S' : 'N') +
+                (dimensionScores.T >= dimensionScores.F ? 'T' : 'F') +
+                (dimensionScores.J >= dimensionScores.P ? 'J' : 'P');
+            return { type: code };
+        }
+
+        function restartTest() {
+            userAnswers = Array(8).fill(null);
+            dimensionScores = { 'E': 0, 'I': 0, 'S': 0, 'N': 0, 'T': 0, 'F': 0, 'J': 0, 'P': 0 };
+            currentQuestionIndex = 0;
+            quizElements.resultContainer.style.display = 'none';
+            document.querySelector('#soulQuizApp .navigation').style.display = 'flex';
+            const progress = document.querySelector('#soulQuizApp .progress-bar');
+            progress.style.display = 'block';
+            quizElements.questionContainers.forEach((container, index) => {
+                container.classList.toggle('active', index === 0);
+                container.querySelectorAll('.option').forEach(option => option.classList.remove('selected'));
+            });
+            updateProgressBar();
+            updateButtonState();
+            currentPoet = null;
+            currentPersonalityData = null;
+            document.getElementById('currentPoetBadge').textContent = '待完成测试';
+            document.getElementById('poetStyleLabel').textContent = '风格：待定';
+            resetCreationPanel();
+        }
+
+        /* ====== 右侧意象/场景选择 ====== */
+        function setupSelectionPanel() {
+            populateSelect('imagerySelect', imageryOptions);
+            populateSelect('sceneSelect', sceneOptions);
+            document.getElementById('imagerySelect')?.addEventListener('change', (event) => {
+                userSelections.imagery = event.target.value;
+                updateSelectionLabels();
+            });
+            document.getElementById('sceneSelect')?.addEventListener('change', (event) => {
+                userSelections.scene = event.target.value;
+                updateSelectionLabels();
+            });
+            updateSelectionLabels();
+            resetImagePreview();
+            document.getElementById('generatePoemBtn').addEventListener('click', generatePoem);
+        }
+
+        const userSelections = {
+            imagery: imageryOptions[0],
+            scene: sceneOptions[0]
+        };
+
+        function populateSelect(selectId, options) {
+            const selectEl = document.getElementById(selectId);
+            if (!selectEl) return;
+            selectEl.innerHTML = '';
+            options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                selectEl.appendChild(opt);
+            });
+            const key = selectId === 'imagerySelect' ? 'imagery' : 'scene';
+            selectEl.value = userSelections[key];
+        }
+
+        function resetCreationPanel() {
+            userSelections.imagery = imageryOptions[0];
+            userSelections.scene = sceneOptions[0];
+            populateSelect('imagerySelect', imageryOptions);
+            populateSelect('sceneSelect', sceneOptions);
+            updateSelectionLabels();
+            resetImagePreview();
+        }
+
+        function resetImagePreview(message = '生成仙卷后，可同步调用豆包生图展示仙境意象。') {
+            const placeholder = document.getElementById('imagePlaceholder');
+            const imageEl = document.getElementById('creationImage');
+            if (placeholder) placeholder.textContent = message;
+            if (imageEl) {
+                imageEl.style.display = 'none';
+                imageEl.src = '';
+            }
+        }
+
+        function updateSelectionLabels() {
+            document.getElementById('selectedImageryLabel').textContent = userSelections.imagery;
+            document.getElementById('selectedSceneLabel').textContent = userSelections.scene;
+        }
+
+        function updateCreativePanelStatus(personalityData) {
+            const poetName = personalityData.poet[currentLang];
+            document.getElementById('currentPoetBadge').textContent =
+                `${poetName} · ${personalityData.realm[currentLang]}`;
+            document.getElementById('poetStyleLabel').textContent =
+                `风格：${personalityData.poet.zh}（${personalityData.realm.zh}）`;
+            currentPersonalityData = personalityData;
+        }
+
+        async function generatePoem() {
+            if (!currentPoet) {
+                alert('请先完成游仙志测试，获取诗人身份。');
+                return;
+            }
+            setGenerateButtonState(true);
+            resetImagePreview('正在生成诗句...');
+            
+            try {
+                // 调用 DeepSeek API 生成五言绝句
+                const poemLines = await callDeepSeekAPI();
+                
+                if (!poemLines || poemLines.length !== 4) {
+                    throw new Error('生成的诗词格式不正确');
+                }
+                
+                // 显示生成的诗句
+                document.getElementById('poemContent').innerHTML = `
+                    <p class="font-calligraphy text-2xl leading-relaxed text-celestial-blue">
+                        ${poemLines.join('<br>')}
+                    </p>
+                `;
+                const now = new Date();
+                document.getElementById('poemSignature').textContent =
+                    `${now.getFullYear()}年${now.getMonth() + 1}月 制于唐境仙踪`;
+                
+                // 根据生成的诗句生成仙境意象图（等待完成）
+                try {
+                    await generateIllustration(poemLines);
+                } catch (error) {
+                    console.error('生成仙境意象图失败（不影响诗句显示）:', error);
+                    resetImagePreview('诗句已生成，但仙境图生成失败，请稍后重试。');
+                }
+                
+                // 图片生成完成后再显示成功弹窗
+                openSuccessModal();
+            } catch (error) {
+                console.error('生成仙卷失败：', error);
+                alert('生成仙卷时出现问题，请稍后再试。' + (error.message ? '\n' + error.message : ''));
+                // 如果 API 调用失败，使用备用模板生成
+                try {
+                    resetImagePreview('使用备用模板生成诗句...');
+                    const sceneLine = replaceTemplate(sceneTemplates, userSelections.scene);
+                    const imageryLine = replaceTemplate(imageryTemplates, userSelections.imagery);
+                    const signature = poetSignatures[currentPoet] || poetSignatures['默认'];
+                    const lines = [sceneLine, imageryLine, signature[0], signature[1]];
+                    document.getElementById('poemContent').innerHTML = `
+                        <p class="font-calligraphy text-2xl leading-relaxed text-celestial-blue">
+                            ${lines.join('<br>')}
+                        </p>
+                    `;
+                    const now = new Date();
+                    document.getElementById('poemSignature').textContent =
+                        `${now.getFullYear()}年${now.getMonth() + 1}月 制于唐境仙踪`;
+                    
+                    // 根据模板生成的诗句也生成仙境意象图
+                    try {
+                        await generateIllustration(lines);
+                    } catch (error) {
+                        console.error('生成仙境意象图失败:', error);
+                        resetImagePreview('AI生成失败，已使用模板生成诗句。如需生成仙境图，请确保已配置豆包API。');
+                    }
+                    
+                    // 显示成功弹窗
+                    openSuccessModal();
+                } catch (fallbackError) {
+                    console.error('备用生成也失败：', fallbackError);
+                    resetImagePreview('生成失败，请检查网络连接和API配置。');
+                }
+            } finally {
+                setGenerateButtonState(false);
+            }
+        }
+        
+        // 构建生成五言绝句的 prompt
+        function buildPoemPrompt() {
+            const poetName = currentPoet;
+            const realm = currentPersonalityData?.realm?.zh || '';
+            const traits = currentPersonalityData?.traits?.zh?.join('、') || '';
+            const imagery = userSelections.imagery.trim();
+            const scene = userSelections.scene;
+            
+            return `请根据以下要求创作一首五言绝句（四句，每句五个字）：
+
+1. 诗人风格：${poetName}（${realm}）的风格特点，其性格特征包括：${traits}
+2. 仙境场景：${scene}
+3. 仙人意象：${imagery}
+
+要求：
+- 必须严格遵循五言绝句的格律（平仄、押韵）
+- 诗句应该体现${poetName}的诗歌风格和${realm}的写作特色
+- 必须融入"${scene}"的仙境场景描述
+- 必须融入"${imagery}"的仙人意象
+- 整体意境应该符合唐代游仙诗的韵味，表达对仙境的向往和对超脱的追求
+- 诗句要优雅、富有诗意，符合古典诗歌的审美标准
+- 直接输出四句诗，每句一行，不要添加任何说明、注释或标点符号
+- 格式示例：
+云海霭无声
+仙娥向天青
+剑光星斗惊
+长啸入云平`;
+        }
+        
+        // 调用 DeepSeek API 生成五言绝句
+        async function callDeepSeekAPI() {
+            try {
+                const prompt = buildPoemPrompt();
+                
+                const response = await fetch(DEEPSEEK_API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        prompt: prompt,
+                        poet: currentPoet,
+                        realm: currentPersonalityData?.realm?.zh || '',
+                        imagery: userSelections.imagery.trim(),
+                        scene: userSelections.scene
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API 请求失败:', errorText);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (!result?.success) {
+                    throw new Error(result?.message || 'API调用失败');
+                }
+                
+                // 优先使用后端处理好的诗句数组
+                if (result.lines && Array.isArray(result.lines) && result.lines.length >= 4) {
+                    return result.lines.slice(0, 4);
+                }
+                
+                // 如果没有处理好的数组，尝试从文本中解析
+                let poemText = result.poem || result.content || '';
+                
+                if (!poemText || poemText.trim().length === 0) {
+                    throw new Error('DeepSeek API 返回的内容为空');
+                }
+                
+                // 简化解析逻辑：提取所有中文字符，然后每5个字符组成一句
+                const chineseChars = poemText.match(/[\u4e00-\u9fa5]/g) || [];
+                
+                if (chineseChars.length < 20) {
+                    throw new Error(`无法解析生成的诗句：中文字符数不足（仅${chineseChars.length}个，需要至少20个）`);
+                }
+                
+                // 每5个字符组成一句
+                const extractedLines = [];
+                for (let i = 0; i < chineseChars.length && extractedLines.length < 4; i += 5) {
+                    const line = chineseChars.slice(i, i + 5).join('');
+                    if (line.length === 5) {
+                        extractedLines.push(line);
+                    }
+                }
+                
+                if (extractedLines.length >= 4) {
+                    return extractedLines.slice(0, 4);
+                } else {
+                    // 如果还是不够4句，用空字符串补充
+                    while (extractedLines.length < 4) {
+                        extractedLines.push('');
+                    }
+                    return extractedLines.slice(0, 4);
+                }
+            } catch (error) {
+                console.error('DeepSeek API调用失败：', error);
+                throw error;
+            }
+        }
+        
+        // 从文本中提取诗句（每5个字一句）
+        function extractPoemLines(text) {
+            // 移除所有非中文字符，只保留中文
+            const chineseText = text.replace(/[^\u4e00-\u9fa5]/g, '');
+            const lines = [];
+            for (let i = 0; i < chineseText.length && lines.length < 4; i += 5) {
+                const line = chineseText.substr(i, 5);
+                if (line.length === 5) {
+                    lines.push(line);
+                }
+            }
+            return lines;
+        }
+
+        async function generateIllustration(lines) {
+            resetImagePreview('仙境生成中，请稍候...');
+            try {
+                const prompt = buildImagePrompt(currentPoet, userSelections, lines);
+                const imageUrl = await callDoubaoImage(prompt);
+                if (imageUrl) {
+                    const placeholder = document.getElementById('imagePlaceholder');
+                    const imageEl = document.getElementById('creationImage');
+                    
+                    if (placeholder) placeholder.textContent = '';
+                    
+                    if (imageEl) {
+                        // 处理base64格式或URL格式的图片
+                        imageEl.src = imageUrl;
+                        imageEl.style.display = 'block';
+                        
+                        // 图片加载成功
+                        imageEl.onload = function() {
+                            console.log('仙境意象图加载成功');
+                        };
+                        
+                        // 图片加载失败
+                        imageEl.onerror = function() {
+                            console.error('仙境意象图加载失败');
+                            resetImagePreview('图片加载失败，请稍后重试。');
+                        };
+                    }
+                } else {
+                    resetImagePreview('豆包生图暂不可用，请稍后重试。');
+                }
+            } catch (error) {
+                console.error('生成仙境意象图时出错:', error);
+                resetImagePreview('生成仙境意象图时出现问题，请稍后重试。');
+            }
+        }
+
+        function buildImagePrompt(poetName, selections, lines) {
+            const realm = currentPersonalityData?.realm?.zh || '';
+            const traits = currentPersonalityData?.traits?.zh?.join('、') || '';
+            const scene = selections.scene;
+            const imagery = selections.imagery.trim();
+            const poemText = lines.join('，');
+            
+            // 构建更详细和准确的提示词
+            let prompt = `中国古风仙侠风格，唐代游仙诗意境，`;
+            
+            // 场景描述
+            prompt += `${scene}仙境，`;
+            
+            // 仙人意象描述
+            prompt += `${imagery}仙人的形象，`;
+            
+            // 诗歌风格描述
+            prompt += `体现${poetName}（${realm}）的诗歌风格`;
+            if (traits) {
+                prompt += `和${traits}的审美特征`;
+            }
+            prompt += `，`;
+            
+            // 诗句意境
+            prompt += `呼应诗句"${poemText}"的意境，`;
+            
+            // 视觉风格
+            prompt += `水墨金彩风格，古典中国画技法，`;
+            prompt += `星河云雾、仙境氛围，`;
+            prompt += `金色霞光、紫色云海，`;
+            prompt += `仙鹤、祥云、琼楼玉宇等元素，`;
+            prompt += `超高清、精美细腻、艺术感强`;
+            
+            return prompt;
+        }
+
+        async function callDoubaoImage(prompt) {
+            try {
+                const response = await fetch(DOUBAO_PROXY_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMessage = errorData.message || `HTTP ${response.status}: ${response.statusText}`;
+                    console.error('豆包生图API请求失败:', errorMessage);
+                    throw new Error(errorMessage);
+                }
+                
+                const result = await response.json();
+                
+                if (!result?.success) {
+                    const errorMessage = result?.message || '豆包生图API返回失败';
+                    console.error('豆包生图API返回错误:', errorMessage);
+                    throw new Error(errorMessage);
+                }
+                
+                // 处理base64格式的图片
+                if (result.image) {
+                    // 如果已经是完整的data URI，直接返回
+                    if (result.image.startsWith('data:')) {
+                        return result.image;
+                    }
+                    // 否则添加data URI前缀
+                    return `data:image/png;base64,${result.image}`;
+                }
+                
+                // 处理URL格式的图片
+                if (result.imageUrl) {
+                    return result.imageUrl;
+                }
+                
+                throw new Error('API返回数据中未找到图片数据');
+                
+            } catch (error) {
+                console.error('豆包生图调用失败：', error);
+                // 不抛出错误，返回null，让调用方处理
+                return null;
+            }
+        }
+
+        function setGenerateButtonState(isLoading) {
+            const btn = document.getElementById('generatePoemBtn');
+            if (!btn) return;
+            btn.disabled = isLoading;
+            btn.textContent = isLoading ? '生成中...' : '生成仙卷';
+        }
+
+        function openSuccessModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function replaceTemplate(templates, value) {
+            const template = templates[Math.floor(Math.random() * templates.length)];
+            return template.replace('{scene}', value).replace('{immortal}', value);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function scrollToQuiz() {
+            document.getElementById('soulQuizApp').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仙镜图谱 - 寻仙唐迹</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <!-- 外部资源 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'celestial-blue': '#4A6FA5',      // 石青色
+                        'moon-white': '#F0F4F8',         // 月白色
+                        'golden': '#D4AF37',             // 鎏金色
+                        'ochre': '#CC7722',              // 赭石色
+                        'jade-green': '#3A7D44',         // 玉绿色
+                        'rose-pink': '#FF6B8B',          // 玫瑰粉色
+                    },
+                    fontFamily: {
+                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+                        'classic': ['"Noto Serif SC"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 引入公共组件和样式 -->
+    <script src="components.js"></script>
+    <script>document.write(styleComponent);</script>
+</head>
+
+<body class="bg-moon-white font-classic text-gray-800 overflow-x-hidden">
+    <main>
+        <!-- 页面标题 -->
+        <section class="py-28 px-6 md:px-12 bg-gradient-to-b from-moon-white/80 to-celestial-blue/10 relative">
+            <div class="container mx-auto max-w-6xl text-center relative z-10">
+                <h1
+                    class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold scroll-reveal">
+                    唐代游仙诗仙人意象图谱
+                </h1>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg scroll-reveal">
+                    探索唐代游仙诗中各类仙人形象，感受古人对仙境的丰富想象和对长生不死的向往
+                </p>
+                <div class="w-32 h-1 bg-golden mx-auto mt-6 scroll-reveal"></div>
+            </div>
+        </section>
+
+        <!-- 仙镜图谱内容 -->
+        <section class="py-16 px-6 md:px-12 bg-moon-white/80 relative">
+            <div class="container mx-auto max-w-6xl">
+                <!-- 仙人分类标签 -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12 scroll-reveal">
+                    <button
+                        class="immortal-filter active px-6 py-2 rounded-full bg-celestial-blue text-white shadow-md hover:shadow-lg transition-all"
+                        data-filter="all">
+                        全部仙人
+                    </button>
+                    <button
+                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
+                        data-filter="個性鮮明的天界眾仙">
+                        個性鮮明的天界眾仙
+                    </button>
+                    <button
+                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
+                        data-filter="凡人成仙者">
+                        凡人成仙者
+                    </button>
+                    <button
+                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
+                        data-filter="類型化仙人">
+                        類型化仙人
+                    </button>
+                    <button
+                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
+                        data-filter="女性">
+                        女性
+                    </button>
+                    <button
+                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
+                        data-filter="男性">
+                        男性
+                    </button>
+                </div>
+
+                <!-- 筛选和排序控件 -->
+                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 mb-8 shadow-md scroll-reveal">
+                    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                        <!-- 朝代筛选 -->
+                        <div class="flex flex-wrap gap-3 items-center">
+                            <span class="text-gray-700 font-medium">朝代筛选:</span>
+                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-celestial-blue bg-celestial-blue/10" data-period="all">
+                                全部
+                            </button>
+                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="chu">
+                                初唐
+                            </button>
+                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="sheng">
+                                盛唐
+                            </button>
+                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="zhong">
+                                中唐
+                            </button>
+                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="wan">
+                                晚唐
+                            </button>
+                        </div>
+
+                        <!-- 排序选项 -->
+                        <div class="flex flex-wrap gap-3 items-center">
+                            <span class="text-gray-700 font-medium">排序方式:</span>
+                            <select id="sortOrder" class="px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-celestial-blue/30 focus:border-celestial-blue focus:outline-none">
+                                <option value="desc">降序 (从高到低)</option>
+                                <option value="asc">升序 (从低到高)</option>
+                            </select>
+                        </div>
+
+                        <!-- 重置按钮 -->
+                        <button id="resetFilters" class="px-6 py-2 rounded-lg bg-ochre text-white shadow-sm hover:shadow-md transition-all hover:bg-ochre/90">
+                            <i class="fa fa-refresh mr-2"></i>重置
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 仙人卡片网格 -->
+                <div id="immortalsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 仙人卡片将通过JavaScript动态生成 -->
+                    <div class="col-span-full text-center py-12">
+                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-celestial-blue mx-auto mb-4"></div>
+                        <p class="text-gray-600">正在加载仙人意象数据...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script>
+        // 初始化页面，设置当前页面为仙镜图谱
+        window.addEventListener('DOMContentLoaded', function () {
+            initPage('immortals');
+
+            // 初始化仙人筛选功能
+            initImmortalFilter();
+
+            // 初始化筛选和排序功能
+            initFilterAndSort();
+
+            // 加载仙人数据
+            initPageLoad();
+        });
+
+        // 为不同类型仙人定义不同颜色
+        const typeColors = {
+            '全部仙人': 'bg-celestial-blue',
+            '個性鮮明的天界眾仙': 'bg-celestial-blue',
+            '凡人成仙者': 'bg-jade-green',
+            '女性': 'bg-rose-pink',
+            '男性': 'bg-blue-600',
+            '類型化仙人': 'bg-golden'
+        };
+
+        // 全局变量：存储当前的筛选和排序状态
+        let currentCategory = '全部仙人';
+        let currentPeriodFilter = 'all'; // 'all', 'chu', 'sheng', 'zhong', 'wan'
+        let currentSortOrder = 'desc'; // 'asc' or 'desc'
+        let currentImmortalsData = []; // 存储当前分类的所有仙人数据
+        
+        // 加载仙人数据
+        function loadImmortalsData() {
+            console.log('旧的loadImmortalsData函数被调用，将使用新的loadImmortalsByCategory函数');
+            loadImmortalsByCategory('全部仙人');
+        }
+        
+        // 按分类加载仙人数据
+        function loadImmortalsByCategory(category) {
+            currentCategory = category;
+            
+            // 清空之前的内容
+            const immortalsGrid = document.getElementById('immortalsGrid');
+            immortalsGrid.innerHTML = '<div class="col-span-full flex justify-center items-center py-12"><div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-celestial-blue"></div></div>';
+            
+            // 根据分类确定要加载的JSON文件
+            const jsonFile = category === '全部仙人' ? '全部仙人' : category;
+            
+            // 加载对应分类的JSON文件
+            fetch(`json/${jsonFile}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`加载 ${jsonFile}.json 失败: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 确保每个仙人对象都有正确的字段
+                    const immortals = data.map(immortal => {
+                        // 设置类型和颜色信息
+                        immortal.type = jsonFile; // 使用当前加载的文件名作为type
+                        
+                        // 如果是全部仙人页面，不设置显示类型
+                        if (jsonFile === '全部仙人') {
+                            immortal.typeColor = ''; // 全部仙人页面不显示角标
+                            immortal.displayType = '';
+                        } else {
+                            immortal.typeColor = typeColors[jsonFile] || 'bg-gray-500';
+                            immortal.displayType = jsonFile;
+                        }
+                         
+                        // 修复gender字段显示
+                        if (immortal.gender) {
+                            // 确保gender值正确显示为'男'或'女'
+                            immortal.gender = immortal.gender === 'male' ? '男' : 
+                                            immortal.gender === 'female' ? '女' : 
+                                            immortal.gender === '男' || immortal.gender === '女' ? immortal.gender : 
+                                            '未指明';
+                        } else {
+                            // 如果没有gender字段，根据文件名推断
+                            if (jsonFile === '女性') {
+                                immortal.gender = '女';
+                            } else if (jsonFile === '男性') {
+                                immortal.gender = '男';
+                            } else {
+                                immortal.gender = '未指明';
+                            }
+                        }
+                        
+                        return immortal;
+                    });
+                    
+                    // 保存原始数据
+                    currentImmortalsData = immortals;
+                    
+                    // 应用筛选和排序
+                    applyFiltersAndSort();
+                })
+                .catch(error => {
+                    console.error('加载仙人数据失败:', error);
+                    immortalsGrid.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <p class="text-red-500 text-lg mb-2">数据加载失败</p>
+                            <p class="text-gray-600">请检查JSON文件路径和格式</p>
+                            <p class="text-sm text-gray-500 mt-2">错误: ${error.message}</p>
+                        </div>
+                    `;
+                });
+        }
+
+        // 应用筛选和排序
+        function applyFiltersAndSort() {
+            const immortalsGrid = document.getElementById('immortalsGrid');
+            
+            // 复制数据以避免修改原始数据
+            let filteredImmortals = [...currentImmortalsData];
+            
+            // 应用朝代筛选
+            if (currentPeriodFilter !== 'all') {
+                filteredImmortals = filteredImmortals.filter(immortal => {
+                    const periodValue = immortal[currentPeriodFilter] || 0;
+                    return periodValue > 0;
+                });
+            }
+            
+            // 应用排序
+            // 如果选择了朝代筛选，按照该朝代的数量排序；否则按照总提及次数排序
+            const sortField = currentPeriodFilter !== 'all' ? currentPeriodFilter : 'total';
+            
+            if (currentSortOrder === 'asc') {
+                filteredImmortals.sort((a, b) => (a[sortField] || 0) - (b[sortField] || 0));
+            } else {
+                filteredImmortals.sort((a, b) => (b[sortField] || 0) - (a[sortField] || 0));
+            }
+            
+            // 清空网格
+            immortalsGrid.innerHTML = '';
+            
+            // 检查是否有数据
+            if (filteredImmortals.length === 0) {
+                immortalsGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-600 mb-2">暂无符合条件的仙人数据</p>
+                        <p class="text-sm text-gray-500">请尝试调整筛选条件</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 生成仙人卡片
+            filteredImmortals.forEach(immortal => {
+                const card = createImmortalCard(immortal);
+                immortalsGrid.appendChild(card);
+            });
+            
+            // 添加滚动动画效果
+            setTimeout(() => {
+                const revealElements = document.querySelectorAll('.scroll-reveal');
+                revealElements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 50);
+                });
+            }, 100);
+        }
+        
+        // 初始化加载全部仙人数据
+        function initPageLoad() {
+            // 显示全部仙人分类为激活状态
+            const allFilter = document.querySelector('.immortal-filter[data-filter="all"]');
+            if (allFilter) {
+                const filters = document.querySelectorAll('.immortal-filter');
+                filters.forEach(btn => {
+                    btn.classList.remove('active', 'bg-celestial-blue', 'text-white');
+                    btn.classList.add('bg-white/70', 'text-celestial-blue');
+                });
+                allFilter.classList.add('active', 'bg-celestial-blue', 'text-white');
+                allFilter.classList.remove('bg-white/70', 'text-celestial-blue');
+            }
+            
+            // 加载全部仙人数据
+            loadImmortalsByCategory('全部仙人');
+        }
+
+        // 创建仙人卡片
+        function createImmortalCard(immortal) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'immortal-card scroll-reveal';
+            cardDiv.setAttribute('data-category', immortal.type);
+            
+            // 构建时期分布显示
+            const periodDistribution = [];
+            if (immortal.chu > 0) periodDistribution.push(`初唐: ${immortal.chu}`);
+            if (immortal.sheng > 0) periodDistribution.push(`盛唐: ${immortal.sheng}`);
+            if (immortal.zhong > 0) periodDistribution.push(`中唐: ${immortal.zhong}`);
+            if (immortal.wan > 0) periodDistribution.push(`晚唐: ${immortal.wan}`);
+            
+            // 设置默认图片路径
+            let imagePath = `images/immortals/${immortal.name}.jpg`;
+            // 检查图片是否存在（使用默认图作为备选）
+            const imgSrc = immortal.image || imagePath || `https://picsum.photos/id/${1000 + immortal.id % 50}/600/400`;
+            
+            cardDiv.innerHTML = `
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="relative h-60">
+                        <img src="${imgSrc}" alt="${immortal.name}形象" 
+                            class="w-full h-full object-contain bg-gray-100 transition-transform duration-700 hover:scale-105">
+                        <!-- 全部仙人分类下不显示角标，且不显示女性或男性的角标 -->
+                        ${immortal.displayType && immortal.displayType !== '女性' && immortal.displayType !== '男性' ? `
+                            <div class="absolute top-4 right-4 ${immortal.typeColor} text-white text-sm py-1 px-3 rounded-full">
+                                ${immortal.displayType}
+                            </div>
+                        ` : ''}
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-white text-xs">提及次数: ${immortal.total}</span>
+                                <span class="${immortal.gender === '女' ? 'bg-rose-pink' : 'bg-blue-600'} text-white text-xs px-2 py-0.5 rounded-full">${immortal.gender === '女' ? '女' : '男'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-calligraphy text-2xl text-celestial-blue mb-2">${immortal.name}</h3>
+                        
+                        <!-- 时期分布 -->
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            ${periodDistribution.map(period => `
+                                <span class="text-xs bg-celestial-blue/10 text-celestial-blue px-2 py-1 rounded">
+                                    ${period}
+                                </span>
+                            `).join('')}
+                        </div>
+                        
+                        <p class="text-gray-600 mb-4">
+                            ${immortal.description || '暂无描述信息'}
+                        </p>
+                        
+                        <div class="border-t border-gray-200 pt-4">
+                            ${immortal.poem ? `
+                                <p class="italic text-gray-700 text-sm mb-2">
+                                    "${immortal.poem}"
+                                </p>
+                                ${immortal.author ? `
+                                    <p class="text-right text-xs text-gray-500">— ${immortal.author}</p>
+                                ` : ''}
+                            ` : ''}
+                            
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return cardDiv;
+        }
+
+        // 仙人分类筛选功能
+        function initImmortalFilter() {
+            const immortalFilters = document.querySelectorAll('.immortal-filter');
+            
+            immortalFilters.forEach(filter => {
+                filter.addEventListener('click', function () {
+                    // 更新按钮状态
+                    immortalFilters.forEach(btn => {
+                        btn.classList.remove('active', 'bg-celestial-blue', 'text-white');
+                        btn.classList.add('bg-white/70', 'text-celestial-blue');
+                    });
+                    this.classList.add('active', 'bg-celestial-blue', 'text-white');
+                    this.classList.remove('bg-white/70', 'text-celestial-blue');
+
+                    // 获取要加载的分类
+                    const filterValue = this.getAttribute('data-filter');
+                    const category = filterValue === 'all' ? '全部仙人' : filterValue;
+                    
+                    // 动态加载对应分类的数据
+                    loadImmortalsByCategory(category);
+                });
+            });
+        }
+
+        // 初始化筛选和排序功能
+        function initFilterAndSort() {
+            // 朝代筛选按钮
+            const periodFilters = document.querySelectorAll('.period-filter');
+            periodFilters.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    // 更新按钮状态
+                    periodFilters.forEach(b => {
+                        b.classList.remove('border-celestial-blue', 'bg-celestial-blue/10');
+                        b.classList.add('border-transparent');
+                    });
+                    this.classList.add('border-celestial-blue', 'bg-celestial-blue/10');
+                    this.classList.remove('border-transparent');
+
+                    // 更新筛选条件
+                    currentPeriodFilter = this.getAttribute('data-period');
+                    
+                    // 如果数据已加载，应用筛选
+                    if (currentImmortalsData.length > 0) {
+                        applyFiltersAndSort();
+                    }
+                });
+            });
+
+            // 排序选择框
+            const sortOrderSelect = document.getElementById('sortOrder');
+            sortOrderSelect.addEventListener('change', function () {
+                currentSortOrder = this.value;
+                
+                // 如果数据已加载，应用排序
+                if (currentImmortalsData.length > 0) {
+                    applyFiltersAndSort();
+                }
+            });
+
+            // 重置按钮
+            const resetBtn = document.getElementById('resetFilters');
+            resetBtn.addEventListener('click', function () {
+                // 重置筛选条件
+                currentPeriodFilter = 'all';
+                currentSortOrder = 'desc';
+
+                // 重置UI状态
+                periodFilters.forEach(btn => {
+                    if (btn.getAttribute('data-period') === 'all') {
+                        btn.classList.add('border-celestial-blue', 'bg-celestial-blue/10');
+                        btn.classList.remove('border-transparent');
+                    } else {
+                        btn.classList.remove('border-celestial-blue', 'bg-celestial-blue/10');
+                        btn.classList.add('border-transparent');
+                    }
+                });
+
+                sortOrderSelect.value = 'desc';
+
+                // 如果数据已加载，应用重置后的筛选
+                if (currentImmortalsData.length > 0) {
+                    applyFiltersAndSort();
+                }
+            });
+        }
+
+
+
+
+    </script></body>
+
+</html>

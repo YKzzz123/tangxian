@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 寻仙唐迹</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <!-- 外部资源 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'celestial-blue': '#4A6FA5',      // 石青色
+                        'moon-white': '#F0F4F8',         // 月白色
+                        'golden': '#D4AF37',             // 鎏金色
+                        'ochre': '#CC7722',              // 赭石色
+                        'jade-green': '#3A7D44',         // 玉绿色
+                    },
+                    fontFamily: {
+                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+                        'classic': ['"Noto Serif SC"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 引入公共组件和样式 -->
+    <script src="components.js"></script>
+    <script>document.write(styleComponent);</script>
+    <style>
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .bg-cloud {
+            background-image: url('https://picsum.photos/id/154/1920/1080');
+            background-size: cover;
+        }
+        .cloud-animation {
+            animation: cloudMove 30s linear infinite;
+        }
+        @keyframes cloudMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 0%; }
+        }
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        .text-shadow-gold {
+            text-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+        }
+        .team-carousel {
+            position: relative;
+            --carousel-offset: clamp(140px, 18vw, 220px);
+            --carousel-spread: clamp(260px, 38vw, 420px);
+            padding: 2rem 0 9rem;
+            overflow: visible;
+        }
+        @media (max-width: 1024px) {
+            .team-carousel {
+                --carousel-offset: clamp(110px, 16vw, 180px);
+                --carousel-spread: clamp(220px, 32vw, 360px);
+            }
+        }
+        @media (max-width: 640px) {
+            .team-carousel {
+                --carousel-offset: clamp(80px, 28vw, 140px);
+                --carousel-spread: clamp(180px, 48vw, 260px);
+            }
+        }
+        .team-track {
+            position: relative;
+            height: clamp(260px, 42vw, 440px);
+        }
+        .team-slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: clamp(220px, 26vw, 340px);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.65);
+            transition: transform 0.6s ease, opacity 0.6s ease, filter 0.6s ease;
+            filter: blur(1px);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .team-slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 45px rgba(74, 111, 165, 0.18);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .team-slide.active::before {
+            opacity: 1;
+        }
+        .team-slide.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            filter: blur(0);
+            z-index: 50;
+            pointer-events: auto;
+        }
+        .team-slide.prev {
+            opacity: 0.9;
+            transform: translate(calc(-50% - var(--carousel-offset)), -50%) scale(0.88);
+            filter: blur(0.4px);
+            z-index: 40;
+        }
+        .team-slide.next {
+            opacity: 0.9;
+            transform: translate(calc(-50% + var(--carousel-offset)), -50%) scale(0.88);
+            filter: blur(0.4px);
+            z-index: 40;
+        }
+        .team-slide.far-left {
+            opacity: 0.6;
+            transform: translate(calc(-50% - var(--carousel-spread)), -50%) scale(0.75);
+            filter: blur(0.9px);
+            z-index: 30;
+        }
+        .team-slide.far-right {
+            opacity: 0.6;
+            transform: translate(calc(-50% + var(--carousel-spread)), -50%) scale(0.75);
+            filter: blur(0.9px);
+            z-index: 30;
+        }
+        .team-slide.hidden {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.6);
+            filter: blur(1.2px);
+            z-index: 5;
+        }
+        .team-nav {
+            position: absolute;
+            bottom: -4.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .team-nav button {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(74, 111, 165, 0.2);
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #4A6FA5;
+            display: grid;
+            place-items: center;
+            transition: all 0.3s ease;
+        }
+        .team-nav button:hover {
+            background-color: rgba(74, 111, 165, 0.12);
+            border-color: rgba(74, 111, 165, 0.5);
+        }
+        .team-dots {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .team-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 9999px;
+            background-color: rgba(74, 111, 165, 0.25);
+            transition: all 0.3s ease;
+        }
+        .team-dot.active {
+            width: 1.75rem;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.9), rgba(74, 111, 165, 0.9));
+        }
+        .workflow-tab {
+            padding: 0.6rem 1.2rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(74, 111, 165, 0.3);
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #4A6FA5;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .workflow-tab:hover {
+            border-color: rgba(74, 111, 165, 0.6);
+            background-color: rgba(74, 111, 165, 0.08);
+        }
+        .workflow-tab.active {
+            background: linear-gradient(120deg, rgba(74, 111, 165, 0.95), rgba(212, 175, 55, 0.9));
+            color: #fff9ec;
+            border-color: transparent;
+            box-shadow: 0 10px 20px rgba(74, 111, 165, 0.25);
+        }
+        #workflowContent {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1f2933;
+        }
+        #workflowContent p,
+        #workflowContent li {
+            color: #334155;
+        }
+        #workflowContent h3 {
+            color: #1b3a5c;
+        }
+        #workflowContent h4 {
+            color: #1b3a5c;
+        }
+        #workflowDescription {
+            color: #1a2e4c;
+        }
+    </style>
+</head>
+
+<body class="bg-moon-white font-classic text-gray-800 overflow-x-hidden scroll-smooth">
+    <main>
+        <!-- 页面标题 -->
+        <section class="min-h-[50vh] flex items-center justify-center relative pt-28 md:pt-32 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://picsum.photos/id/29/1920/1080" alt="背景" class="w-full h-full object-cover opacity-30">
+            </div>
+
+            <div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
+                <div class="fade-in">
+                    <h1 class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold leading-tight">
+                        关于我们
+                    </h1>
+                    <p class="text-[clamp(1rem,2vw,1.2rem)] text-gray-700 mb-8 max-w-2xl mx-auto">
+                        寻仙唐迹团队致力于用数字人文方法探索唐代游仙诗的精神世界
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 团队介绍 -->
+        <section class="py-20 px-6 md:px-12 bg-moon-white/80 relative">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                        项目团队
+                    </h2>
+                    <div class="w-32 h-1 bg-golden mx-auto"></div>
+                </div>
+
+                <div class="team-carousel scroll-reveal">
+                    <div id="teamCarousel" class="relative">
+                        <div class="team-track">
+                            <!-- 团队成员1 -->
+                            <div class="team-slide active">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/ouyangyuxi.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">OUYANG Yuxi</h3>
+                                    <p class="text-gray-600 mb-4">Project Manager & Humanities Specialist</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        A coder who cannot analyze poetic imagery is but an unfulfilled immortal.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 团队成员2 -->
+                            <div class="team-slide">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/zengxueyi.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">ZENG Xueyi</h3>
+                                    <p class="text-gray-600 mb-4">Software Engineer</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        Be responsible for the establishment of the database and website.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 团队成员3 -->
+                            <div class="team-slide">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/zhangmingyu.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">ZHANG Mingyu</h3>
+                                    <p class="text-gray-600 mb-4">Data Analyst & Humanities Specialist</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        Combines the rational insight of a data analyst with the emotional depth of a humanities researcher, and decodes the
+                                        humanistic landscape of immortal-themed poems in the Tang Dynasty through data visualization.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 团队成员4 -->
+                            <div class="team-slide">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/liuqihao.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">LIU Qihao</h3>
+                                    <p class="text-gray-600 mb-4">Data Analyst</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        Developed dynamic visualizations and provides data insights.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 团队成员5 -->
+                            <div class="team-slide">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/yangyulai.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">YANG Yulai</h3>
+                                    <p class="text-gray-600 mb-4">Software Engineer</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        What endless events of past and present all reduced to laughter and talk.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 团队成员6 -->
+                            <div class="team-slide">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/wangyihan.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">WANG Yihan</h3>
+                                    <p class="text-gray-600 mb-4">Humanities Specialist</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        Injecting cultural depth and emotional resonance into digital platforms adds a warm and thought-provoking layer to
+                                        technological projects.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 团队成员7 -->
+                            <div class="team-slide">
+                                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-md transition-all duration-300 text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-celestial-blue/30">
+                                        <img src="./images/members/zhangqianyi.jpg" alt="团队成员" class="w-full h-full object-cover">
+                                    </div>
+                                    <h3 class="font-bold text-xl text-celestial-blue mb-2">ZHANG Qianyi</h3>
+                                    <p class="text-gray-600 mb-4">Software Engineer</p>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        Through gameplay as a bridge, we connect ancient and modern wisdom, allowing Tang poets from a thousand years ago to
+                                        reunite with each of us, illuminated by the lens of modern personality psychology.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-nav">
+                            <button type="button" id="teamPrev" aria-label="上一位成员">
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            <div class="team-dots" aria-hidden="true">
+                                <span class="team-dot active" data-team-dot="0"></span>
+                                <span class="team-dot" data-team-dot="1"></span>
+                                <span class="team-dot" data-team-dot="2"></span>
+                                <span class="team-dot" data-team-dot="3"></span>
+                                <span class="team-dot" data-team-dot="4"></span>
+                                <span class="team-dot" data-team-dot="5"></span>
+                                <span class="team-dot" data-team-dot="6"></span>
+                            </div>
+                            <button type="button" id="teamNext" aria-label="下一位成员">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 研究介绍 -->
+        <section class="py-20 px-6 md:px-12 bg-celestial-blue/10 relative">
+            <div class="container mx-auto max-w-5xl space-y-16">
+                <div class="space-y-8 scroll-reveal">
+                    <div class="text-center">
+                        <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                            研究目的与数据来源
+                        </h2>
+                        <div class="w-32 h-1 bg-golden mx-auto"></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-lg">
+                            <h3 class="text-xl font-semibold text-celestial-blue mb-4 flex items-center">
+                                <i class="fa fa-bullseye text-golden mr-3"></i>研究目的
+                            </h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                正如前文所述，游仙诗以仙人、仙境、仙术等虚幻意象为核心，而仙人意象又是核心之核心。
+                                对仙人意象的分析有助于深入理解唐代文人游仙诗的精神气象，洞察时代风气与人文思想。
+                                将分析结果进行可视化，可以清晰呈现仙人意象的流变脉络，进一步探讨道教发展与社会变迁对游仙诗创作的影响。
+                            </p>
+                        </div>
+                        <div class="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-lg">
+                            <h3 class="text-xl font-semibold text-celestial-blue mb-4 flex items-center">
+                                <i class="fa fa-database text-golden mr-3"></i>数据集来源
+                            </h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                我们在 GitHub 上发现了按卷数整理、格式规范的《全唐诗》 JSON 数据集，并结合颜进雄《唐代游仙诗研究》与人工校对，
+                                提取出 450 余首唐代游仙诗。数据集同时提供 JSON 与 CSV 两种格式，为后续的语料分析与可视化奠定基础。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal">
+                    <div class="text-center mb-8">
+                        <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                            工作流（方法论 & 使用工具）
+                        </h2>
+                        <div class="w-32 h-1 bg-golden mx-auto"></div>
+                        <p class="text-gray-600 mt-4">
+                            点击不同阶段查看对应描述与所用方法，进度条将同步展示项目推进情况。
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 justify-center mb-6">
+                        <button class="workflow-tab active" data-workflow-step="0">29/09-12/10 数据筛选</button>
+                        <button class="workflow-tab" data-workflow-step="1">13/10-26/10 数据分析</button>
+                        <button class="workflow-tab" data-workflow-step="2">27/10-09/11 研究结论</button>
+                        <button class="workflow-tab" data-workflow-step="3">27/10-09/11 网站搭建</button>
+                        <button class="workflow-tab" data-workflow-step="4">03/11-16/11 小游戏</button>
+                    </div>
+
+                    <div class="relative h-2 bg-white/70 rounded-full overflow-hidden mb-8">
+                        <div id="workflowProgress" class="absolute inset-y-0 left-0 bg-golden rounded-full transition-all duration-500" style="width:20%;"></div>
+                    </div>
+
+                    <div class="bg-white/85 backdrop-blur rounded-3xl p-8 shadow-xl space-y-4" id="workflowContent">
+                        <p class="text-sm text-gray-500" id="workflowRange">29/09/2025 - 12/10/2025</p>
+                        <h3 class="text-2xl font-semibold text-celestial-blue" id="workflowTitle">数据集整理与仙人意象标注</h3>
+                        <p class="text-gray-700 leading-relaxed" id="workflowDescription">
+                            基于 GitHub 全唐诗 JSON 数据集与《唐代游仙诗研究》，筛选出 462 首唐代游仙诗并按四个时期分类，
+                            同时按照类型学分析需求整理诗中出现的仙人意象。
+                        </p>
+                        <div>
+                            <h4 class="text-lg font-semibold text-celestial-blue mb-2 flex items-center">
+                                <i class="fa fa-wrench text-golden mr-2"></i>方法论 & 使用工具
+                            </h4>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-1" id="workflowTools">
+                                <li>豆包 AI OCR：识别《唐代游仙诗研究》中所有游仙诗信息。</li>
+                                <li>Python + 全唐诗 JSON：匹配诗名、诗人、卷次，生成 JSON/CSV 数据集。</li>
+                                <li>接入 DeepSeek 的飞书多维表格：提炼游仙诗中的仙人意象并整理为 CSV。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('us');
+
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            const revealOnScroll = function() {
+                for (let i = 0; i < revealElements.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = revealElements[i].getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    if (elementTop < windowHeight - elementVisible) {
+                        revealElements[i].classList.add('revealed');
+                    }
+                }
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+
+            // 团队叠加轮播
+            const carouselEl = document.getElementById('teamCarousel');
+            const teamSlides = carouselEl ? Array.from(carouselEl.querySelectorAll('.team-slide')) : [];
+            const teamDots = Array.from(document.querySelectorAll('.team-dot'));
+            const prevBtn = document.getElementById('teamPrev');
+            const nextBtn = document.getElementById('teamNext');
+            let teamIndex = 0;
+            let autoPlayTimer = null;
+
+            const normalizeDiff = (i, index, total) => {
+                let diff = i - index;
+                const half = Math.floor(total / 2);
+                if (diff > half) diff -= total;
+                if (diff < -half) diff += total;
+                return diff;
+            };
+
+            const setSlideClasses = (index) => {
+                const total = teamSlides.length;
+                teamSlides.forEach((slide, i) => {
+                    const diff = normalizeDiff(i, index, total);
+                    slide.classList.remove('active', 'prev', 'next', 'far', 'far-left', 'far-right', 'hidden');
+                    slide.setAttribute('aria-hidden', diff === 0 ? 'false' : 'true');
+
+                    if (diff === 0) {
+                        slide.classList.add('active');
+                    } else if (diff === -1) {
+                        slide.classList.add('prev');
+                    } else if (diff === 1) {
+                        slide.classList.add('next');
+                    } else if (diff === -2) {
+                        slide.classList.add('far-left');
+                    } else if (diff === 2) {
+                        slide.classList.add('far-right');
+                    } else {
+                        slide.classList.add('hidden');
+                    }
+                });
+
+                teamDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            };
+
+            const gotoSlide = (index) => {
+                teamIndex = (index + teamSlides.length) % teamSlides.length;
+                setSlideClasses(teamIndex);
+                restartAutoplay();
+            };
+
+            const restartAutoplay = () => {
+                if (autoPlayTimer) {
+                    clearInterval(autoPlayTimer);
+                }
+                autoPlayTimer = setInterval(() => {
+                    gotoSlide(teamIndex + 1);
+                }, 5000);
+            };
+
+            if (teamSlides.length > 0) {
+                setSlideClasses(teamIndex);
+                restartAutoplay();
+
+                prevBtn?.addEventListener('click', () => gotoSlide(teamIndex - 1));
+                nextBtn?.addEventListener('click', () => gotoSlide(teamIndex + 1));
+                teamDots.forEach((dot, i) => {
+                    dot.addEventListener('click', () => gotoSlide(i));
+                });
+
+                carouselEl?.addEventListener('mouseenter', () => {
+                    if (autoPlayTimer) {
+                        clearInterval(autoPlayTimer);
+                        autoPlayTimer = null;
+                    }
+                });
+                carouselEl?.addEventListener('mouseleave', restartAutoplay);
+            }
+
+            // 工作流进度
+            const workflowSteps = [
+                {
+                    range: '29/09/2025 - 12/10/2025',
+                    title: '数据集整理与仙人意象标注',
+                    description: '基于 GitHub 全唐诗 JSON 数据集和《唐代游仙诗研究》筛选出 462 首游仙诗，按四个时期分类，并按照类型学需求整理诗中出现的仙人意象，形成结构化语料库。',
+                    tools: [
+                        '豆包 AI OCR：识别《唐代游仙诗研究》中所有游仙诗的诗名、诗人与卷数。',
+                        'Python 脚本：匹配诗歌信息，生成 JSON / CSV 格式的游仙诗数据集。',
+                        '接入 DeepSeek 的飞书多维表格：提炼仙人意象并整理成 CSV 表格。'
+                    ]
+                },
+                {
+                    range: '13/10/2025 - 26/10/2025',
+                    title: '多维度数据分析与可视化',
+                    description: '围绕全唐、初唐、盛唐、中唐、晚唐各时期的仙人意象使用情况与代表性诗人展开数据分析，探索意象演变规律。',
+                    tools: [
+                        'R：进行数据清洗、统计与建模分析。',
+                        'Tableau：制作柱状图、扇形图、折线图、热力图等可视化成果。'
+                    ]
+                },
+                {
+                    range: '27/10/2025 - 09/11/2025',
+                    title: '撰写研究发现与结论',
+                    description: '结合数据结果与相关文献，撰写各时期游仙诗仙人意象使用特点、高频意象来源及其背后文化语境，并讨论如女性仙人占比增加等衍生洞见。',
+                    tools: [
+                        '对照史料与数据洞察，提炼研究观点。',
+                        '归纳分析，形成结构化的研究结论与解读。'
+                    ]
+                },
+                {
+                    range: '27/10/2025 - 09/11/2025',
+                    title: '网站框架搭建',
+                    description: '搭建寻仙唐迹的整体信息架构与交互流程，让研究成果以数字人文的方式呈现。',
+                    tools: [
+                        '方法论：以静态展示为主，侧重叙事性和可持续维护。',
+                        '技术栈：【前端】HTML5、Tailwind CSS、JavaScript；【后端】Python、 Flask；【数据库】JSON本地加载；【数据可视化】Chart.js；'
+                    ]
+                },
+                {
+                    range: '03/11/2025 - 16/11/2025',
+                    title: '制作人格化互动小游戏',
+                    description: '设计“唐朝游仙志”小游戏，通过人格问答与诗句/图像生成让用户与唐代诗人精神对话。',
+                    tools: [
+                        'Figma：设计界面与交互流程。',
+                        '荣格八维决策树：进行诗人性格分类并设置适配题目。',
+                        'Deep Seek API + Doubao 生图 API：实时生成诗句与配图，实现沉浸式体验。'
+                    ]
+                }
+            ];
+
+            const workflowTabs = document.querySelectorAll('.workflow-tab');
+            const progressBar = document.getElementById('workflowProgress');
+            const rangeEl = document.getElementById('workflowRange');
+            const titleEl = document.getElementById('workflowTitle');
+            const descEl = document.getElementById('workflowDescription');
+            const toolsEl = document.getElementById('workflowTools');
+
+            const renderWorkflowStep = (index) => {
+                const step = workflowSteps[index];
+                rangeEl.textContent = step.range;
+                titleEl.textContent = step.title;
+                descEl.textContent = step.description;
+                toolsEl.innerHTML = '';
+                step.tools.forEach(tool => {
+                    const li = document.createElement('li');
+                    li.textContent = tool;
+                    toolsEl.appendChild(li);
+                });
+                progressBar.style.width = `${(index) / (workflowSteps.length - 1) * 100}%`;
+                workflowTabs.forEach(tab => tab.classList.toggle('active', parseInt(tab.dataset.workflowStep, 10) === index));
+            };
+
+            workflowTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const index = parseInt(tab.dataset.workflowStep, 10);
+                    renderWorkflowStep(index);
+                });
+            });
+
+            if (workflowTabs.length > 0) {
+                renderWorkflowStep(0);
+            }
+        });
+    </script>
+</body>
+
+</html>

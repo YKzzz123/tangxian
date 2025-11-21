@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中唐诗游仙诗数据分析 - 寻仙唐迹</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入ECharts.js用于数据可视化 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'celestial-blue': '#4A6FA5',      // 石青色
+                        'moon-white': '#F0F4F8',         // 月白色
+                        'golden': '#D4AF37',             // 鎏金色
+                        'ochre': '#CC7722',              // 赭石色
+                        'jade-green': '#3A7D44',         // 玉绿色
+                        'ink': '#2D2D2D',                // 墨色
+                    },
+                    fontFamily: {
+                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+                        'classic': ['"Noto Serif SC"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow-gold {
+                text-shadow: 0 0 5px rgba(212, 175, 55, 0.7);
+            }
+            .bg-paper-texture {
+                background-color: #F5F1E6;
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+            .visualization-card {
+                transition: all 0.3s ease;
+            }
+            .visualization-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .nav-active {
+                border-left: 4px solid #D4AF37;
+                background-color: rgba(212, 175, 55, 0.1);
+            }
+        }
+    </style>
+    <script src="components.js"></script>
+    <script>document.write(styleComponent);</script>
+</head>
+
+<body class="bg-moon-white font-classic text-gray-800 overflow-x-hidden scroll-smooth">
+
+    <!-- 时期分类导航 -->
+    <div class="bg-ink text-white py-3 shadow-lg fixed top-[4.75rem] w-full z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto items-center justify-center py-1" style="gap: 0;">
+                <a href="exhibition_all.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">全唐</a>
+                <a href="exhibition_chu.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">初唐</a>
+                <a href="exhibition_sheng.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">盛唐</a>
+                <a href="exhibition_zhong.html" 
+                    class="period-btn active whitespace-nowrap px-4 py-1 rounded-full bg-golden text-ink font-medium text-sm md:text-base transition-all">中唐</a>
+                <a href="exhibition_wan.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">晚唐</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <div class="pt-32 min-h-screen flex flex-col md:flex-row">
+        <!-- 左侧固定导航栏 -->
+        <aside
+            class="w-full md:w-64 bg-white/80 backdrop-blur-sm shadow-md md:h-[calc(100vh-7rem)] md:sticky md:top-28 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="font-calligraphy text-xl text-celestial-blue mb-4 pb-2 border-b border-gray-200">可视化分析</h3>
+                
+                <!-- 朝代导航 -->
+                <ul id="period-nav" class="space-y-1">
+                    <li>
+                        <a href="#overview"
+                            class="visual-nav nav-active block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fa fa-info-circle mr-2 text-golden"></i> 整体梗概
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#representative-poems"
+                            class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fa fa-book mr-2 text-celestial-blue"></i> 代表性诗歌
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#development-status"
+                            class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fa fa-line-chart mr-2 text-ochre"></i> 发展状态
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#image-analysis"
+                            class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要意象分析
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- 右侧内容区 -->
+        <main class="flex-1 p-4 md:p-6">
+            <div class="max-w-6xl mx-auto w-full">
+                <!-- 页面标题 -->
+                <div class="mb-10 text-center">
+                    <h1
+                        class="font-calligraphy text-[clamp(1.8rem,4vw,3rem)] text-celestial-blue mb-4 text-shadow-gold">
+                        中唐诗游仙诗数据分析
+                    </h1>
+                    <p class="text-gray-600 max-w-3xl mx-auto">
+                        探索中唐时期游仙诗的创作特点、主题分布与艺术特色，揭示这一时期游仙文学的独特风貌
+                    </p>
+                    <div class="w-32 h-1 bg-golden mx-auto mt-6"></div>
+                </div>
+
+                <!-- 中唐内容 -->
+                <section id="middle-tang-section" class="period-section">
+                <!-- 1. 整体梗概 -->
+                <section id="overview" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-info-circle mr-2 text-golden"></i> 整体梗概
+                        </h2>
+                        
+                        <!-- 历史背景使用古朴底色背景 -->
+                        <div class="mb-6">
+                            <div class="bg-paper-texture p-5 rounded-lg">
+                                <h3 class="text-lg font-medium text-gray-700 mb-3 flex items-center">
+                                    <i class="fa fa-history mr-2 text-golden"></i> 历史背景
+                                </h3>
+                                <p class="text-gray-700 leading-relaxed">
+                                    中唐时期（770-835年），安史之乱的创伤尚未平复，藩镇割据、宦官专权等政治乱象频发，文人普遍陷入理想与现实的双重困境。在这一历史背景下，游仙诗成为文人宣泄内心焦虑、寻求精神寄托的重要文学形式。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="prose max-w-none">
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                安史之乱的战火终结了盛唐的繁华，使唐王朝陷入由盛转衰的历史拐点。社会动荡引发的政治格局更迭、经济凋敝与民生疾苦，深刻重塑了文人的精神世界——盛唐时期昂扬自信的入世情怀逐渐消解，取而代之的是惶惑、焦虑与对精神慰藉的迫切渴求。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                道教作为彼时重要的精神寄托载体，其内涵被中唐文人重新解读：他们不再执着于老庄玄学的浪漫超越，转而从道教义理、仙话传说中寻觅心灵安顿的路径，或借仙话阐释修道理念，或化用仙人意象映射现实困境，或赋予仙人凡俗情感以寄托个人情志。
+                            </p>
+                            <!-- 右下角特征悬停 -->
+                            <div class="flex justify-end items-center">
+                                <div class="tooltip-trigger relative cursor-help inline-flex items-center">
+                                    <span class="text-xs text-gray-600 mr-1">特征</span>
+                                    <i class="fa fa-question-circle text-golden text-xl"></i>
+                                    <span class="tooltip-content absolute hidden right-full mr-2 top-1/2 transform -translate-y-1/2 bg-celestial-blue text-white p-4 rounded-lg shadow-lg w-64 z-10">
+                                        <ul class="space-y-2">
+                                            <li class="flex items-start">
+                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                <span>现实关怀与精神超越并存</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                <span>仙话传说与个人情志融合</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                <span>对心灵安顿与精神慰藉的追寻</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                <span>对仙境的描绘更趋世俗化</span>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. 代表性诗歌 -->
+                <section id="representative-poems" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-book mr-2 text-celestial-blue"></i> 代表性诗歌
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- 诗歌卡片 1 -->
+                            <div class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
+                                <h3 class="text-lg font-medium text-celestial-blue mb-2">《忆金鹅山沈山人》</h3>
+                                <p class="text-sm text-gray-500 mb-4">卢全</p>
+                                <div class="poem-content text-gray-700 leading-relaxed">
+                                    <p class="mb-2">君隐处，当一星。</p>
+                                    <p class="mb-2">莲花峰头饭黄精，仙人掌上掇紫英。</p>
+                                    <p class="mb-2">玉臼丁丁播秋露，金炉袅袅烧春雪。</p>
+                                    <p>—— 选录</p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-sm text-gray-600">
+                                        <i class="fa fa-info-circle text-golden mr-1"></i>
+                                        诗人以生动的笔触描绘了隐居山中的沈山人修道炼丹的生活场景，展现了中唐文人对仙道的向往。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 诗歌卡片 2 -->
+                            <div class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
+                                <h3 class="text-lg font-medium text-celestial-blue mb-2">《神仙曲》</h3>
+                                <p class="text-sm text-gray-500 mb-4">李贺</p>
+                                <div class="poem-content text-gray-700 leading-relaxed">
+                                    <p class="mb-2">碧峰海面藏灵书，上帝拣作神仙居。</p>
+                                    <p class="mb-2">清明笑语闻空虚，斗乘巨浪骑鲸鱼。</p>
+                                    <p class="mb-2">春罗书字邀王母，共宴红楼最深处。</p>
+                                    <p>—— 选录</p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-sm text-gray-600">
+                                        <i class="fa fa-info-circle text-golden mr-1"></i>
+                                        李贺以独特的想象力描绘了仙境的奇幻景象，诗中既有神仙宴会的热闹场景，也蕴含着对仙境的向往之情。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 诗歌卡片 3 -->
+                            <div class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
+                                <h3 class="text-lg font-medium text-celestial-blue mb-2">《及第后夜访月仙子》</h3>
+                                <p class="text-sm text-gray-500 mb-4">施肩吾</p>
+                                <div class="poem-content text-gray-700 leading-relaxed">
+                                    <p class="mb-2">自喜寻幽夜入城，仙娥相遇话浮生。</p>
+                                    <p class="mb-2">问余一举登科后，何似乘槎直上天。</p>
+                                    <p>—— 选录</p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-sm text-gray-600">
+                                        <i class="fa fa-info-circle text-golden mr-1"></i>
+                                        诗人将科举及第与登仙作对比，通过与月中仙子的对话，表达了对功名利禄与精神自由的思考。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. 发展状态 -->
+                <section id="development-status" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-line-chart mr-2 text-ochre"></i> 发展状态
+                        </h2>
+                        <p class="text-gray-700 leading-relaxed mb-4">中唐时期的游仙诗数目相比盛唐下降到90首，仙人意向出现的次数和数量分别为72和43。<br>
+                        中唐的诗人数量达到了四个时期的最高峰，有作品记载的游仙诗人数量达到了29名。</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- 饼图：67/282 -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">游仙诗占比</h3>
+                                <div id="zhongPoemPercentageChart" class="w-full h-80"></div>
+                            </div>
+                            <!-- 诗人排名 -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">诗人排名</h3>
+                                <div id="zhongTopPoetsChart" class="w-full h-80"></div>
+                            </div>
+                            <!-- 仙人排名 -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人排名</h3>
+                                <div id="zhongTopImmortalsChart" class="w-full h-80"></div>
+                            </div>
+                            <!-- Type和Gender数据可视化 -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人类型与性别分布</h3>
+                                <div id="zhongImmortalTypeGenderChart" class="w-full h-80"></div>
+                            </div>
+                        </div><br>
+                        <p class="text-gray-700 leading-relaxed mb-4">中唐时期的游仙诗数目相比盛唐下降到90首，仙人意向出现的次数和数量分别为72和43。这一时期，新出现的仙人意向有“嫦娥”、“广成子”等。如李贺《牡丹种曲》中的“月中桂树高多少，试问西河斫树人。嫦娥捣药无时已，玉女投壶不放还。”，孟郊《求仙曲》中的“广成爱神鼎，淮南好丹经。”从仙人类型上来看，游仙诗中首次出现了丑恶仙人意象，即在外貌、动作、性格等方面被刻意丑化，最终遭到诗人否定批判的仙人意象。此外，女性仙人意象明显增多，且呈现出艳情化倾向。遍览中唐游仙诗，我们会发现女性仙人意象的数量即将超过男性仙人意象的数量。</p>
+                    </div>
+                </section>
+
+                <!-- 4. 主要意象分析 -->
+                <section id="image-analysis" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要意象分析
+                        </h2>
+                        <div class="space-y-12">
+                            <!-- 嫦娥 -->
+                            <div class="prose max-w-none">
+                                <h3 class="text-xl text-celestial-blue mb-4">
+                                    嫦娥
+                                    <div class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
+                                        <i class="fa fa-question-circle"></i>
+                                        <span class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
+                                            <ul class="space-y-2">
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
+                                                    <span>中国古代神话中的月中仙子</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
+                                                    <span>因偷吃不死药而奔月</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
+                                                    <span>象征长生却孤寂的矛盾</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
+                                                    <span>中唐时期成为文人情感寄托</span>
+                                                </li>
+                                            </ul>
+                                        </span>
+                                    </div>
+                                </h3>
+                                <p class="text-gray-700 leading-relaxed mb-4">
+                                    嫦娥的神话原型最早见于《山海经》，其初始形象为"帝俊妻常羲"，掌日月星辰之序；至汉代，《淮南子·览冥训》首次完整记载"嫦娥奔月"传说："羿请不死之药于西王母，姮娥窃以奔月，怅然有丧，无以续之。"此时的嫦娥尚是"窃药奔月"后满怀怅惘的凡女，未完全脱离人间情感；魏晋南北朝时期，道教对其形象进行改造，《搜神记》将其与"蟾蜍"意象关联，赋予"长生却孤寂"的矛盾属性；初盛唐时期，嫦娥多以"月中仙子"的缥缈形象出现在游仙诗中，如李白《把酒问月》"白兔捣药秋复春，嫦娥孤栖与谁邻"，虽提及孤寂，却未深入刻画其内心世界。中唐文人继承了"奔月""孤寂"的核心原型，但突破前代单一的形象框架，结合时代心境赋予其更复杂的情感内涵与现实隐喻，使"嫦娥"从单纯的"月仙符号"转变为承载文人生命体验的意象载体。
+                                </p>
+                                <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
+                                    <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
+                                    <ul class="space-y-3">
+                                        <li class="text-gray-700 italic">
+                                            《淮南子·览冥训》："羿请不死之药于西王母，羿妻姮娥窃之奔月，托身于月，是为蟾蜍，而为月精。旧言月中有桂，有蟾蜍。故异书言：月桂高五百丈，下有一人，常斫之，树创随合。人姓吴，名刚，西河人，学仙有过，谪令伐树。"
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- 广成子 -->
+                            <div class="prose max-w-none">
+                                <h3 class="text-xl text-celestial-blue mb-4">
+                                    广成子
+                                    <div class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
+                                        <i class="fa fa-question-circle text-golden mt-1 mr-2"></i>
+                                        <span class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
+                                            <ul class="space-y-2">
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-book mt-1 mr-2 text-golden"></i>
+                                                    <span>道家无为而治理念的化身</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-book mt-1 mr-2 text-golden"></i>
+                                                    <span>居崆峒山，传黄帝修道之法</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-book mt-1 mr-2 text-golden"></i>
+                                                    <span>主张"抱神以静"的修炼方法</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-book mt-1 mr-2 text-golden"></i>
+                                                    <span>中唐时期成为修道典范</span>
+                                                </li>
+                                            </ul>
+                                        </span>
+                                    </div>
+                                </h3>
+                                <p class="text-gray-700 leading-relaxed mb-4">
+                                    广成子的原型出自《庄子·在宥》，是道家"无为而治"与"修道养生"理念的化身：传说其居崆峒山，黄帝曾前往问道，广成子答以"至道之精，窈窈冥冥；至道之极，昏昏默默。无视无听，抱神以静，形将自正"，主张"去欲存真""与道合一"，此时的形象尚是"道家圣人"，未完全纳入道教神仙谱系。道教兴起后，广成子的形象被逐步"仙化"：东晋葛洪《抱朴子·内篇》将其列为"仙人"，称其"服金液，乘云驾龙，上升太清"；南北朝《元始上真众仙记》进一步赋予其"道教仙官"身份，与"元始天尊""太上老君"并列；中唐时期，道教"内丹道"兴起，文人对"修道"的认知从"服食金丹"转向"内心存静"，广成子"抱神以静"的核心思想被重新发掘，成为文人对抗现实焦虑、追求精神安顿的重要象征——其意象也从"遥远的仙官"转变为"可感的修道典范"。
+                                </p>
+                                <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
+                                    <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
+                                    <ul class="space-y-3">
+                                        <li class="text-gray-700 italic">
+                                            《庄子・外篇・在宥》："黄帝立为天子十九年，令行天下，闻广成子在于空同之山，故往见之，曰：'我闻吾子达于至道，敢问至道之精。吾欲取天地之精，以佐五谷，以养民人，吾又欲官阴阳，以遂群生，为之柰何？'广成子曰：'而所欲问者，物之质也；而所欲官者，物之残也。自而治天下，云气不待族而雨，草木不待黄而落，日月之光益以荒矣。而佞人之心翦翦者，又奚足以语至道？'"
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </section>
+            </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // 左侧可视化导航切换
+        document.querySelectorAll('.visual-nav').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // 移除所有活跃状态
+                document.querySelectorAll('.visual-nav').forEach(item => {
+                    item.classList.remove('nav-active');
+                });
+                // 添加当前活跃状态
+                this.classList.add('nav-active');
+
+                // 滚动到对应部分
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 滚动监听，实现右侧滚动时左侧导航自动高亮
+        window.addEventListener('scroll', function () {
+            // 获取所有内容区块和导航项
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.visual-nav');
+            
+            let currentSection = '';
+            
+            // 检测当前在视口中的内容区块
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100; // 添加一些偏移量
+                const sectionHeight = section.offsetHeight;
+                const scrollY = window.scrollY;
+                
+                // 当滚动位置超过区块顶部且未超过区块底部时
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            // 更新导航栏高亮状态
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+        
+        // 初始化页面时触发一次滚动事件，确保正确高亮当前区块
+        window.dispatchEvent(new Event('scroll'));
+
+        // 初始化问号图标交互功能
+        function initTooltipInteractions() {
+            // 获取所有的tooltip触发器
+            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+            
+            // 为每个触发器添加鼠标进入事件
+            tooltipTriggers.forEach(trigger => {
+                // 鼠标进入时显示tooltip
+                trigger.addEventListener('mouseenter', function() {
+                    const tooltip = this.querySelector('.tooltip-content');
+                    if (tooltip) {
+                        tooltip.classList.remove('hidden');
+                        
+                        // 添加淡入动画
+                        setTimeout(() => {
+                            tooltip.style.opacity = '1';
+                            tooltip.style.transform = tooltip.style.transform.replace('-translate-y-full', '-translate-y-full scale(1)');
+                        }, 10);
+                    }
+                });
+                
+                // 鼠标离开时隐藏tooltip
+                trigger.addEventListener('mouseleave', function() {
+                    const tooltip = this.querySelector('.tooltip-content');
+                    if (tooltip) {
+                        // 添加淡出动画
+                        tooltip.style.opacity = '0';
+                        tooltip.style.transform = tooltip.style.transform.replace('scale(1)', 'scale(0.95)');
+                        
+                        // 动画结束后隐藏
+                        setTimeout(() => {
+                            tooltip.classList.add('hidden');
+                            // 重置样式以便下次显示
+                            tooltip.style.opacity = '1';
+                            tooltip.style.transform = tooltip.style.transform.replace('scale(0.95)', 'scale(1)');
+                        }, 200);
+                    }
+                });
+                
+                // 点击问号图标切换显示状态
+                trigger.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 阻止事件冒泡
+                    const tooltip = this.querySelector('.tooltip-content');
+                    if (tooltip) {
+                        tooltip.classList.toggle('hidden');
+                    }
+                });
+            });
+            
+            // 点击页面其他区域关闭所有tooltip
+            document.addEventListener('click', function() {
+                const allTooltips = document.querySelectorAll('.tooltip-content');
+                allTooltips.forEach(tooltip => {
+                    tooltip.classList.add('hidden');
+                });
+            });
+        }
+        
+        // 添加自定义样式到tooltip
+        const style = document.createElement('style');
+        style.textContent = `
+            .tooltip-content {
+                opacity: 1;
+                transform-origin: center bottom;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+            }
+            
+            /* 添加tooltip的三角箭头 */
+            .tooltip-content::after {
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: -5px;
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-right: 5px solid #4A6FA5;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 浮窗显示/隐藏功能
+        function toggleTooltip(tooltipId) {
+            const tooltip = document.getElementById(tooltipId);
+            if (tooltip) {
+                // 关闭所有其他浮窗
+                document.querySelectorAll('[id$="-tooltip"]').forEach(el => {
+                    if (el.id !== tooltipId) {
+                        el.classList.add('hidden');
+                    }
+                });
+                
+                // 切换当前浮窗显示状态
+                tooltip.classList.toggle('hidden');
+            }
+        }
+        
+        // 点击其他区域关闭浮窗
+        document.addEventListener('click', function(event) {
+            const tooltips = document.querySelectorAll('[id$="-tooltip"]');
+            const triggers = document.querySelectorAll('[onclick^="toggleTooltip"]');
+            
+            let isClickInsideTooltip = false;
+            let isClickOnTrigger = false;
+            
+            tooltips.forEach(tooltip => {
+                if (tooltip.contains(event.target)) {
+                    isClickInsideTooltip = true;
+                }
+            });
+            
+            triggers.forEach(trigger => {
+                if (trigger.contains(event.target)) {
+                    isClickOnTrigger = true;
+                }
+            });
+            
+            if (!isClickInsideTooltip && !isClickOnTrigger) {
+                tooltips.forEach(tooltip => {
+                    tooltip.classList.add('hidden');
+                });
+            }
+        });
+
+        // 存储所有图表实例
+        const charts = {};
+        let resizeHandlerAdded = false;
+
+        // 初始化中唐相关图表
+        function initCharts() {
+            // 1. 游仙诗占比饼图 (67/282)
+            if (document.getElementById('zhongPoemPercentageChart')) {
+                charts.zhongPoemPercentageChart = echarts.init(document.getElementById('zhongPoemPercentageChart'));
+                const zhongPoemPercentageOption = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b}: {c} ({d}%)'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        right: 10,
+                        top: 'center',
+                        textStyle: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '游仙诗占比',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            itemStyle: {
+                                borderRadius: 10,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            },
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '18',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: [
+                                { value: 67, name: '中唐', itemStyle: { color: '#D4AF37' } },
+                                { value: 282, name: '全唐', itemStyle: { color: '#4A6FA5' } }
+                            ]
+                        }
+                    ]
+                };
+                charts.zhongPoemPercentageChart.setOption(zhongPoemPercentageOption);
+            }
+            
+            // 2. 中唐诗人排名图表
+            if (document.getElementById('zhongTopPoetsChart')) {
+                charts.zhongTopPoetsChart = echarts.init(document.getElementById('zhongTopPoetsChart'));
+                const zhongTopPoetsOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['孟郊', '鮑溶', '韋應物', '李賀', '施肩吾'],
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '出现次数',
+                            type: 'bar',
+                            data: [4,4,6,6,6,9],
+                            itemStyle: {
+                                color: function(params) {
+                                    const colors = ['#4A6FA5', '#CC7722', '#3A7D44', '#D4AF37', '#2D2D2D'];
+                                    return colors[params.dataIndex];
+                                },
+                                borderRadius: [0, 8, 8, 0]
+                            },
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{c} 次'
+                            }
+                        }
+                    ]
+                };
+                charts.zhongTopPoetsChart.setOption(zhongTopPoetsOption);
+            }
+            
+            // 3. 中唐仙人排名图表 (基于zhong_immortals.csv)
+            if (document.getElementById('zhongTopImmortalsChart')) {
+                charts.zhongTopImmortalsChart = echarts.init(document.getElementById('zhongTopImmortalsChart'));
+                const zhongTopImmortalsOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['上元夫人', '青童君', '麻姑', '弄玉', '西王母' ],
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '出现次数',
+                            type: 'bar',
+                            data: [2, 2, 3, 5, 16],
+                            itemStyle: {
+                                color: function(params) {
+                                    const colors = ['#D4AF37', '#EC4899', '#3B82F6', '#4A6FA5', '#3A7D44'];
+                                    return colors[params.dataIndex];
+                                },
+                                borderRadius: [0, 8, 8, 0]
+                            },
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{c} 次'
+                            }
+                        }
+                    ]
+                };
+                charts.zhongTopImmortalsChart.setOption(zhongTopImmortalsOption);
+            }
+            
+            // 4. 仙人类型与性别分布图表
+            if (document.getElementById('zhongImmortalTypeGenderChart')) {
+                charts.zhongImmortalTypeGenderChart = echarts.init(document.getElementById('zhongImmortalTypeGenderChart'));
+                const zhongImmortalTypeGenderOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['男性', '女性'],
+                        textStyle: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['凡人成仙者', '個性鮮明的天界眾仙', '類型化仙人'],
+                        axisLabel: {
+                            color: '#2D2D2D',
+                            interval: 0,
+                            rotate: 30
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '男性',
+                            type: 'bar',
+                            data: [17, 4, 4],
+                            itemStyle: { color: '#4A6FA5' }
+                        },
+                        {
+                            name: '女性',
+                            type: 'bar',
+                            data: [3, 4, 11],
+                            itemStyle: { color: '#EC4899' }
+                        }
+                    ]
+                };
+                charts.zhongImmortalTypeGenderChart.setOption(zhongImmortalTypeGenderOption);
+            }
+            
+            // 添加统一的窗口大小调整处理函数，确保只添加一次
+            if (!resizeHandlerAdded) {
+                window.addEventListener('resize', function() {
+                    // 统一处理所有图表的resize
+                    for (const chartId in charts) {
+                        if (charts[chartId] && typeof charts[chartId].resize === 'function') {
+                            charts[chartId].resize();
+                        }
+                    }
+                });
+                resizeHandlerAdded = true;
+            }
+        }
+
+        // 页面加载完成后初始化图表和交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('exhibition_all');
+            initCharts();
+            initTooltipInteractions();
+        });
+    </script>
+</body>
+</html>

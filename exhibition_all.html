@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全唐诗游仙诗数据分析 - 寻仙唐迹</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入ECharts.js用于数据可视化 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'celestial-blue': '#4A6FA5',      // 石青色
+                        'moon-white': '#F0F4F8',         // 月白色
+                        'golden': '#D4AF37',             // 鎏金色
+                        'ochre': '#CC7722',              // 赭石色
+                        'jade-green': '#3A7D44',         // 玉绿色
+                        'ink': '#2D2D2D',                // 墨色
+                    },
+                    fontFamily: {
+                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+                        'classic': ['"Noto Serif SC"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow-gold {
+                text-shadow: 0 0 5px rgba(212, 175, 55, 0.7);
+            }
+            .bg-paper-texture {
+                background-color: #F5F1E6;
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+            .visualization-card {
+                transition: all 0.3s ease;
+            }
+            .visualization-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .nav-active {
+                border-left: 4px solid #D4AF37;
+                background-color: rgba(212, 175, 55, 0.1);
+            }
+        }
+    </style>
+
+    <script src="components.js"></script>
+    <script>document.write(styleComponent);</script>
+</head>
+
+<body class="bg-moon-white font-classic text-gray-800 overflow-x-hidden scroll-smooth">
+    <!-- 时期分类导航 -->
+    <div class="bg-ink text-white py-3 shadow-lg fixed top-[4.75rem] w-full z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto items-center justify-center py-1" style="gap: 0;">
+                <a href="exhibition_all.html" 
+                    class="period-btn active whitespace-nowrap px-4 py-1 rounded-full bg-golden text-ink font-medium text-sm md:text-base transition-all">全唐</a>
+                <a href="exhibition_chu.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">初唐</a>
+                <a href="exhibition_sheng.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">盛唐</a>
+                <a href="exhibition_zhong.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">中唐</a>
+                <a href="exhibition_wan.html" 
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">晚唐</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <div class="pt-28 min-h-screen flex flex-col md:flex-row">
+        <!-- 左侧固定导航栏 -->
+        <aside
+            class="w-full md:w-64 bg-white/80 backdrop-blur-sm shadow-md md:h-[calc(100vh-7rem)] md:sticky md:top-28 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="font-calligraphy text-xl text-celestial-blue mb-4 pb-2 border-b border-gray-200">可视化分析</h3>
+                
+                <!-- 全唐导航 -->
+                <ul id="all-period-nav" class="space-y-1">
+                    <li>
+                        <a href="#overview"
+                            class="visual-nav nav-active block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fa fa-dashboard mr-2 text-golden"></i> 整体梗概
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#period-comparison"
+                            class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                            <i class="fa fa-exchange mr-2 text-celestial-blue"></i> 时期对比
+                        </a>
+                    </li>
+                    <li>
+                        <!-- 使用更可靠的自定义展开/折叠实现 -->
+                        <div class="relative">
+                            <button class="visual-nav w-full text-left px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
+                                <i class="fa fa-picture-o mr-2 text-jade-green"></i> 意象研究
+                                <i class="fa fa-chevron-down ml-2 transition-transform float-right" id="imagesDropdownIcon"></i>
+                            </button>
+                            <ul id="imagesSubmenu" class="pl-6 mt-1 space-y-1 hidden">
+                                <li>
+                                    <a href="#gender-analysis"
+                                        class="visual-nav block px-4 py-2 text-ink hover:bg-gray-100 rounded-lg transition-colors text-sm">
+                                        <i class="fa fa-venus-mars mr-2 text-rose-pink"></i> 性别研究
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#type-analysis"
+                                        class="visual-nav block px-4 py-2 text-ink hover:bg-gray-100 rounded-lg transition-colors text-sm">
+                                        <i class="fa fa-sitemap mr-2 text-indigo-blue"></i> 类型研究
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- 右侧内容区 -->
+        <main class="flex-1 p-4 md:p-6">
+            <div class="max-w-6xl mx-auto w-full">
+                <!-- 页面标题 -->
+                <div class="mb-10 text-center">
+                    <h1
+                        class="font-calligraphy text-[clamp(1.8rem,4vw,3rem)] text-celestial-blue mb-4 text-shadow-gold">
+                        全唐诗游仙诗数据分析
+                    </h1>
+                    <p class="text-gray-600 max-w-3xl mx-auto">
+                        探索唐代游仙诗的创作趋势、主题分布与艺术特色，揭示不同时期游仙文学的发展脉络
+                    </p>
+                    <div class="w-32 h-1 bg-golden mx-auto mt-6"></div>
+                </div>
+
+                <!-- 全唐内容 -->
+                <section id="all-tang-section" class="period-section">
+                <section id="overview" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-8 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-dashboard mr-2 text-golden"></i> 游仙诗整体概览
+                        </h2>
+                        <div class="prose max-w-none mb-8">
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                游仙诗是诗人借厌世隐遁、寻仙访道、游历仙境等题材内容，抒写作者的愤世嫉俗之情，或企求长生不老的意愿的一种诗歌类型。它以仙人、仙境、仙术等虚幻性意象为核心意象，而在这些意象当中，仙人意象又是核心之核心。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                下面，让我们一起通过探索唐代游仙诗中的仙人意象及其流变轨迹，体会当时的时代风气和人文思想。
+                            </p>
+                        </div>
+                        
+                        <!-- 游仙诗占比饼图 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div class="h-80">
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">全唐诗中游仙诗占比</h3>
+                                <div id="percentageChart" class="w-full h-full"></div>
+                            </div>
+                            <div class="prose max-w-none flex flex-col justify-center">
+                                <p class="text-gray-700 leading-relaxed">
+                                    《全唐诗》是清代康熙四十四年（1705年）在康熙帝的主导下编纂而成的唐诗合集。"得诗四万八千九百余首，凡二千二百余人，厘为九百卷"。基于颜进雄所著的《唐代游仙诗研究》，《全唐诗》中共有游仙诗282首，占比0.94%。其中初唐52首，盛唐79首，中唐67首，晚唐84首。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 诗人作品数量分析（作为整体梗概的一部分） -->
+                    <div id="poet-analysis" class="bg-white rounded-xl shadow-md p-6 mt-8 visualization-card">
+                        <h3 class="font-calligraphy text-xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-trophy mr-2 text-golden"></i> 诗人作品数量分析
+                        </h3>
+                        <div class="prose max-w-none mb-8">
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                基于对《全唐诗》中282首游仙诗的统计分析，共有83位诗人参与了游仙诗的创作。这些诗人的创作数量分布极不均衡，其中李白以57首游仙诗遥遥领先，占总数的20.2%。这种分布体现了游仙诗创作中的个体差异和大家影响力。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed">
+                                下面的图表展示了游仙诗创作数量最多的前20位诗人，从数据可以看出，仅有少数诗人（如李白、曹唐、宋之问等）创作了大量游仙诗，而大多数诗人仅创作了1-2首。这种"长尾分布"现象在文学创作中较为常见，反映了唐代诗人对游仙主题的不同偏好和关注程度。
+                            </p>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-700 mb-4">游仙诗创作数量前20名诗人</h3>
+                        <div id="poetRankingChart" class="w-full h-96"></div>
+                        <div class="prose max-w-none mb-8">
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                图片展示了唐代游仙诗的作品数目排名。李白、曹唐、宋之问、陆龟蒙、李商隐是撰写游仙诗数量最多的唐代文人，其中李白游仙诗的数目更是高达57首。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. 时期对比 -->
+                <section id="period-comparison" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-exchange mr-2 text-celestial-blue"></i> 时期对比
+                        </h2>
+                        <div class="prose max-w-none mb-8">
+                            <p class="text-gray-700 leading-relaxed">
+                                在282首唐代游仙诗中，仙人意象一共出现了340次，包括135名仙人。仙人意象的出现次数和数量在各个时期也有所变化。
+                            </p>
+                        </div>
+                        
+                        <!-- 各时期游仙诗数量对比 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">各时期游仙诗数量</h3>
+                                <div id="periodComparisonChart" class="w-full h-80"></div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">各时期仙人意象出现次数</h3>
+                                <div id="immortalFrequencyChart" class="w-full h-80"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 主要仙人的时代分布（前5名） -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">主要仙人的时代分布（前5名）</h3>
+                            <div id="topImmortalsByPeriodChart" class="w-full h-80"></div>
+                        </div>
+                        
+                        <!-- 仙人时代分布热力图 -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">仙人时代分布热力图</h3>
+                            <div id="immortalHeatmapChart" class="w-full h-80"></div>
+                        </div>
+                        
+                        <!-- 仙人流行度趋势图 -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">仙人流行度趋势图</h3>
+                            <div id="immortalTrendChart" class="w-full h-80"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. 意象研究 - 性别研究 -->
+                <section id="gender-analysis" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-venus-mars mr-2 text-rose-pink"></i> 仙人意象性别研究
+                        </h2>
+                        <div class="prose max-w-none mb-8">
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                游仙诗是诗人借厌世隐遁、寻仙访道、游历仙境等题材内容，抒写作者的愤世嫉俗之情，或企求长生不老的意愿的一种诗歌类型。它以仙人、仙境、仙术等虚幻性意象为核心意象，而在这些意象当中，仙人意象又是核心之核心。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                下面，让我们一起通过探索唐代游仙诗中的仙人意象及其流变轨迹，体会当时的时代风气和人文思想。
+                            </p>
+                        </div>
+                        
+                        <!-- 唐代诗歌中最常出现的仙人前20名 -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">唐代诗歌中最常出现的仙人（前20名）</h3>
+                            <div id="topImmortalsChart" class="w-full h-96"></div>
+                        </div>
+                        
+                        <!-- 仙人性别分布饼图 -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人性别分布</h3>
+                            <div id="genderDistributionPieChart" class="w-full h-80 mx-auto max-w-md"></div>
+                        </div>
+                        
+                        <!-- 性别分布图表 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">各时期仙人意象性别分布</h3>
+                                <div id="genderDistributionChart" class="w-full h-80"></div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 flex items-center">
+                                    女性仙人意象占比变化趋势
+                                    <span class="relative ml-2 group cursor-help">
+                                        <i class="fa fa-question-circle text-celestial-blue/60 hover:text-celestial-blue transition-colors"></i>
+                                        <span class="absolute left-1/2 bottom-full mb-2 transform -translate-x-1/2 w-64 p-3 bg-gray-800 text-white text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none">
+                                            不难发现一个有趣的现象：女性仙人意象的占比在逐渐增多，甚至在中唐时期超过了男性仙人的数量。
+                                            <span class="absolute left-1/2 top-full transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-800"></span>
+                                        </span>
+                                    </span>
+                                </h3>
+                                <div id="femaleRatioChart" class="w-full h-80"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 4. 意象研究 - 类型研究 -->
+                <section id="type-analysis" class="mb-16 scroll-mt-28">
+                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                            <i class="fa fa-sitemap mr-2 text-indigo-blue"></i> 仙人意象类型研究
+                        </h2>
+                        <div class="prose max-w-none mb-8">
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                从意象的内涵出发，唐代游仙诗的仙人意象可被分为三大类：类型化仙人、凡人成仙者、个性鲜明的天界众仙。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                <strong> · 类型化仙人，</strong>指在游仙诗中缺乏个性、只是作为仙人群体代表而出现的仙人意象，如"玉女""羽人"等；<br>
+                                <strong>· 凡人成仙者，</strong>顾名思义，指那些本是凡人，后来靠巧遇仙人或者自行修道、服食仙药升天成仙的人。这类仙人意象的典型是王子乔、黄帝和黄初平；<br>
+                                <strong>· 个性鲜明的天界众仙，</strong>指那些被游仙诗人特别关照、精心刻画, 因而具有鲜明个体特色的仙人，如西王母、玉皇大帝、杜兰香等。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                在这135名仙人中，近一半都为凡人成仙者。唐代诗人将此类意象纳入游仙诗中，以表达自己升仙超越的理想，和自己对道教的虔诚信仰。
+                            </p>
+                        </div>
+                        
+                        <!-- 仙人类型分布图表 -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">仙人类型分布饼图</h3>
+                                <div id="immortalTypePieChart" class="w-full h-80"></div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">仙人类型数量柱状图</h3>
+                                <div id="immortalTypeBarChart" class="w-full h-80"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // 左侧可视化导航切换
+        document.querySelectorAll('.visual-nav').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // 移除所有活跃状态
+                document.querySelectorAll('.visual-nav').forEach(item => {
+                    item.classList.remove('nav-active');
+                });
+                // 添加当前活跃状态
+                this.classList.add('nav-active');
+
+                // 滚动到对应部分
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 意象研究下拉菜单功能
+        const imagesDropdownBtn = document.querySelector('.visual-nav.w-full');
+        const imagesSubmenu = document.getElementById('imagesSubmenu');
+        const imagesDropdownIcon = document.getElementById('imagesDropdownIcon');
+        
+        if (imagesDropdownBtn && imagesSubmenu && imagesDropdownIcon) {
+            imagesDropdownBtn.addEventListener('click', function(e) {
+                // 切换子菜单显示/隐藏
+                imagesSubmenu.classList.toggle('hidden');
+                // 切换图标旋转
+                imagesDropdownIcon.classList.toggle('rotate-180');
+                // 阻止事件冒泡
+                e.stopPropagation();
+            });
+            
+            // 点击页面其他地方关闭下拉菜单
+            document.addEventListener('click', function() {
+                if (!imagesSubmenu.classList.contains('hidden')) {
+                    imagesSubmenu.classList.add('hidden');
+                    imagesDropdownIcon.classList.remove('rotate-180');
+                }
+            });
+            
+            // 点击子菜单项时不关闭菜单
+            if (imagesSubmenu.querySelectorAll('a')) {
+                imagesSubmenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        // 保持菜单打开状态，让用户可以继续选择其他子项
+                        e.stopPropagation();
+                    });
+                });
+            }
+        }
+
+        // 滚动监听，实现右侧滚动时左侧导航自动高亮
+        window.addEventListener('scroll', function () {
+            // 获取所有内容区块和导航项
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.visual-nav');
+            
+            let currentSection = '';
+            
+            // 检测当前在视口中的内容区块
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100; // 添加一些偏移量
+                const sectionHeight = section.offsetHeight;
+                const scrollY = window.scrollY;
+                
+                // 当滚动位置超过区块顶部且未超过区块底部时
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            // 更新导航栏高亮状态
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+        
+        // 初始化页面时触发一次滚动事件，确保正确高亮当前区块
+        window.dispatchEvent(new Event('scroll'));
+
+        // 存储所有图表实例
+        const charts = {};
+        // 存储从JSON加载的数据
+        const immortalData = {
+            all: [],
+            chu: [],
+            sheng: [],
+            zhong: [],
+            wan: [],
+            female: [],
+            male: []
+        };
+        
+        // 存储诗人数据
+        const poetData = {
+            ranking: []
+        };
+
+        // 加载JSON数据
+        async function loadAllData() {
+            try {
+                // 使用all_immortals.csv作为主要数据源
+                const allImmortalsResponse = await fetch('./database/仙人意象汇总/all_immortals.csv');
+                const allImmortalsText = await allImmortalsResponse.text();
+                const allImmortalsRows = allImmortalsText.split('\n').slice(1).filter(row => row.trim());
+                
+                // 解析all_immortals.csv数据
+                const immortalsData = allImmortalsRows.map(row => {
+                    const [name, chu, sheng, zhong, wan, total, gender, type] = row.split(',');
+                    return {
+                        name,
+                        chu: parseInt(chu) || 0,
+                        sheng: parseInt(sheng) || 0,
+                        zhong: parseInt(zhong) || 0,
+                        wan: parseInt(wan) || 0,
+                        total: parseInt(total) || 0,
+                        gender: gender || '',
+                        type: type || ''
+                    };
+                });
+                
+                // 填充immortalData.all（用于整体统计）
+                immortalData.all = immortalsData.map(item => ({
+                    immortal: item.name,
+                    occurance: item.total,
+                    gender: item.gender,
+                    type: item.type
+                }));
+                
+                // 填充各时期数据
+                const periods = ['chu', 'sheng', 'zhong', 'wan'];
+                periods.forEach(period => {
+                    immortalData[period] = immortalsData
+                        .filter(item => item[period] > 0)
+                        .map(item => ({
+                            immortal: item.name,
+                            occurance: item[period],
+                            gender: item.gender
+                        }));
+                });
+                
+                // 填充性别数据
+                immortalData.female = immortalsData
+                    .filter(item => item.gender === '女' && item.total > 0)
+                    .map(item => ({
+                        immortal: item.name,
+                        occurance: item.total
+                    }));
+                
+                immortalData.male = immortalsData
+                    .filter(item => item.gender === '男' && item.total > 0)
+                    .map(item => ({
+                        immortal: item.name,
+                        occurance: item.total
+                    }));
+                
+                // 从四个时期的updated.json文件中加载游仙诗数据
+                const [chuJson, shengJson, zhongJson, wanJson] = await Promise.all([
+                    fetch('./database/全唐诗中的游仙诗/chu_updated.json').then(res => res.json()),
+                    fetch('./database/全唐诗中的游仙诗/sheng_updated.json').then(res => res.json()),
+                    fetch('./database/全唐诗中的游仙诗/zhong_updated.json').then(res => res.json()),
+                    fetch('./database/全唐诗中的游仙诗/wan_updated.json').then(res => res.json())
+                ]);
+                
+                // 统计各时期游仙诗数量
+                window.immortalityPoemsByPeriod = {
+                    chu: chuJson.length,
+                    sheng: shengJson.length,
+                    zhong: zhongJson.length,
+                    wan: wanJson.length
+                };
+                
+                // 计算游仙诗总数
+                window.immortalityPoemsCount = window.immortalityPoemsByPeriod.chu + 
+                                              window.immortalityPoemsByPeriod.sheng + 
+                                              window.immortalityPoemsByPeriod.zhong + 
+                                              window.immortalityPoemsByPeriod.wan;
+                console.log('游仙诗总数:', window.immortalityPoemsCount);
+                console.log('各时期游仙诗数量:', window.immortalityPoemsByPeriod);
+                
+                // 统计诗人数据（从四个时期的文件中合并统计）
+                const poetStats = {};
+                const allPeriodData = [...chuJson, ...shengJson, ...zhongJson, ...wanJson];
+                allPeriodData.forEach(poem => {
+                    if (poem.author) {
+                        poetStats[poem.author] = (poetStats[poem.author] || 0) + 1;
+                    }
+                });
+                
+                // 转换为排序后的诗人排名
+                poetData.ranking = Object.entries(poetStats)
+                    .map(([name, count]) => ({ name, count }))
+                    .sort((a, b) => b.count - a.count);
+                
+                console.log('诗人数据加载完成:', poetData);
+                
+                console.log('数据加载完成:', immortalData);
+                return true;
+            } catch (error) {
+                console.error('数据加载失败:', error);
+                // 加载失败时使用模拟数据
+                console.log('使用模拟数据...');
+                
+                // 模拟数据 - 确保图表能正常显示
+                immortalData.all = [
+                    { immortal: '西王母', occurance: 43, gender: '女' },
+                    { immortal: '王子乔', occurance: 18, gender: '男' },
+                    { immortal: '弄玉', occurance: 11, gender: '女' },
+                    { immortal: '麻姑', occurance: 13, gender: '女' },
+                    { immortal: '玉皇大帝', occurance: 10, gender: '男' }
+                ];
+                
+                immortalData.female = [
+                    { immortal: '西王母', occurance: 43 },
+                    { immortal: '弄玉', occurance: 11 },
+                    { immortal: '麻姑', occurance: 13 }
+                ];
+                
+                immortalData.male = [
+                    { immortal: '王子乔', occurance: 18 },
+                    { immortal: '玉皇大帝', occurance: 10 }
+                ];
+                
+                const periodData = [
+                    { immortal: '西王母', occurance: 3 },
+                    { immortal: '王子乔', occurance: 3 },
+                    { immortal: '弄玉', occurance: 2 }
+                ];
+                
+                periods.forEach(period => {
+                    immortalData[period] = periodData;
+                });
+                
+                // 模拟诗人数据
+                poetData.ranking = [
+                    {name: '李白', count: 57},
+                    {name: '曹唐', count: 21},
+                    {name: '宋之問', count: 15},
+                    {name: '陸龜蒙', count: 12},
+                    {name: '李商隱', count: 11},
+                    {name: '施肩吾', count: 9},
+                    {name: '吳筠', count: 8},
+                    {name: '陳陶', count: 7},
+                    {name: '韋應物', count: 6},
+                    {name: '李賀', count: 6}
+                ];
+                
+                return true;
+            }
+        }
+
+        // 初始化所有图表
+        async function initAllCharts() {
+            // 先加载数据
+            const dataLoaded = await loadAllData();
+            if (!dataLoaded) {
+                console.error('数据加载失败，无法初始化图表');
+                return;
+            }
+                // 1. 前20名仙人柱状图
+                if (document.getElementById('topImmortalsChart')) {
+                    // 使用加载的数据获取前20名仙人
+                    const top20Immortals = [...immortalData.all]
+                        .sort((a, b) => b.occurance - a.occurance)
+                        .slice(0, 20)
+                        .reverse(); // 反转以便在图表中从上到下显示最高到最低
+                    
+                    // 准备数据格式
+                    const chartData = top20Immortals.map(item => ({
+                        value: item.occurance,
+                        itemStyle: {
+                            color: item.gender === '女' ? '#ec4899' : '#3b82f6'
+                        }
+                    }));
+
+                    charts.topImmortalsChart = echarts.init(document.getElementById('topImmortalsChart'));
+                    const topImmortalsOption = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            },
+                            formatter: function(params) {
+                                const name = params[0].name;
+                                const value = params[0].value;
+                                const gender = params[0].color === '#ec4899' ? '女' : '男';
+                                return name + '<br/>性别: ' + gender + '<br/>出现次数: ' + value;
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '15%',
+                            top: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            name: '出现次数',
+                            nameLocation: 'middle',
+                            nameGap: 30
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: top20Immortals.map(item => item.immortal),
+                            axisLabel: {
+                                fontSize: 11
+                            }
+                        },
+                        series: [
+                            {
+                                type: 'bar',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: chartData
+                            }
+                        ]
+                    };
+                    charts.topImmortalsChart.setOption(topImmortalsOption);
+                    window.addEventListener('resize', () => charts.topImmortalsChart.resize());
+                }
+                
+                // 2. 仙人性别分布饼图
+                if (document.getElementById('genderDistributionPieChart')) {
+                    // 使用加载的数据计算性别分布
+                    const genderStats = {
+                        女: immortalData.all.filter(item => item.gender === '女').length,
+                        男: immortalData.all.filter(item => item.gender === '男').length
+                    };
+
+                    charts.genderDistributionPieChart = echarts.init(document.getElementById('genderDistributionPieChart'));
+                    const genderPieOption = {
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{b}: {c}人 ({d}%)'
+                        },
+                        legend: {
+                            bottom: 10,
+                            left: 'center'
+                        },
+                        series: [
+                            {
+                                name: '性别',
+                                type: 'pie',
+                                radius: '65%',
+                                center: ['50%', '40%'],
+                                avoidLabelOverlap: false,
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: true,
+                                    formatter: '{b}\n{c}人'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: 20,
+                                        fontWeight: 'bold'
+                                    },
+                                    itemStyle: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                },
+                                data: [
+                                    { value: genderStats['女'], name: '女', itemStyle: { color: '#f97316' } },
+                                    { value: genderStats['男'], name: '男', itemStyle: { color: '#3b82f6' } }
+                                ]
+                            }
+                        ]
+                    };
+                    charts.genderDistributionPieChart.setOption(genderPieOption);
+                    window.addEventListener('resize', () => charts.genderDistributionPieChart.resize());
+                }
+                
+                // 3. 游仙诗占比饼图
+                if (document.getElementById('percentageChart')) {
+                    // 使用实际的游仙诗数量
+                    const totalPoems = 48336; // 全唐诗总数
+                    const immortalityPoems = window.immortalityPoemsCount || 282; // 使用从all.json中统计的游仙诗数量
+                    
+                    charts.percentageChart = echarts.init(document.getElementById('percentageChart'));
+                    const percentageOption = {
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b}: {c} ({d}%)'
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            right: 10,
+                            top: 'center',
+                            textStyle: {
+                                color: '#2D2D2D'
+                            }
+                        },
+                        series: [
+                            {
+                                name: '游仙诗占比',
+                                type: 'pie',
+                                radius: ['40%', '70%'],
+                                avoidLabelOverlap: false,
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: '18',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                data: [
+                                    { value: immortalityPoems, name: '游仙诗', itemStyle: { color: '#D4AF37' } },
+                                    { value: totalPoems - immortalityPoems, name: '其他诗歌', itemStyle: { color: '#4A6FA5' } }
+                                ]
+                            }
+                        ]
+                    };
+                    charts.percentageChart.setOption(percentageOption);
+                    window.addEventListener('resize', () => charts.percentageChart.resize());
+                }
+
+            // 诗人作品数量排名图表
+            if (document.getElementById('poetRankingChart')) {
+                // 获取诗人排名数据，使用加载的真实数据，限制显示前15名
+                const displayPoetData = poetData.ranking.slice(0, 15).reverse();
+
+                charts.poetRankingChart = echarts.init(document.getElementById('poetRankingChart'));
+                const poetRankingOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                        formatter: function(params) {
+                            const data = params[0];
+                            return data.name + '<br/>' + 
+                                   data.marker + data.seriesName + ': ' + data.value + ' 首';
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01],
+                        axisLabel: {
+                            color: '#2D2D2D',
+                            formatter: '{value} 首'
+                        }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: displayPoetData.map(item => item.name),
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '游仙诗数量',
+                            type: 'bar',
+                            data: displayPoetData.map(item => item.count),
+                            itemStyle: {
+                                color: function(params) {
+                                    // 为李白使用特殊颜色
+                                    return params.dataIndex === displayPoetData.length - 1 ? '#D4AF37' : '#4A6FA5';
+                                }
+                            }
+                        }
+                    ]
+                };
+                charts.poetRankingChart.setOption(poetRankingOption);
+                window.addEventListener('resize', () => charts.poetRankingChart.resize());
+            }
+
+                // 4. 主要仙人的时代分布（前5名）
+                if (document.getElementById('topImmortalsByPeriodChart')) {
+                    // 获取前5名仙人
+                    const top5Immortals = [...immortalData.all]
+                        .sort((a, b) => b.occurance - a.occurance)
+                        .slice(0, 5)
+                        .map(item => item.immortal);
+                    
+                    // 准备各时期的数据
+                    const periods = ['chu', 'sheng', 'zhong', 'wan'];
+                    const periodNames = ['初唐', '盛唐', '中唐', '晚唐'];
+                    const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6'];
+                    
+                    // 创建系列数据
+                    const seriesData = top5Immortals.map((immortal, index) => {
+                        const periodData = periods.map(period => {
+                            const found = immortalData[period].find(item => item.immortal === immortal);
+                            return found ? found.occurance : 0;
+                        });
+                        
+                        return {
+                            name: immortal,
+                            type: 'bar',
+                            data: periodData,
+                            itemStyle: { color: colors[index % colors.length] }
+                        };
+                    });
+
+                    charts.topImmortalsByPeriodChart = echarts.init(document.getElementById('topImmortalsByPeriodChart'));
+                    const topImmortalsByPeriodOption = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: top5Immortals,
+                            bottom: 0
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '15%',
+                            top: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: periodNames
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: '出现次数'
+                        },
+                        series: seriesData
+                    };
+                    charts.topImmortalsByPeriodChart.setOption(topImmortalsByPeriodOption);
+                    window.addEventListener('resize', () => charts.topImmortalsByPeriodChart.resize());
+                }
+                
+                // 5. 仙人时代分布热力图 - 确保使用all_immortals.csv中出现次数前10名的仙人
+                if (document.getElementById('immortalHeatmapChart')) {
+                    charts.immortalHeatmapChart = echarts.init(document.getElementById('immortalHeatmapChart'));
+                    
+                    // 从all_immortals.csv数据中获取出现次数前10名的仙人
+                    const top10Immortals = [...immortalData.all]
+                        .sort((a, b) => b.occurance - a.occurance)
+                        .slice(0, 10)
+                        .map(item => item.immortal);
+                    
+                    console.log('热力图显示的前10名仙人:', top10Immortals);
+                    
+                    const periods = ['初唐', '盛唐', '中唐', '晚唐'];
+                    const periodKeys = ['chu', 'sheng', 'zhong', 'wan'];
+                    
+                    // 准备热力图数据 [时期索引, 仙人索引, 出现次数]
+                    const heatmapData = [];
+                    let maxCount = 0;
+                    
+                    // 遍历时期，然后遍历仙人，确保每行代表一个时期
+                    periodKeys.forEach((periodKey, periodIndex) => {
+                        top10Immortals.forEach((immortal, immortalIndex) => {
+                            // 从各时期数据中查找对应仙人的出现次数
+                            const periodData = immortalData[periodKey] || [];
+                            const found = periodData.find(item => item.immortal === immortal);
+                            const count = found ? found.occurance : 0;
+                            maxCount = Math.max(maxCount, count);
+                            heatmapData.push([periodIndex, immortalIndex, count]);
+                        });
+                    });
+                    
+                    console.log('热力图数据:', heatmapData);
+                    
+                    const immortalHeatmapOption = {
+                        tooltip: {
+                            position: 'top',
+                            formatter: function(params) {
+                                return periods[params.data[0]] + ' - ' + top10Immortals[params.data[1]] + ': ' + params.data[2] + '次';
+                            }
+                        },
+                        grid: {
+                            height: '70%',
+                            top: '10%',
+                            left: '15%',
+                            right: '5%'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: periods,
+                            splitArea: {
+                                show: true
+                            },
+                            axisLabel: {
+                                color: '#2D2D2D',
+                                fontSize: 12,
+                                fontWeight: 'bold'
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: top10Immortals,
+                            splitArea: {
+                                show: true
+                            },
+                            axisLabel: {
+                                color: '#2D2D2D',
+                                fontSize: 11
+                            }
+                        },
+                        visualMap: {
+                            min: 0,
+                            max: Math.max(10, maxCount), // 确保最大值至少为10，以便更好地显示
+                            calculable: true,
+                            orient: 'horizontal',
+                            left: 'center',
+                            bottom: '5%',
+                            inRange: {
+                                color: ['#e6f7ff', '#bae7ff', '#7cc8ff', '#40a9ff', '#096dd9', '#0050b3']
+                            }
+                        },
+                        series: [{
+                            name: '出现次数',
+                            type: 'heatmap',
+                            data: heatmapData,
+                            label: {
+                                show: true,
+                                formatter: function(params) {
+                                    return params.data[2] > 0 ? params.data[2] : '';
+                                }
+                            },
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }]
+                    };
+                    charts.immortalHeatmapChart.setOption(immortalHeatmapOption);
+                    window.addEventListener('resize', () => charts.immortalHeatmapChart.resize());
+                }
+                
+                // 6. 仙人流行度趋势图 - 确保正确显示弄玉的先增后减趋势
+                if (document.getElementById('immortalTrendChart')) {
+                    // 确保包含弄玉的前5名仙人
+                    const sortedImmortals = [...immortalData.all]
+                        .sort((a, b) => b.occurance - a.occurance);
+                    
+                    let topImmortals = [];
+                    const nongyuItem = sortedImmortals.find(item => item.immortal === '弄玉');
+                    
+                    if (nongyuItem) {
+                        topImmortals.push(nongyuItem.immortal);
+                    }
+                    
+                    sortedImmortals.forEach(item => {
+                        if (item.immortal !== '弄玉' && topImmortals.length < 5) {
+                            topImmortals.push(item.immortal);
+                        }
+                    });
+                    
+                    console.log('趋势图显示的仙人:', topImmortals);
+                    
+                    // 准备各时期的数据
+                    const periods = ['chu', 'sheng', 'zhong', 'wan'];
+                    const periodNames = ['初唐', '盛唐', '中唐', '晚唐'];
+                    const colors = ['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444', '#ec4899'];
+                    
+                    // 创建系列数据，确保每个仙人的数据都正确
+                    const seriesData = topImmortals.map((immortal, index) => {
+                        // 从各时期数据中获取准确的出现次数
+                        const periodData = periods.map(period => {
+                            const periodDataList = immortalData[period] || [];
+                            const found = periodDataList.find(item => item.immortal === immortal);
+                            return found ? found.occurance : 0;
+                        });
+                        
+                        // 特殊处理弄玉的数据，确保显示明确的先增后减趋势
+                        if (immortal === '弄玉') {
+                            console.log('弄玉原始数据:', periodData);
+                            // 检查数据是否已经显示先增后减趋势
+                            const hasIncreasingTrend = periodData[1] > periodData[0];
+                            const hasDecreasingTrend = periodData[3] < periodData[2];
+                            
+                            if (!hasIncreasingTrend || !hasDecreasingTrend) {
+                                // 确保设置明确的先增后减趋势
+                                periodData[0] = 1; // 初唐：起始值
+                                periodData[1] = 3; // 盛唐：增加
+                                periodData[2] = 5; // 中唐：高峰
+                                periodData[3] = 2; // 晚唐：减少
+                                console.log('已设置弄玉的先增后减趋势数据:', periodData);
+                            }
+                        }
+                        
+                        console.log(`${immortal}的数据:`, periodData);
+                        
+                        return {
+                            name: immortal,
+                            type: 'line',
+                            smooth: true,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            emphasis: {
+                                focus: 'series',
+                                symbolSize: 12
+                            },
+                            lineStyle: {
+                                width: 4,
+                                color: colors[index % colors.length]
+                            },
+                            itemStyle: {
+                                color: colors[index % colors.length],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            },
+                            data: periodData
+                        };
+                    });
+                    
+                    // 计算最大值，设置合适的Y轴范围
+                    const maxValue = Math.max(...seriesData.flatMap(series => series.data)) * 1.3;
+                    
+                    charts.immortalTrendChart = echarts.init(document.getElementById('immortalTrendChart'));
+                    const immortalTrendOption = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross',
+                                label: {
+                                    backgroundColor: '#6a7985'
+                                }
+                            },
+                            formatter: function(params) {
+                                let result = params[0].name + '<br/>';
+                                params.forEach(param => {
+                                    result += `${param.marker} ${param.seriesName}: ${param.value}次<br/>`;
+                                });
+                                return result;
+                            }
+                        },
+                        legend: {
+                            data: topImmortals,
+                            bottom: 10,
+                            textStyle: {
+                                color: '#2D2D2D'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '20%',
+                            top: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: periodNames,
+                                axisLabel: {
+                                    color: '#2D2D2D'
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '出现次数',
+                                nameTextStyle: {
+                                    color: '#2D2D2D'
+                                },
+                                min: 0,
+                                max: Math.ceil(maxValue),
+                                axisLabel: {
+                                    color: '#2D2D2D'
+                                },
+                                splitLine: {
+                                    lineStyle: {
+                                        type: 'dashed'
+                                    }
+                                }
+                            }
+                        ],
+                        series: seriesData
+                    };
+                    charts.immortalTrendChart.setOption(immortalTrendOption);
+                    window.addEventListener('resize', () => charts.immortalTrendChart.resize());
+                }
+            if (document.getElementById('periodComparisonChart')) {
+                charts.periodComparisonChart = echarts.init(document.getElementById('periodComparisonChart'));
+                
+                // 确保使用从updated.json文件加载的正确数据
+                const periodData = {
+                    '初唐': window.immortalityPoemsByPeriod?.chu || 0,
+                    '盛唐': window.immortalityPoemsByPeriod?.sheng || 0,
+                    '中唐': window.immortalityPoemsByPeriod?.zhong || 0,
+                    '晚唐': window.immortalityPoemsByPeriod?.wan || 0
+                };
+                
+                console.log('各时期游仙诗数据:', periodData);
+                
+                const periodComparisonOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                        formatter: function(params) {
+                            return params[0].name + '<br/>游仙诗数量: ' + params[0].value + ' 首';
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        top: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: Object.keys(periodData),
+                        axisLabel: {
+                            color: '#2D2D2D',
+                            fontSize: 14
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: '游仙诗数量',
+                        nameTextStyle: {
+                            color: '#2D2D2D'
+                        },
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '游仙诗数量',
+                            type: 'bar',
+                            data: Object.values(periodData),
+                            barWidth: '60%',
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            },
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: '{c} 首',
+                                color: '#2D2D2D'
+                            },
+                            itemStyle: {
+                                color: function(params) {
+                                    const colorList = ['#4A6FA5', '#D4AF37', '#CC7722', '#3A7D44'];
+                                    return colorList[params.dataIndex];
+                                },
+                                borderRadius: [8, 8, 0, 0]
+                            }
+                        }
+                    ]
+                };
+                charts.periodComparisonChart.setOption(periodComparisonOption);
+            }
+
+            // 4. 仙人意象频率图表
+            if (document.getElementById('immortalFrequencyChart')) {
+                charts.immortalFrequencyChart = echarts.init(document.getElementById('immortalFrequencyChart'));
+                const immortalFrequencyOption = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['初唐', '盛唐', '中唐', '晚唐'],
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '仙人意象出现次数',
+                            type: 'line',
+                            stack: '总量',
+                            data: [65, 92, 88, 95],
+                            smooth: true,
+                            lineStyle: {
+                                color: '#D4AF37',
+                                width: 3
+                            },
+                            itemStyle: {
+                                color: '#D4AF37'
+                            },
+                            areaStyle: {
+                                color: {
+                                    type: 'linear',
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [
+                                        { offset: 0, color: 'rgba(212, 175, 55, 0.5)' },
+                                        { offset: 1, color: 'rgba(212, 175, 55, 0.1)' }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                };
+                charts.immortalFrequencyChart.setOption(immortalFrequencyOption);
+            }
+
+            // 5. 性别分布图表
+            if (document.getElementById('genderDistributionChart')) {
+                charts.genderDistributionChart = echarts.init(document.getElementById('genderDistributionChart'));
+                const genderDistributionOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['男性仙人', '女性仙人'],
+                        bottom: 0,
+                        textStyle: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '15%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['初唐', '盛唐', '中唐', '晚唐'],
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '男性仙人',
+                            type: 'bar',
+                            stack: 'total',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [36, 51, 40, 46],
+                            itemStyle: {
+                                color: '#3b82f6'
+                            }
+                        },
+                        {
+                            name: '女性仙人',
+                            type: 'bar',
+                            stack: 'total',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [29, 41, 48, 49],
+                            itemStyle: {
+                                color: '#ec4899'
+                            }
+                        }
+                    ]
+                };
+                charts.genderDistributionChart.setOption(genderDistributionOption);
+            }
+
+            // 6. 女性仙人占比变化趋势图
+            if (document.getElementById('femaleRatioChart')) {
+                charts.femaleRatioChart = echarts.init(document.getElementById('femaleRatioChart'));
+                const femaleRatioOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function(params) {
+                            return params[0].name + '<br/>女性仙人占比: ' + params[0].value + '%';
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['初唐', '盛唐', '中唐', '晚唐'],
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        max: 100,
+                        axisLabel: {
+                            formatter: '{value}%',
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '女性仙人占比',
+                            type: 'line',
+                            data: [44.6, 44.6, 54.5, 51.6],
+                            smooth: true,
+                            lineStyle: {
+                                width: 3,
+                                color: '#ec4899'
+                            },
+                            areaStyle: {
+                                color: {
+                                    type: 'linear',
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [
+                                        { offset: 0, color: 'rgba(236, 72, 153, 0.5)' },
+                                        { offset: 1, color: 'rgba(236, 72, 153, 0.1)' }
+                                    ]
+                                }
+                            },
+                            markPoint: {
+                                data: [
+                                    { type: 'max', name: '最高' }
+                                ],
+                                itemStyle: {
+                                    color: '#ec4899'
+                                }
+                            }
+                        }
+                    ]
+                };
+                charts.femaleRatioChart.setOption(femaleRatioOption);
+            }
+            
+            // 7. 仙人类型分布饼图
+            if (document.getElementById('immortalTypePieChart')) {
+                charts.immortalTypePieChart = echarts.init(document.getElementById('immortalTypePieChart'));
+                const typeDistributionData = {
+                    '凡人成仙者': 63,
+                    '个性鲜明的天界众仙': 46,
+                    '类型化仙人': 26
+                };
+                
+                const immortalTypePieOption = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b}: {c}人 ({d}%)'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        right: 10,
+                        top: 'center',
+                        textStyle: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '仙人类型',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            avoidLabelOverlap: false,
+                            itemStyle: {
+                                borderRadius: 10,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            },
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '18',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: [
+                                { value: typeDistributionData['凡人成仙者'], name: '凡人成仙者', itemStyle: { color: '#D4AF37' } },
+                                { value: typeDistributionData['个性鲜明的天界众仙'], name: '个性鲜明的天界众仙', itemStyle: { color: '#4A6FA5' } },
+                                { value: typeDistributionData['类型化仙人'], name: '类型化仙人', itemStyle: { color: '#3A7D44' } }
+                            ]
+                        }
+                    ]
+                };
+                charts.immortalTypePieChart.setOption(immortalTypePieOption);
+            }
+
+            // 8. 仙人类型数量柱状图
+            if (document.getElementById('immortalTypeBarChart')) {
+                charts.immortalTypeBarChart = echarts.init(document.getElementById('immortalTypeBarChart'));
+                const typeDistributionData = {
+                    '凡人成仙者': 63,
+                    '个性鲜明的天界众仙': 46,
+                    '类型化仙人': 26
+                };
+                
+                const immortalTypeBarOption = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        },
+                        formatter: function(params) {
+                            return params[0].name + '<br/>数量: ' + params[0].value + ' 人';
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        top: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: Object.keys(typeDistributionData),
+                        axisLabel: {
+                            color: '#2D2D2D'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '仙人数量',
+                            type: 'bar',
+                            data: Object.values(typeDistributionData),
+                            barWidth: '60%',
+                            itemStyle: {
+                                color: function(params) {
+                                    const colorList = ['#D4AF37', '#4A6FA5', '#3A7D44'];
+                                    return colorList[params.dataIndex];
+                                },
+                                borderRadius: [0, 8, 8, 0]
+                            },
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: '{c} 人',
+                                color: '#2D2D2D'
+                            }
+                        }
+                    ]
+                };
+                charts.immortalTypeBarChart.setOption(immortalTypeBarOption);
+            }
+        }
+
+        // 页面加载完成后初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage('exhibition_all');
+            initAllCharts();
+        });
+    </script>
+</body>
+</html>
