@@ -78,10 +78,6 @@ trys/
 │
 ├── 📚 文档文件
 │   ├── README.md               # 项目主说明文档
-│   ├── README_API.md           # API配置详细指南
-│   ├── MIGRATION_TO_FLASK.md   # Flask迁移方案
-│   ├── FLASK_IMPLEMENTATION_PLAN.md  # Flask实现计划
-│   ├── MIGRATION_SUMMARY.md    # 迁移总结
 │   └── PROJECT_STRUCTURE.md    # 本文件 - 项目结构说明
 │
 └── 🔧 配置文件
@@ -117,7 +113,6 @@ trys/
 
 #### database/ 目录
 - **仙人意象汇总/**: CSV格式的仙人数据，按朝代分类
-- **全唐诗/**: 完整的全唐诗数据，共900个JSON文件
 - **全唐诗中的游仙诗/**: 筛选出的游仙诗数据，按朝代分类
 
 ### 后端服务
@@ -216,11 +211,7 @@ DeepSeek/豆包API
    - `.env`（包含敏感信息）
    - 日志文件
 
-4. **大文件处理**:
-   - `database/全唐诗/` 包含900个文件，可能较大
-   - 考虑使用Git LFS或单独管理
 
 ---
 
-**最后更新**: 2024年
 

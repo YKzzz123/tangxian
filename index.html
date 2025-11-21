@@ -16,28 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <!-- 配置Tailwind自定义主题 -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'celestial-blue': '#4A6FA5',      // 石青色
-                        'moon-white': '#F0F4F8',         // 月白色
-                        'golden': '#D4AF37',             // 鎏金色
-                        'ochre': '#CC7722',              // 赭石色
-                        'jade-green': '#3A7D44',         // 玉绿色
-                    },
-                    fontFamily: {
-                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
-                        'classic': ['"Noto Serif SC"', 'serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
-    <!-- 引入公共组件和样式 -->
+    <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
     <script src="components.js"></script>
     <script>document.write(styleComponent);</script>
 </head>
@@ -64,13 +43,13 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row justify-center gap-6 mt-8">
-                        <a href="exhibition_all.html"
-                            class="bg-transparent border-2 border-golden text-golden hover:bg-golden/10 py-3 px-8 rounded-full text-lg shadow-md hover:shadow-lg transition-all duration-300 hover-lift">
-                            数字展厅 <i class="fa fa-university ml-2"></i>
-                        </a>
                         <a href="immortals.html"
                             class="bg-celestial-blue/90 hover:bg-celestial-blue text-white py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
                             探索仙镜 <i class="fa fa-compass ml-2"></i>
+                        </a>
+                        <a href="exhibition_all.html"
+                            class="bg-transparent border-2 border-golden text-golden hover:bg-golden/10 py-3 px-8 rounded-full text-lg shadow-md hover:shadow-lg transition-all duration-300 hover-lift">
+                            数字展厅 <i class="fa fa-university ml-2"></i>
                         </a>
                     </div>
 
@@ -147,7 +126,7 @@
                 <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center scroll-reveal">
                     <div
                         class="relative bg-white/80 backdrop-blur-sm px-8 py-10 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 w-full max-w-sm flex flex-col items-center text-center gap-3 group overflow-hidden before:absolute before:inset-[18%] before:rounded-full before:bg-gradient-to-br before:from-golden/20 before:to-celestial-blue/10 before:blur-3xl before:opacity-0 before:transition-all before:duration-500 before:content-[''] group-hover:before:opacity-70">
-                        <div class="relative z-10 text-5xl font-bold text-celestial-blue tracking-wide transition-transform duration-500 group-hover:scale-110">120+</div>
+                        <div class="relative z-10 text-5xl font-bold text-celestial-blue tracking-wide transition-transform duration-500 group-hover:scale-110">80+</div>
                         <div class="relative z-10 text-gray-600 text-lg">唐代诗人</div>
                     </div>
                     <div
@@ -179,7 +158,7 @@
 
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- 仙镜图谱预览 -->
-                    <a href="exhibition_all.html" class="scroll-reveal group">
+                    <a href="immortals.html" class="scroll-reveal group">
                         <div
                             class="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full">
                             <div class="relative h-60 overflow-hidden">
@@ -231,7 +210,7 @@
                     </a>
 
                     <!-- 仙卷创作预览 -->
-                    <a href="#" class="scroll-reveal group">
+                    <a href="create.html" class="scroll-reveal group">
                         <div
                             class="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full">
                             <div class="relative h-60 overflow-hidden">
@@ -246,7 +225,7 @@
                             </div>
                             <div class="p-6">
                                 <p class="text-gray-600 text-sm mb-4">
-                                    选择你喜爱的仙人形象、仙境场景和意象符号，生成属于自己的唐代风格游仙诗卷。
+                                    完成唐朝游仙志测试找到与你气质契合的诗人，选择喜爱的仙人意象和仙境场景，生成属于自己的“唐代游仙诗”。
                                 </p>
                                 <div
                                     class="flex items-center text-golden hover:text-celestial-blue transition-colors text-sm">

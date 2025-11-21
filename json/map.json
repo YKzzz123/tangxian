@@ -1,0 +1,269 @@
+[
+  {
+    "name": "昆仑山",
+    "category": "核心仙山",
+    "latitude": 36.0,
+    "longitude": 80.0,
+    "immortals": "西王母、上元夫人、玉女、青童君、赤松子、董雙成、絳闕夫人、九天真妃、西城王君、西方皓灵皇老天君、西妃、玉晨君、紫陽宮女、黃帝、東王公、木公",
+    "introduction": "上古核心仙境，多位高阶仙人居所，与瑶池紧密关联",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#8B4513",
+      "size": 30,
+      "icon": "images/map/core_mount.png"
+    }
+  },
+  {
+    "name": "蓬莱山",
+    "category": "核心仙山",
+    "latitude": 37.8,
+    "longitude": 120.7,
+    "immortals": "安期生、麻姑、東方朔、羽人、东华帝君、徐福、韓終、韓眾、羨門子、呂洞賓、鐘離權、王方平",
+    "introduction": "东海著名仙山群，是求仙问道的核心目的地",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#8B4513",
+      "size": 30,
+      "icon": "images/map/core_mount.png"
+    }
+  },
+  {
+    "name": "茅山",
+    "category": "核心仙山",
+    "latitude": 31.9,
+    "longitude": 119.5,
+    "immortals": "三茅真君、茅盈、清虛真人",
+    "introduction": "道教重要道场，因三茅真君在此修行而得名",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#8B4513",
+      "size": 30,
+      "icon": "images/map/core_mount.png"
+    }
+  },
+  {
+    "name": "武夷山",
+    "category": "核心仙山",
+    "latitude": 27.7,
+    "longitude": 118.0,
+    "immortals": "黄初平、彭祖、金骨仙",
+    "introduction": "道教三十六洞天之一，黄大仙显化核心地",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#8B4513",
+      "size": 30,
+      "icon": "images/map/core_mount.png"
+    }
+  },
+  {
+    "name": "罗浮山",
+    "category": "核心仙山",
+    "latitude": 23.2,
+    "longitude": 114.0,
+    "immortals": "安期生、紫陽真人、魏伯陽、白石先生、金骨仙、羅公遠",
+    "introduction": "道教第七洞天，多位仙人隐居修炼之地",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#8B4513",
+      "size": 30,
+      "icon": "images/map/core_mount.png"
+    }
+  },
+  {
+    "name": "终南山",
+    "category": "核心仙山",
+    "latitude": 34.0,
+    "longitude": 108.9,
+    "immortals": "王子喬、浮丘公、劉根、李騰空、廣成子、太上老君、七真、毛女、王烈、雲英",
+    "introduction": "中原地区修仙圣地，儒释道文化交融之地",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#8B4513",
+      "size": 30,
+      "icon": "images/map/core_mount.png"
+    }
+  },
+  {
+    "name": "凌霄宝殿",
+    "category": "天界仙境",
+    "latitude": 35.0,
+    "longitude": 105.0,
+    "immortals": "玉皇大帝、太白金星、三官大帝、六丁、上陽君、無央公子、太一元君、太乙救苦天尊、紫府仙人、東妃、杜蘭香、宓妃、明星玉女、衛叔卿、魏夫人、蘇仙君、太一神",
+    "introduction": "天界核心行政与居住区域，众神汇聚之地",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#FFD700",
+      "size": 30,
+      "icon": "images/map/sky.png"
+    }
+  },
+  {
+    "name": "瑶池",
+    "category": "天界仙境",
+    "latitude": 36.2,
+    "longitude": 80.2,
+    "immortals": "西王母、上元夫人、玉女、許飛瓊、董雙成、玉妃、西妃",
+    "introduction": "西王母宴请众仙的重要场所，仙气充盈",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#FFD700",
+      "size": 30,
+      "icon": "images/map/sky.png"
+    }
+  },
+  {
+    "name": "天河（银河）",
+    "category": "天界仙境",
+    "latitude": 35.0,
+    "longitude": 105.0,
+    "immortals": "织女、牵牛",
+    "introduction": "与天体关联的特殊天界区域，承载经典神话",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#FFD700",
+      "size": 30,
+      "icon": "images/map/sky.png"
+    }
+  },
+  {
+    "name": "三清境",
+    "category": "天界仙境",
+    "latitude": 36.0,
+    "longitude": 106.0,
+    "immortals": "玉清元始天尊、太上老君、三清",
+    "introduction": "道教最高神尊居所，分为玉清、上清、太清三境",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#FFD700",
+      "size": 30,
+      "icon": "images/map/sky.png"
+    }
+  },
+  {
+    "name": "紫微宫",
+    "category": "天界仙境",
+    "latitude": 35.8,
+    "longitude": 105.2,
+    "immortals": "紫微北極大帝",
+    "introduction": "对应北极星，掌管天界星象秩序",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#FFD700",
+      "size": 30,
+      "icon": "images/map/sky.png"
+    }
+  },
+  {
+    "name": "月宫",
+    "category": "天界仙境",
+    "latitude": 35.0,
+    "longitude": 105.0,
+    "immortals": "嫦娥、青女、仙娥",
+    "introduction": "与天体关联的特殊天界区域，承载经典神话",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#FFD700",
+      "size": 30,
+      "icon": "images/map/sky.png"
+    }
+  },
+  {
+      "name": "崆峒山/扶桑",
+      "category": "山川秘境",
+      "latitude": 35.6,
+      "longitude": 106.6,
+      "immortals": "廣成子、黃帝、羲和、扶桑大帝",
+      "introduction": "上古神话核心关联地，分别对应传道与太阳崇拜",
+      "poem": "暂无相关诗句",
+      "style": {
+        "color": "#32CD32",
+        "size": 30,
+        "icon": "images/map/green_mount.png"
+    }
+  },
+  {
+    "name": "巫山",
+    "category": "山川秘境",
+    "latitude": 30.8,
+    "longitude": 109.8,
+    "immortals": "瑤姬、巫山神女、雷公、子安",
+    "introduction": "与自然山水融合的仙境，承载巫山云雨神话",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#696969",
+      "size": 30,
+      "icon": "images/map/green_mount.png"
+    }
+  },
+  {
+    "name": "洞庭湖",
+    "category": "水域秘境",
+    "latitude": 29.0,
+    "longitude": 112.9,
+    "immortals": "江妃二女、琴高、包山神、布龍兒、子明、鳧伯",
+    "introduction": "南方水域仙境，多与水神、湘妃等传说相关",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#1E90FF",
+      "size": 30,
+      "icon": "images/map/sea.png"
+    }
+  },
+  {
+    "name": "东海/北海",
+    "category": "水域秘境",
+    "latitude": 35,
+    "longitude": 122,
+    "immortals": "馮夷、禺強、貝宮夫人、靈威丈人、盧敖、黃公、龍伯",
+    "introduction": "海上与北方极地仙境，多为海神、北方神居住",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#1E90FF",
+      "size": 30,
+      "icon": "images/map/sea.png"
+    }
+  },
+  {
+    "name": "黄河/洛水",
+    "category": "水域秘境",
+    "latitude": 34.8,
+    "longitude": 113.6,
+    "immortals": "馮夷、宓妃、河上公",
+    "introduction": "中原母亲河关联仙境，承载人文神话",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#1E90FF",
+      "size": 30,
+      "icon": "images/map/sea.png"
+    }
+  },
+  {
+    "name": "青城山",
+    "category": "道教圣地",
+    "latitude": 30.9,
+    "longitude": 103.6,
+    "immortals": "張道陵、甯封子、李八伯、羅公遠、紫陽真人",
+    "introduction": "道教发源地与重要祖庭，修仙文化底蕴深厚",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#32CD32",
+      "size": 30,
+      "icon": "images/map/dao_mount.png"
+    }
+  },
+  {
+    "name": "天台山大洞",
+    "category": "道教圣地",
+    "latitude": 29.1,
+    "longitude": 121.0,
+    "immortals": "劉晨、阮肇、萼綠華、洞靈真人、劉綱",
+    "introduction": "道教洞天福地，是凡人遇仙的经典场景地",
+    "poem": "暂无相关诗句",
+    "style": {
+      "color": "#696969",
+      "size": 30,
+      "icon": "images/map/dao_mount.png"
+    }
+  }
+]
+

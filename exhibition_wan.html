@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>晚唐诗游仙诗数据分析 - 寻仙唐迹</title>
+    <title>晚唐游仙诗——霞光万丈，熠熠生辉</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./images/logo.png">
     <link rel="apple-touch-icon" href="./images/logo.png">
@@ -14,29 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+        rel="stylesheet">
 
-    <!-- 配置Tailwind自定义主题 -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'celestial-blue': '#4A6FA5',      // 石青色
-                        'moon-white': '#F0F4F8',         // 月白色
-                        'golden': '#D4AF37',             // 鎏金色
-                        'ochre': '#CC7722',              // 赭石色
-                        'jade-green': '#3A7D44',         // 玉绿色
-                        'ink': '#2D2D2D',                // 墨色
-                    },
-                    fontFamily: {
-                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
-                        'classic': ['"Noto Serif SC"', 'serif'],
-                    },
-                }
-            }
-        }
-    </script>
 
     <style type="text/tailwindcss">
         @layer utilities {
@@ -73,15 +53,15 @@
     <div class="bg-ink text-white py-3 shadow-lg fixed top-[4.75rem] w-full z-40">
         <div class="container mx-auto px-4">
             <div class="flex overflow-x-auto items-center justify-center py-1" style="gap: 0;">
-                <a href="exhibition_all.html" 
+                <a href="exhibition_all.html"
                     class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">全唐</a>
-                <a href="exhibition_chu.html" 
+                <a href="exhibition_chu.html"
                     class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">初唐</a>
-                <a href="exhibition_sheng.html" 
+                <a href="exhibition_sheng.html"
                     class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">盛唐</a>
-                <a href="exhibition_zhong.html" 
+                <a href="exhibition_zhong.html"
                     class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">中唐</a>
-                <a href="exhibition_wan.html" 
+                <a href="exhibition_wan.html"
                     class="period-btn active whitespace-nowrap px-4 py-1 rounded-full bg-golden text-ink font-medium text-sm md:text-base transition-all">晚唐</a>
             </div>
         </div>
@@ -94,7 +74,7 @@
             class="w-full md:w-64 bg-white/80 backdrop-blur-sm shadow-md md:h-[calc(100vh-7rem)] md:sticky md:top-28 overflow-y-auto">
             <div class="p-6">
                 <h3 class="font-calligraphy text-xl text-celestial-blue mb-4 pb-2 border-b border-gray-200">可视化分析</h3>
-                
+
                 <!-- 朝代导航 -->
                 <ul id="period-nav" class="space-y-1">
                     <li>
@@ -118,13 +98,13 @@
                     <li>
                         <a href="#image-analysis"
                             class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要意象分析
+                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要仙人意象来源
                         </a>
                     </li>
                 </ul>
             </div>
         </aside>
-        
+
         <!-- 右侧内容区 -->
         <main class="flex-1 p-4 md:p-6">
             <div class="max-w-6xl mx-auto w-full">
@@ -132,301 +112,260 @@
                 <div class="mb-10 text-center">
                     <h1
                         class="font-calligraphy text-[clamp(1.8rem,4vw,3rem)] text-celestial-blue mb-4 text-shadow-gold">
-                        晚唐诗游仙诗数据分析
+                        晚唐游仙诗——霞光万丈，熠熠生辉
                     </h1>
                     <p class="text-gray-600 max-w-3xl mx-auto">
-                        探索晚唐时期游仙诗的创作特点、主题分布与艺术特色，揭示这一时期游仙文学的独特风貌
+                        探索晚唐时期游仙诗的创作特点、主题分布与艺术特色，揭示这一时期游仙诗的独特风貌
                     </p>
                     <div class="w-32 h-1 bg-golden mx-auto mt-6"></div>
                 </div>
 
                 <!-- 晚唐内容 -->
                 <section id="late-tang-section" class="period-section">
-                <!-- 1. 整体梗概 -->
-                <section id="overview" class="mb-16 scroll-mt-28">
-                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
-                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                            <i class="fa fa-info-circle mr-2 text-golden"></i> 整体梗概
-                        </h2>
-                        
-                        <!-- 历史背景使用古朴底色背景 -->
-                        <div class="mb-6">
-                            <div class="bg-paper-texture p-5 rounded-lg">
-                                <h3 class="text-lg font-medium text-gray-700 mb-3 flex items-center">
-                                    <i class="fa fa-history mr-2 text-golden"></i> 历史背景
-                                </h3>
-                                <p class="text-gray-700 leading-relaxed">
-                                    晚唐时期（836-907年），黄巢之乱的烽火与藩镇割据的铁蹄，彻底击碎了唐王朝最后的中兴幻梦，将社会拖入分崩离析的末世图景。政治的腐朽、民生的凋敝与王朝倾覆的阴影，共同酿成了晚唐文人的精神苦酒。
+                    <!-- 1. 整体梗概 -->
+                    <section id="overview" class="mb-16 scroll-mt-28">
+                        <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                            <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                                <i class="fa fa-info-circle mr-2 text-golden"></i> 整体梗概
+                            </h2>
+
+                            <!-- 历史背景使用古朴底色背景 -->
+                            <div class="mb-6">
+                                <div class="bg-paper-texture p-5 rounded-lg">
+                                    <h3 class="text-lg font-medium text-gray-700 mb-3 flex items-center">
+                                        <i class="fa fa-history mr-2 text-golden"></i> 历史背景
+                                    </h3>
+                                    <p class="text-gray-700 leading-relaxed">
+                                        晚唐时期（836-907年），黄巢之乱的烽火与藩镇割据的铁蹄，彻底击碎了唐王朝最后的中兴幻梦，将社会拖入分崩离析的末世图景。政治的腐朽、民生的凋敝与王朝倾覆的阴影，共同酿成了晚唐文人的精神苦酒。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="prose max-w-none">
+                                <p class="text-gray-700 leading-relaxed mb-4">
+                                    黄巢之乱的烽火与藩镇割据的铁蹄，彻底击碎了唐王朝最后的中兴幻梦，将社会拖入分崩离析的末世图景。政治的腐朽、民生的凋敝与王朝倾覆的阴影，共同酿成了晚唐文人的精神苦酒——盛唐的昂扬自信早已消磨殆尽，中唐的惶惑焦虑沉淀为更深沉的幻灭感与无力感。
                                 </p>
+                                <p class="text-gray-700 leading-relaxed mb-4">
+                                    道教作为贯穿唐代的精神脉络，在此时完成了与文人心态的终极契合：文人不再借仙话寄托入世理想，也不再仅以仙人意象安顿心灵，而是将道教神仙世界转化为观照现实、宣泄悲苦、叩问命运的镜像。这种时代精神的嬗变，使晚唐游仙诗形成“以仙写悲、以幻喻实”的独特风貌：仙人意象彻底褪去神圣光环，或承载爱情幻灭的哀痛，或象征避世无门的无奈，或成为批判现实的载体。
+                                </p>
+                                <p class="text-gray-700 leading-relaxed mb-4">
+                                    在晚唐繁复的仙人意象谱系中，“萧史”“安期生”与“玉皇大帝”构成极具代表性的三重维度——他们分别对应着文人对情感归宿的怅惘、对个体出路的求索与对天命秩序的质疑，既是晚唐社会心理的浓缩写照，也见证了唐代游仙诗从浪漫超越向现实悲歌的最终转向。
+                                </p>
+                                <!-- 右下角特征悬停 -->
+                                <div class="flex justify-end items-center">
+                                    <div class="tooltip-trigger relative cursor-help inline-flex items-center">
+                                        <span class="text-xs text-gray-600 mr-1">特征</span>
+                                        <i class="fa fa-question-circle text-golden text-xl"></i>
+                                        <span
+                                            class="tooltip-content absolute hidden right-full mr-2 top-1/2 transform -translate-y-1/2 bg-celestial-blue text-white p-4 rounded-lg shadow-lg w-64 z-10">
+                                            <ul class="space-y-2">
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                    <span>末世情怀与幻灭感的集中体现</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                    <span>以仙写悲、以幻喻实的象征体系</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                    <span>神仙意象的世俗化与悲剧性转向</span>
+                                                </li>
+                                                <li class="flex items-start">
+                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                    <span>对天命秩序的质疑与个体命运的叩问</span>
+                                                </li>
+                                            </ul>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="prose max-w-none">
+                    </section>
+
+                    <!-- 2. 代表性诗歌 -->
+                    <section id="representative-poems" class="mb-16 scroll-mt-28">
+                        <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                            <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                                <i class="fa fa-book mr-2 text-celestial-blue"></i> 代表性诗歌
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- 诗歌卡片 1 -->
+                                <div
+                                    class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
+                                    <h3 class="text-lg font-medium text-celestial-blue mb-2 text-center">《重过圣女祠》</h3>
+                                    <p class="text-sm text-gray-500 mb-4 text-center">李商隐</p>
+                                    <div class="poem-content text-gray-700 leading-relaxed">
+                                        <p class="mb-2 text-center">白石岩扉碧藓滋，上清沦谪得归迟。</p>
+                                        <p class="mb-2 text-center">一春梦雨常飘瓦，尽日灵风不满旗。</p>
+                                        <p class="mb-2 text-center">萼绿华来无定所，杜兰香去未移时。</p>
+                                        <p class="mb-2 text-center">玉郎会此通仙籍，忆向天阶问紫芝。</p>
+                                    </div>
+                                </div>
+
+                                <!-- 诗歌卡片 2 -->
+                                <div
+                                    class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
+                                    <h3 class="text-lg font-medium text-celestial-blue mb-2 text-center">《小游仙诗九十八首》（节选）
+                                    </h3>
+                                    <p class="text-sm text-gray-500 mb-4 text-center">曹唐</p>
+                                    <div class="poem-content text-gray-700 leading-relaxed">
+                                        <p class="mb-2 text-center">玉箫金瑟发商声，桑叶枯乾海水清。</p>
+                                        <p class="mb-2 text-center">净扫蓬莱山下路，略邀王母话长生。</p>
+                                        <p class="mb-2 text-center">上元元日豁明堂，五帝望空拜玉皇。</p>
+                                        <p class="mb-2 text-center">万树琪花千圃药，心知不敢辄形相。</p>
+                                    </div>
+                                </div>
+
+                                <!-- 诗歌卡片 3 -->
+                                <div
+                                    class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
+                                    <h3 class="text-lg font-medium text-celestial-blue mb-2 text-center">《仙都即景》</h3>
+                                    <p class="text-sm text-gray-500 mb-4 text-center">曹唐</p>
+                                    <div class="poem-content text-gray-700 leading-relaxed">
+                                        <p class="mb-2 text-center">蟠桃花老华阳东，轩后登真谢六宫。</p>
+                                        <p class="mb-2 text-center">旌节暗迎归碧落，笙歌遥听隔崆峒。</p>
+                                        <p class="mb-2 text-center">衣冠留葬桥山月，剑履将随浪海风。</p>
+                                        <p class="mb-2 text-center">看却龙髯攀不得，红霞零落鼎湖空。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 3. 发展状态 -->
+                    <section id="development-status" class="mb-16 scroll-mt-28">
+                        <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                            <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                                <i class="fa fa-line-chart mr-2 text-ochre"></i> 发展状态
+                            </h2>
                             <p class="text-gray-700 leading-relaxed mb-4">
-                                黄巢之乱的烽火与藩镇割据的铁蹄，彻底击碎了唐王朝最后的中兴幻梦，将社会拖入分崩离析的末世图景。政治的腐朽、民生的凋敝与王朝倾覆的阴影，共同酿成了晚唐文人的精神苦酒——盛唐的昂扬自信早已消磨殆尽，中唐的惶惑焦虑沉淀为更深沉的幻灭感与无力感。
-                            </p>
+                                晚唐时期游仙诗的数量达到了84首，仙人意向的出现的次数和种类分别为146和80。<br>
+                            <p class="text-gray-700 leading-relaxed mb-6">
+                                在这一时期的游仙诗人有所下降，有作品记载的诗人有24位，其中曹唐创作的数量最多。</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">该时期游仙诗占比</h3>
+                                    <div id="wanPoemPercentageChart" class="w-full h-80"></div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">诗人作品数量排名</h3>
+                                    <div id="wanTopPoetsChart" class="w-full h-80"></div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人意象出现次数排名</h3>
+                                    <div id="wanTopImmortalsChart" class="w-full h-80"></div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人意象类型与性别分布</h3>
+                                    <div id="wanImmortalTypeGenderChart" class="w-full h-80"></div>
+                                </div>
+                            </div><br>
                             <p class="text-gray-700 leading-relaxed mb-4">
-                                道教作为贯穿唐代的精神脉络，在此时完成了与文人心态的终极契合：文人不再借仙话寄托入世理想，也不再仅以仙人意象安顿心灵，而是将道教神仙世界转化为观照现实、宣泄悲苦、叩问命运的镜像。这种时代精神的嬗变，使晚唐游仙诗形成"以仙写悲、以幻喻实"的独特风貌：仙人意象彻底褪去神圣光环，或承载爱情幻灭的哀痛，或象征避世无门的无奈，或成为批判现实的载体。
+                                这一时期，出现了“安期生”、“杜兰香”，韦庄的《访浔阳友人不遇》中的“不见安期悔上楼，寂寥人对鹭鸶愁”，曹唐《小游仙诗》（其三十七）中的“安期先生拂玉杯，共论王霸起身来”，李商隐《重过圣女祠》中的“萼绿华来无定所，杜兰香去未移时”。虽然这一时期的仙人仍然以“凡人成仙者”和“个性鲜明的天界众仙”为主，但晚唐游仙诗人按照现实生活经验对其进行刻画，使仙人意象实现了全面人间化，仙气变淡，人气转浓。
                             </p>
-                            <p class="text-gray-700 leading-relaxed mb-4">
-                                在晚唐繁复的仙人意象谱系中，"萧史""安期生"与"玉皇大帝"构成极具代表性的三重维度——他们分别对应着文人对情感归宿的怅惘、对个体出路的求索与对天命秩序的质疑，既是晚唐社会心理的浓缩写照，也见证了唐代游仙诗从浪漫超越向现实悲歌的最终转向。
-                            </p>
-                            <!-- 右下角特征悬停 -->
-                            <div class="flex justify-end items-center">
-                                <div class="tooltip-trigger relative cursor-help inline-flex items-center">
-                                    <span class="text-xs text-gray-600 mr-1">特征</span>
-                                    <i class="fa fa-question-circle text-golden text-xl"></i>
-                                    <span class="tooltip-content absolute hidden right-full mr-2 top-1/2 transform -translate-y-1/2 bg-celestial-blue text-white p-4 rounded-lg shadow-lg w-64 z-10">
-                                        <ul class="space-y-2">
-                                            <li class="flex items-start">
-                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                <span>末世情怀与幻灭感的集中体现</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                <span>以仙写悲、以幻喻实的象征体系</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                <span>神仙意象的世俗化与悲剧性转向</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                <span>对天命秩序的质疑与个体命运的叩问</span>
+                        </div>
+                    </section>
+
+                    <!-- 4. 主要意象分析 -->
+                    <section id="image-analysis" class="mb-16 scroll-mt-28">
+                        <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
+                            <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
+                                <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要仙人意象来源
+                            </h2>
+                            <div class="space-y-12">
+                                <!-- 安期生 -->
+                                <div class="prose max-w-none">
+                                    <h3 class="text-xl text-celestial-blue mb-4">
+                                        安期生
+                                        <div
+                                            class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
+                                            <i class="fa fa-question-circle text-golden mt-1 mr-2"></i>
+                                            <span
+                                                class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
+                                                        <span>古代传说中的仙人，常居东海</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
+                                                        <span>秦始皇曾派人寻求其长生不老之术</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
+                                                        <span>晚唐时期成为精神慰藉的象征</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
+                                                        <span>代表对超越现实苦难的渴望</span>
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                        </div>
+                                    </h3>
+                                    <p class="text-gray-700 leading-relaxed mb-4">
+                                        安期生的原型见于《史记·封禅书》，初为“居东海上，卖药为生，能仙去”的方士形象，后在道教典籍中逐步升格为“服食金丹、乘云驾龙”的仙人，如葛洪《抱朴子》称其“服金液，上升太清”。初盛唐游仙诗中，安期生多为“长生典范”，如李白“安期生，卢敖轻举，逸气霄汉”，侧重展现其超脱尘世的仙姿。中唐时期，韦应物等诗人开始赋予其“修道导师”特质，在《马明生遇神女歌》中刻画其“与神女对坐吃枣、复命天皇”的场景，使其贴近人间情态。晚唐时期，安期生的意象重心发生根本转移：文人弱化其“长生”与“修道”属性，突出其“因政治理想落空而遁世”的核心特征，使其成为“避世无门、精神突围”的象征。
+                                    </p>
+                                    <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
+                                        <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
+                                        <ul class="space-y-3">
+                                            <li class="text-gray-700 italic">
+                                                《史记·封禅书》：“少君言于上曰：“祠灶则致物，致物而丹砂可化为黄金，黄金成以为饮食器则益寿，益寿而海中蓬莱仙者可见，见之以封禅则不死，黄帝是也。臣常游海上，见安期生，安期生食巨枣，大如瓜。安期生仙者，通蓬莱中，合则见人，不合则隐。”于是天子始亲祠灶，遣方士入海求蓬莱安期生之属，而事化丹砂诸药齐为黄金矣。”
                                             </li>
                                         </ul>
-                                    </span>
+                                    </div>
+                                </div>
+
+                                <!-- 杜兰香 -->
+                                <div class="prose max-w-none">
+                                    <h3 class="text-xl text-celestial-blue mb-4">
+                                        杜兰香
+                                        <div
+                                            class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
+                                            <i class="fa fa-question-circle text-golden mt-1 mr-2"></i>
+                                            <span
+                                                class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                        <span>谪仙形象，曾因过错被贬人间</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                        <span>湘江幼女被渔人收养，后遇青童接引</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                        <span>留诗赠所恋张硕后升仙归位天界</span>
+                                                    </li>
+                                                    <li class="flex items-start">
+                                                        <i class="fa fa-star mt-1 mr-2 text-golden"></i>
+                                                        <span>体现仙凡情缘与谪仙赎罪的主题</span>
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                        </div>
+                                    </h3>
+                                    <p class="text-gray-700 leading-relaxed mb-4">
+                                        杜兰香的神话原型最早见于东晋干宝《搜神记》，核心叙事为
+                                        “湘江幼女被渔人收养，后遇青童接引，自曝‘我仙女也，有过谪人间，今去矣’，留诗赠所恋张硕后升仙”。此时的形象聚焦
+                                        “谪仙赎罪、归位天界”，情感色彩淡薄；初盛唐时期，诗人多借其 “升仙” 特质喻 “超脱世俗”，如李白虽未直接题咏，却在《古风》中以 “仙女谪人间” 暗合其原型。
+                                    </p>
+                                    <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
+                                        <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
+                                        <ul class="space-y-3">
+                                            <li class="text-gray-700 italic">
+                                                《搜神记》：“汉时有杜兰香者，自称南康人氏。以建兴四年春，数诣张传。传年十七，望见其车在门外，婢通言：“阿母所生，遣授配君，可不敬从？”
+                                                传先改名硕，硕呼女前视，可十六七，说事邈然久远。有婢子二人，大者萱支，小者松支。钿车青牛，上饮食皆备。作诗曰：“阿母处灵岳，时游云霄际。众女侍羽仪，不出墉宫外。飘轮送我来，岂复耻尘秽。从我与福俱，嫌我与祸会。”
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-
-                <!-- 2. 代表性诗歌 -->
-                <section id="representative-poems" class="mb-16 scroll-mt-28">
-                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
-                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                            <i class="fa fa-book mr-2 text-celestial-blue"></i> 代表性诗歌
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <!-- 诗歌卡片 1 -->
-                            <div class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
-                                <h3 class="text-lg font-medium text-celestial-blue mb-2">《重过圣女祠》</h3>
-                                <p class="text-sm text-gray-500 mb-4">李商隐</p>
-                                <div class="poem-content text-gray-700 leading-relaxed">
-                                    <p class="mb-2">白石岩扉碧藓滋，上清沦谪得归迟。</p>
-                                    <p class="mb-2">一春梦雨常飘瓦，尽日灵风不满旗。</p>
-                                    <p class="mb-2">萼绿华来无定所，杜兰香去未移时。</p>
-                                    <p>—— 选录</p>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <p class="text-sm text-gray-600">
-                                        <i class="fa fa-info-circle text-golden mr-1"></i>
-                                        诗人借圣女祠的荒凉景象和神仙典故，寄托了对理想破灭、命运无常的深沉感慨。
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <!-- 诗歌卡片 2 -->
-                            <div class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
-                                <h3 class="text-lg font-medium text-celestial-blue mb-2">《小游仙诗》</h3>
-                                <p class="text-sm text-gray-500 mb-4">曹唐</p>
-                                <div class="poem-content text-gray-700 leading-relaxed">
-                                    <p class="mb-2">玉洞长春风景鲜，丈人私宴就芝田。</p>
-                                    <p class="mb-2">笙歌暂向花间尽，便是人间一万年。</p>
-                                    <p>—— 选录</p>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <p class="text-sm text-gray-600">
-                                        <i class="fa fa-info-circle text-golden mr-1"></i>
-                                        诗中描绘了仙境的永恒与美好，与人间的短暂与苦难形成鲜明对比，反映了晚唐文人对理想世界的向往。
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <!-- 诗歌卡片 3 -->
-                            <div class="border border-gray-200 rounded-lg p-5 bg-moon-white hover:shadow-lg transition-shadow">
-                                <h3 class="text-lg font-medium text-celestial-blue mb-2">《仙都即景》</h3>
-                                <p class="text-sm text-gray-500 mb-4">曹唐</p>
-                                <div class="poem-content text-gray-700 leading-relaxed">
-                                    <p class="mb-2">黄帝登真处，青青不记年。</p>
-                                    <p class="mb-2">孤峰应碍日，一径已通天。</p>
-                                    <p class="mb-2">树老风声壮，山高雾气鲜。</p>
-                                    <p>—— 选录</p>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <p class="text-sm text-gray-600">
-                                        <i class="fa fa-info-circle text-golden mr-1"></i>
-                                        诗人以仙都的永恒景象，寄托了对超越世俗、追求精神解脱的渴望，反映了晚唐文人的心灵诉求。
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 3. 发展状态 -->
-                <section id="development-status" class="mb-16 scroll-mt-28">
-                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
-                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                            <i class="fa fa-line-chart mr-2 text-ochre"></i> 发展状态
-                        </h2>
-                        <p class="text-gray-700 leading-relaxed mb-4">晚唐时期游仙诗的数量达到了200首，仙人意向的出现的次数和种类分别为146和80。在这一时期的游仙诗人有所下降，有作品记载的诗人有24位，其中曹唐创作的数量最多。</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">游仙诗占比</h3>
-                                <div id="wanPoemPercentageChart" class="w-full h-80"></div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">诗人排名</h3>
-                                <div id="wanTopPoetsChart" class="w-full h-80"></div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人排名</h3>
-                                <div id="wanTopImmortalsChart" class="w-full h-80"></div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人类型与性别分布</h3>
-                                <div id="wanImmortalTypeGenderChart" class="w-full h-80"></div>
-                            </div>
-                        </div><br>
-                        <p class="text-gray-700 leading-relaxed mb-4">这一时期，出现了“安期生”、“杜兰香”，韦庄的《访浔阳友人不遇》中的“不见安期悔上楼，寂寥人对鹭鸶愁”，曹唐《小游仙诗》（其三十七）中的“安期先生拂玉杯，共论王霸起身来”，李商隐《重过圣女祠》中的“萼绿华来无定所，杜兰香去未移时”。虽然这一时期的仙人仍然以“凡人成仙者”和“个性鲜明的天界众仙”为主，但晚唐游仙诗人按照现实生活经验对其进行刻画，使仙人意象实现了全面人间化，仙气变淡，人气转浓。</p>
-                    </div>
-                </section>
-
-                <!-- 4. 主要意象分析 -->
-                <section id="image-analysis" class="mb-16 scroll-mt-28">
-                    <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
-                        <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要意象分析
-                        </h2>
-                        <div class="space-y-12">
-                            <!-- 萧史 -->
-                            <div class="prose max-w-none">
-                                <h3 class="text-xl text-celestial-blue mb-4">
-                                    萧史
-                                    <div class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
-                                        <i class="fa fa-question-circle text-golden mt-1 mr-2"></i>
-                                        <span class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
-                                            <ul class="space-y-2">
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-music mt-1 mr-2 text-golden"></i>
-                                                    <span>善吹箫，能作凤鸣的仙人</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-music mt-1 mr-2 text-golden"></i>
-                                                    <span>与秦穆公之女弄玉结为夫妇</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-music mt-1 mr-2 text-golden"></i>
-                                                    <span>晚唐时期成为爱情与理想破灭的象征</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-music mt-1 mr-2 text-golden"></i>
-                                                    <span>承载文人对美好时光逝去的哀悼</span>
-                                                </li>
-                                            </ul>
-                                        </span>
-                                    </div>
-                                </h3>
-                                <p class="text-gray-700 leading-relaxed mb-4">
-                                    在晚唐动荡的社会环境中，萧史意象成为文人寄托情感失落与理想幻灭的重要载体。萧史弄玉的传统典故被赋予了新的时代内涵——那曾经被视为圆满的人仙结合，在晚唐诗人笔下却转化为对"美好时光已逝"的深切哀悼。晚唐诗人通过塑造萧史形象，不仅表达对爱情与理想双重破灭的怅惘，更反映了整个时代对未来的迷茫与对历史的追怀。萧史不再是简单的仙话人物，而成为晚唐文人集体心理的象征性投射。
-                                </p>
-                                <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
-                                    <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
-                                    <ul class="space-y-3">
-                                        <li class="text-gray-700 italic">
-                                            曹唐《赠萧史》："当日心君别有情，后来恩爱逐浮萍。秦台一去云山路，惆怅襄王昨夜醒。"
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- 安期生 -->
-                            <div class="prose max-w-none">
-                                <h3 class="text-xl text-celestial-blue mb-4">
-                                    安期生
-                                    <div class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
-                                        <i class="fa fa-question-circle text-golden mt-1 mr-2"></i>
-                                        <span class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
-                                            <ul class="space-y-2">
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
-                                                    <span>古代传说中的仙人，常居东海</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
-                                                    <span>秦始皇曾派人寻求其长生不老之术</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
-                                                    <span>晚唐时期成为精神慰藉的象征</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-anchor mt-1 mr-2 text-golden"></i>
-                                                    <span>代表对超越现实苦难的渴望</span>
-                                                </li>
-                                            </ul>
-                                        </span>
-                                    </div>
-                                </h3>
-                                <p class="text-gray-700 leading-relaxed mb-4">
-                                    安期生在晚唐游仙诗中被重新诠释为"不死的精神慰藉者"。面对王朝末世的混乱与个体命运的无常，晚唐文人对安期生的追寻，本质上是在寻找一种超越现实苦难、获得精神救赎的可能性。安期生的形象在晚唐具有双重性：一方面他是永恒生命的象征，另一方面他又代表着一种无法抵达的精神境界。这种矛盾性恰恰反映了晚唐文人既渴望超脱又难以完全脱离现实的复杂心态。
-                                </p>
-                                <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
-                                    <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
-                                    <ul class="space-y-3">
-                                        <li class="text-gray-700 italic">
-                                            李商隐《寄题罗浮轩辕先生所居》："他时画出白团扇，乞取安期不死人。"
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- 玉皇大帝 -->
-                            <div class="prose max-w-none">
-                                <h3 class="text-xl text-celestial-blue mb-4">
-                                    玉皇大帝
-                                    <div class="tooltip-trigger inline-block cursor-help text-golden hover:text-golden/80 transition-colors ml-2 relative">
-                                        <i class="fa fa-question-circle text-golden mt-1 mr-2"></i>
-                                        <span class="tooltip-content absolute hidden left-full mt-0.5 bg-celestial-blue text-white p-3 rounded-lg shadow-lg z-50 w-64 text-sm">
-                                            <ul class="space-y-2">
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>道教神话中的最高神</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>掌管三界，决定凡人命运</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>晚唐时期成为质疑对象</span>
-                                                </li>
-                                                <li class="flex items-start">
-                                                    <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>承载对宇宙秩序合理性的思考</span>
-                                                </li>
-                                            </ul>
-                                        </span>
-                                    </div>
-                                </h3>
-                                <p class="text-gray-700 leading-relaxed mb-4">
-                                    晚唐游仙诗中，玉皇大帝的形象从神圣的权威象征转变为可供质疑的天命代表。这种转变深刻反映了晚唐文人对传统秩序的动摇与对命运不公的愤懑。面对唐王朝的衰亡与个体理想的破灭，诗人们通过对玉皇大帝的重新诠释，表达了对整个宇宙秩序合理性的思考。玉皇大帝意象在晚唐的出现，标志着游仙诗从单纯的仙境描绘转向对现实与命运的哲理思考，体现了唐代文人精神世界的最后一次深刻变革。
-                                </p>
-                                <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
-                                    <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
-                                    <ul class="space-y-3">
-                                        <li class="text-gray-700 italic">
-                                            李商隐《八月十五夜月二首》其二："此时玉皇应有问，为谁留在广寒宫。"
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    </section>
             </div>
             </section>
         </main>
@@ -458,21 +397,21 @@
             // 获取所有内容区块和导航项
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.visual-nav');
-            
+
             let currentSection = '';
-            
+
             // 检测当前在视口中的内容区块
             sections.forEach(section => {
                 const sectionTop = section.offsetTop - 100; // 添加一些偏移量
                 const sectionHeight = section.offsetHeight;
                 const scrollY = window.scrollY;
-                
+
                 // 当滚动位置超过区块顶部且未超过区块底部时
                 if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                     currentSection = '#' + section.getAttribute('id');
                 }
             });
-            
+
             // 更新导航栏高亮状态
             navLinks.forEach(link => {
                 link.classList.remove('nav-active');
@@ -481,35 +420,35 @@
                 }
             });
         });
-        
+
         // 初始化页面时触发一次滚动事件，确保正确高亮当前区块
         window.dispatchEvent(new Event('scroll'));
-        
+
         // 初始化问号图标交互功能
         function initTooltipInteractions() {
             // 获取所有的tooltip触发器
             const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
-            
+
             // 为每个触发器添加鼠标进入事件
             tooltipTriggers.forEach(trigger => {
                 // 鼠标进入时显示tooltip
-                trigger.addEventListener('mouseenter', function() {
+                trigger.addEventListener('mouseenter', function () {
                     const tooltip = this.querySelector('.tooltip-content');
                     if (tooltip) {
                         tooltip.classList.remove('hidden');
                     }
                 });
-                
+
                 // 鼠标离开时隐藏tooltip
-                trigger.addEventListener('mouseleave', function() {
+                trigger.addEventListener('mouseleave', function () {
                     const tooltip = this.querySelector('.tooltip-content');
                     if (tooltip) {
                         tooltip.classList.add('hidden');
                     }
                 });
-                
+
                 // 点击问号图标切换显示状态
-                trigger.addEventListener('click', function(e) {
+                trigger.addEventListener('click', function (e) {
                     e.stopPropagation(); // 阻止事件冒泡
                     const tooltip = this.querySelector('.tooltip-content');
                     if (tooltip) {
@@ -517,16 +456,16 @@
                     }
                 });
             });
-            
+
             // 点击页面其他区域关闭所有tooltip
-            document.addEventListener('click', function() {
+            document.addEventListener('click', function () {
                 const allTooltips = document.querySelectorAll('.tooltip-content');
                 allTooltips.forEach(tooltip => {
                     tooltip.classList.add('hidden');
                 });
             });
         }
-        
+
         // 添加自定义样式到tooltip
         const style = document.createElement('style');
         style.textContent = `
@@ -604,7 +543,7 @@
                 };
                 charts.wanPoemPercentageChart.setOption(wanPoemPercentageOption);
             }
-            
+
             // 2. 晚唐诗人排名图表
             if (document.getElementById('wanTopPoetsChart')) {
                 charts.wanTopPoetsChart = echarts.init(document.getElementById('wanTopPoetsChart'));
@@ -636,11 +575,11 @@
                     },
                     series: [
                         {
-                            name: '出现次数',
+                            name: '作品数量',
                             type: 'bar',
                             data: [5, 7, 11, 12, 21],
                             itemStyle: {
-                                color: function(params) {
+                                color: function (params) {
                                     const colors = ['#4A6FA5', '#CC7722', '#3A7D44', '#D4AF37', '#2D2D2D'];
                                     return colors[params.dataIndex];
                                 },
@@ -656,7 +595,7 @@
                 };
                 charts.wanTopPoetsChart.setOption(wanTopPoetsOption);
             }
-            
+
             // 3. 晚唐仙人排名图表
             if (document.getElementById('wanTopImmortalsChart')) {
                 charts.wanTopImmortalsChart = echarts.init(document.getElementById('wanTopImmortalsChart'));
@@ -692,7 +631,7 @@
                             type: 'bar',
                             data: [5, 6, 6, 7, 13],
                             itemStyle: {
-                                color: function(params) {
+                                color: function (params) {
                                     const colors = ['#D4AF37', '#EC4899', '#3B82F6', '#4A6FA5', '#3A7D44'];
                                     return colors[params.dataIndex];
                                 },
@@ -708,7 +647,7 @@
                 };
                 charts.wanTopImmortalsChart.setOption(wanTopImmortalsOption);
             }
-            
+
             // 4. 仙人类型与性别分布图表
             if (document.getElementById('wanImmortalTypeGenderChart')) {
                 charts.wanImmortalTypeGenderChart = echarts.init(document.getElementById('wanImmortalTypeGenderChart'));
@@ -763,21 +702,22 @@
                 };
                 charts.wanImmortalTypeGenderChart.setOption(wanImmortalTypeGenderOption);
             }
-            
+
             // 统一的响应式调整
             Object.values(charts).forEach(chart => {
                 window.addEventListener('resize', () => chart.resize());
             });
-            
+
 
         }
 
         // 页面加载完成后初始化图表和交互功能
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initPage('exhibition_all');
             initCharts();
             initTooltipInteractions();
         });
     </script>
 </body>
+
 </html>

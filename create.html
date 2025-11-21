@@ -17,28 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <!-- 配置Tailwind自定义主题 -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'celestial-blue': '#4A6FA5',
-                        'moon-white': '#F0F4F8',
-                        'golden': '#D4AF37',
-                        'ochre': '#CC7722',
-                        'jade-green': '#3A7D44',
-                    },
-                    fontFamily: {
-                        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
-                        'classic': ['"Noto Serif SC"', 'serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
-    <!-- 引入公共组件和样式 -->
+    <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
     <script src="components.js"></script>
     <script>document.write(styleComponent);</script>
 
@@ -741,7 +720,9 @@
         ' 玉晨君 ', ' 玉妃 ', ' 玉華仙子 ', ' 雲英 ', ' 張道陵 ', ' 趙煜 ', ' 鐘離權 ', ' 燭龍 ', ' 颛顼 ',
         ' 子安 ', ' 子明 ', ' 紫府仙人 ', ' 紫陽宮女'
 ];
-        const sceneOptions = ['云海', '瑶台', '丹丘', '松岫', '星河', '蓬山', '月阙', '烟峦'];
+        const sceneOptions = [' 昆仑山 ', ' 蓬莱山 ', ' 茅山 ', ' 武夷山 ', ' 罗浮山 ', ' 终南山 ', ' 凌霄宝殿 ', ' 瑶池 ', ' 天河（银河）'
+        , ' 三清境 ', ' 紫微宫 ', ' 月宫 ', ' 崆峒山 ', ' 扶桑 ', ' 巫山 ', ' 青城山 ',
+         ' 天台山大洞 ', ' 东海 ', ' 北海 ', ' 黄河', ' 洛水 ', ' 东华境 ', '玄洲',' 洞庭湖'];
 
         const poetSignatures = {
             '李白': ['剑光星斗惊', '长啸入云平'],

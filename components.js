@@ -11,8 +11,8 @@ const navbarComponent = `
             <!-- 桌面导航 -->
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="nav-link" data-page="index">首页</a>
-                <a href="exhibition_all.html" class="nav-link" data-page="exhibition_all">数字展厅</a>
                 <a href="immortals.html" class="nav-link" data-page="immortals">仙镜图谱</a>
+                <a href="exhibition_all.html" class="nav-link" data-page="exhibition_all">数字展厅</a>
                 <a href="create.html" class="nav-link" data-page="create">仙卷创作</a>
                 <a href="us.html" class="nav-link" data-page="us">关于我们</a>
             </div>
@@ -40,8 +40,8 @@ const navbarComponent = `
     <!-- 移动端导航菜单 -->
     <div id="mobileMenu" class="md:hidden hidden absolute top-full left-0 w-full bg-moon-white/95 backdrop-blur-sm shadow-lg py-4 px-6 flex flex-col space-y-4">
         <a href="index.html" class="mobile-nav-link" data-page="index">首页</a>
-        <a href="exhibition_all.html" class="mobile-nav-link" data-page="exhibition_all">数字展厅</a>
         <a href="immortals.html" class="mobile-nav-link" data-page="immortals">仙镜图谱</a>
+        <a href="exhibition_all.html" class="mobile-nav-link" data-page="exhibition_all">数字展厅</a>
         <a href="create.html" class="mobile-nav-link" data-page="create">仙卷创作</a>
         <a href="us.html" class="mobile-nav-link" data-page="us">关于我们</a>
         <div class="theme-divider border-t pt-4 mt-2">
@@ -66,7 +66,7 @@ const navbarComponent = `
 const footerComponent = `
 <footer class="bg-celestial-blue/90 text-white py-12 px-6 md:px-12 relative">
     <div class="container mx-auto max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             <div>
                 <h3 class="font-calligraphy text-2xl mb-4 text-golden">寻仙唐迹</h3>
                 <p class="text-white/80 text-sm">
@@ -78,19 +78,10 @@ const footerComponent = `
                 <h4 class="text-lg font-bold mb-4">快速链接</h4>
                 <ul class="space-y-2 text-sm text-white/80">
                     <li><a href="index.html" class="hover:text-golden transition-colors">首页</a></li>
-                    <li><a href="exhibition_all.html" class="hover:text-golden transition-colors">数字展厅</a></li>
                     <li><a href="immortals.html" class="hover:text-golden transition-colors">仙镜图谱</a></li>
+                    <li><a href="exhibition_all.html" class="hover:text-golden transition-colors">数字展厅</a></li>
                     <li><a href="create.html" class="hover:text-golden transition-colors">仙卷创作</a></li>
                     <li><a href="us.html" class="hover:text-golden transition-colors">关于我们</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-lg font-bold mb-4">资源引用</h4>
-                <ul class="space-y-2 text-sm text-white/80">
-                    <li><a href="#" class="hover:text-golden transition-colors">全唐诗数据库</a></li>
-                    <li><a href="#" class="hover:text-golden transition-colors">学术参考文献</a></li>
-                    <li><a href="#" class="hover:text-golden transition-colors">图像资源说明</a></li>
                 </ul>
             </div>
             
@@ -99,6 +90,11 @@ const footerComponent = `
                 <ul class="space-y-2 text-sm text-white/80">
                     <li class="flex items-center"><i class="fa fa-envelope-o mr-2"></i> zxy812120@163.com</li>
                     <li class="flex items-center"><i class="fa fa-map-marker mr-2"></i> 中国·香港·香港理工大学</li>
+                    <li class="flex items-center mt-3">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-golden transition-colors flex items-center">
+                            <i class="fa fa-github mr-2"></i>GitHub 仓库
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -110,6 +106,65 @@ const footerComponent = `
     </div>
 </footer>
 `;
+
+// Tailwind 配置 - 需要在 Tailwind CSS 加载后立即执行
+// 这个函数应该在 <head> 中，在 Tailwind CSS 加载之后调用
+function initTailwindConfig() {
+    // 如果已经配置过，直接返回
+    if (window.tailwindConfigInitialized) {
+        return;
+    }
+    
+    // Tailwind 配置对象
+    const tailwindConfig = {
+        theme: {
+            extend: {
+                colors: {
+                    'celestial-blue': '#4A6FA5',      // 石青色
+                    'moon-white': '#F0F4F8',         // 月白色
+                    'golden': '#D4AF37',             // 鎏金色
+                    'ochre': '#CC7722',              // 赭石色
+                    'jade-green': '#3A7D44',         // 玉绿色
+                    'ink': '#2D2D2D',                // 墨色
+                    'rose-pink': '#FF6B8B',          // 玫瑰粉色
+                },
+                fontFamily: {
+                    'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+                    'classic': ['"Noto Serif SC"', 'serif'],
+                },
+            }
+        }
+    };
+    
+    // 尝试立即配置（如果 Tailwind 已加载）
+    if (typeof tailwind !== 'undefined') {
+        tailwind.config = tailwindConfig;
+        window.tailwindConfigInitialized = true;
+        return;
+    }
+    
+    // 如果 Tailwind 还未加载，等待加载完成
+    // 使用多种方式确保配置成功
+    const applyConfig = function() {
+        if (typeof tailwind !== 'undefined' && !window.tailwindConfigInitialized) {
+            tailwind.config = tailwindConfig;
+            window.tailwindConfigInitialized = true;
+        }
+    };
+    
+    // 尝试在 DOMContentLoaded 时配置
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyConfig);
+    } else {
+        applyConfig();
+    }
+    
+    // 备用方案：在 window.load 时配置
+    window.addEventListener('load', applyConfig);
+}
+
+// 立即执行配置（如果 components.js 在 head 中加载）
+initTailwindConfig();
 
 // 背景云雾效果组件
 const backgroundComponent = `
@@ -360,6 +415,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 工具函数 - 初始化页面公共部分
 function initPage(pageName) {
+    // 确保 Tailwind 配置已初始化
+    initTailwindConfig();
+    
     // 添加背景
     document.body.insertAdjacentHTML('afterbegin', backgroundComponent);
     
