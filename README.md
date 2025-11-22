@@ -143,7 +143,6 @@ trys/
 
 - ✅ **AI诗歌生成** - 使用DeepSeek API生成五言绝句
 - ✅ **AI图像生成** - 使用豆包API生成仙境配图
-- ⏳ **RAG增强搜索** - 使用LangChain和向量数据库（开发中）
 - ⏳ **GIS功能** - 使用Folium展示仙人地理位置（开发中）
 - ⏳ **词汇共现分析** - 使用jieba和networkx进行文本分析（开发中）
 
@@ -161,61 +160,6 @@ trys/
    - 限制对数据库文件的直接访问
 
 ## 🚀 快速开始
-
-### 前端开发
-
-1. 直接在浏览器中打开 HTML 文件即可预览
-2. 或使用本地服务器：
-   ```bash
-   # 使用 Python
-   python -m http.server 8000
-   
-   # 使用 Node.js
-   npx serve
-   ```
-
-### 后端开发
-
-1. 安装依赖：
-   ```bash
-   pip install -r requirements_flask.txt
-   ```
-
-2. 配置环境变量：
-   创建 `.env` 文件并添加：
-   ```
-   DEEPSEEK_API_KEY=your_deepseek_api_key
-   DOUBAO_API_KEY=your_doubao_api_key
-   PORT=5000
-   ```
-
-3. 启动服务器：
-   ```bash
-   python app_flask.py
-   ```
-
-## 📝 开发说明
-
-### 添加新页面
-
-1. 在根目录创建新的HTML文件
-2. 引入 `components.js` 和样式组件：
-   ```html
-   <script src="components.js"></script>
-   <script>document.write(styleComponent);</script>
-   ```
-3. 在页面加载时调用 `initPage('pageName')` 初始化公共组件
-4. 在 `components.js` 的导航栏组件中添加新页面链接
-
-### 修改样式
-
-项目使用 Tailwind CSS，所有自定义配置统一在 `components.js` 的 `initTailwindConfig()` 函数中管理：
-
-- **自定义颜色**：在 `tailwindConfig` 对象的 `colors` 中添加
-- **自定义字体**：在 `tailwindConfig` 对象的 `fontFamily` 中添加
-- **主题样式**：在 `styleComponent` 中修改 CSS 变量和样式
-
-所有页面会自动应用这些配置，无需在每个 HTML 文件中重复配置。
 
 ### API端点
 
@@ -235,17 +179,6 @@ trys/
 
 主题切换功能已集成到导航栏，用户选择会自动保存到本地存储。
 
-### 自定义主题颜色
-
-在 `components.js` 中修改 CSS 变量：
-
-```javascript
-:root {
-    --color-surface-primary: #F0F4F8;  // 主背景色
-    --color-accent-primary: #4A6FA5;   // 主色调
-    // ... 更多变量
-}
-```
 
 ## 🐛 常见问题
 
@@ -272,15 +205,4 @@ trys/
 
 MIT License
 
-## 👥 贡献
-
-欢迎提交Issue和Pull Request！
-
-## 📞 联系方式
-
-如有问题，请查看 [README_API.md](./README_API.md) 或提交Issue。
-
----
-
-**祝使用愉快！** 🎉
 

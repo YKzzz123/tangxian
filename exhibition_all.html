@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全唐诗游仙诗数据分析 - 寻仙唐迹</title>
+    <title>寻仙唐迹 - 唐代文人游仙诗仙人意象分析</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./images/logo.png">
     <link rel="apple-touch-icon" href="./images/logo.png">
@@ -183,7 +183,7 @@
                     <li>
                         <a href="#overview"
                             class="visual-nav nav-active block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                            <i class="fa fa-dashboard mr-2 text-golden"></i> 整体梗概
+                            <i class="fa fa-dashboard mr-2 text-golden"></i> 整体概览
                         </a>
                     </li>
                     <li>
@@ -197,7 +197,7 @@
                         <div class="relative">
                             <button
                                 class="visual-nav w-full text-left px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                                <i class="fa fa-picture-o mr-2 text-jade-green"></i> 意象研究
+                                <i class="fa fa-picture-o mr-2 text-jade-green"></i> 类型学研究
                                 <i class="fa fa-chevron-down ml-2 transition-transform float-right"
                                     id="imagesDropdownIcon"></i>
                             </button>
@@ -240,7 +240,7 @@
                 <div class="mb-10 text-center">
                     <h1
                         class="font-calligraphy text-[clamp(1.8rem,4vw,3rem)] text-celestial-blue mb-4 text-shadow-gold">
-                        全唐诗游仙诗数据分析
+                        唐代文人游仙诗仙人意象分析
                     </h1>
                     <p class="text-gray-600 max-w-3xl mx-auto">
                         探索唐代游仙诗的创作趋势、主题分布与艺术特色，揭示不同时期游仙诗的发展脉络
@@ -267,11 +267,11 @@
                             <!-- 各时期游仙诗占比饼图和各时期游仙诗数量 -->
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                                 <div class="h-80">
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">各时期游仙诗占比</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">唐代各时期游仙诗占比</h3>
                                     <div id="percentageChart" class="w-full h-full"></div>
                                 </div>
                                 <div class="h-80">
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">各时期游仙诗数量</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">唐代各时期游仙诗数量</h3>
                                     <div id="periodComparisonChart" class="w-full h-full"></div>
                                 </div>
                             </div>
@@ -289,14 +289,14 @@
                         <!-- 诗人作品数量分析（作为整体梗概的一部分） -->
                         <div id="poet-analysis" class="bg-white rounded-xl shadow-md p-6 mt-8 visualization-card">
                             <h3 class="font-calligraphy text-xl text-celestial-blue mb-6 flex items-center">
-                                <i class="fa fa-trophy mr-2 text-golden"></i> 诗人作品数量分析
+                                <i class="fa fa-trophy mr-2 text-golden"></i> 唐代诗人游仙诗作品数量
                             </h3>
                             <div class="prose max-w-none mb-8">
                                 <p class="text-gray-700 leading-relaxed mb-6">
                                     基于对《全唐诗》中282首游仙诗的统计分析，共有83位诗人参与了游仙诗的创作。这些诗人的创作数量分布极不均衡，其中李白以57首游仙诗遥遥领先，占总数的20.2%。这种分布体现了游仙诗创作中的个体差异和“大家”的影响力。
                                 </p>
                                 <p class="text-gray-700 leading-relaxed">
-                                    下面的图表展示了游仙诗创作数量最多的前20位诗人，从数据可以看出，仅有少数诗人（如李白、曹唐、宋之问等）创作了大量游仙诗，而大多数诗人仅创作了1-2首。这种“长尾分布”现象在文学创作中较为常见，反映了唐代诗人对游仙主题的不同偏好和关注程度。
+                                    下方图表展示了游仙诗创作数量最多的前20位诗人，从数据可以看出，仅有少数诗人（如李白、曹唐、宋之问等）创作了大量游仙诗，而大多数诗人仅创作了1-2首。
                                 </p>
                             </div>
                             <h3 class="text-lg font-medium text-gray-700 mb-4">唐代诗人游仙诗作品数量排名（前20名）</h3>
@@ -313,7 +313,7 @@
                     <section id="period-comparison" class="mb-16 scroll-mt-28">
                         <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
                             <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                                <i class="fa fa-exchange mr-2 text-celestial-blue"></i> 时期对比
+                                <i class="fa fa-exchange mr-2 text-celestial-blue"></i> 不同时期下仙人意象的分布
                             </h2>
                             <div class="prose max-w-none mb-8">
                                 <p class="text-gray-700 leading-relaxed">
@@ -323,13 +323,14 @@
 
                             <!-- 各时期仙人意象出现次数 -->
                             <div class="mb-8">
-                                <h3 class="text-lg font-medium text-gray-700 mb-4">各时期仙人意象出现次数</h3>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">唐代各时期仙人意象出现次数</h3>
                                 <div id="immortalFrequencyChart" class="w-full h-80"></div>
                             </div>
 
                             <!-- 唐代诗歌中最常出现的仙人（前20名） -->
                             <div class="mb-8">
-                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">唐代诗歌中最常出现的仙人（前20名）</h3>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">唐代游仙诗中最常出现的仙人意象（前20名）
+                                </h3>
                                 <div id="topImmortalsChart" class="w-full h-96"></div>
                             </div>
 
@@ -341,7 +342,7 @@
 
                             <!-- 主要仙人的时代分布（前5名）和流行度趋势图合并 -->
                             <div class="mb-8">
-                                <h3 class="text-lg font-medium text-gray-700 mb-4">主要仙人的时代分布与流行度趋势（前5名）</h3>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4">主要仙人意象的时代分布与流行度趋势（前5名）</h3>
                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                     <div>
                                         <h4 class="text-md font-medium text-gray-600 mb-4 text-center">时代分布</h4>
@@ -354,8 +355,10 @@
                                 </div>
                             </div>
                             <div class="prose max-w-none mb-8">
-                                <p class="text-gray-700 leading-relaxed">
+                                <p class="text-gray-700 leading-relaxed mb-6">
                                     图表展示了唐代游仙诗中仙人意象的出现次数排名。西王母、王子乔、麻姑、玉皇大帝、弄玉是唐代游仙诗中最频繁出现的仙人意象，他们在不同时期中的出现次数也有所起伏。
+                                </p>
+                                <p class="text-gray-700 leading-relaxed mb-6">
                                     通过这一排名我们同样可以看到，在最常出现仙人意象中，女性仙人的数量也绝不在男性仙人的数量之下。
                                 </p>
                             </div>
@@ -379,14 +382,14 @@
 
                             <!-- 仙人性别分布饼图 -->
                             <div class="mb-8">
-                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人性别分布</h3>
+                                <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人意象性别分布</h3>
                                 <div id="genderDistributionPieChart" class="w-full h-80 mx-auto max-w-md"></div>
                             </div>
 
                             <!-- 性别分布图表 -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4">各时期仙人意象性别分布</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4">唐代各时期仙人意象性别分布</h3>
                                     <div id="genderDistributionChart" class="w-full h-80"></div>
                                 </div>
                                 <div>
@@ -441,11 +444,11 @@
                             <!-- 仙人类型分布图表 -->
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4">仙人类型分布饼图</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4">各类型仙人意象占比</h3>
                                     <div id="immortalTypePieChart" class="w-full h-80"></div>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4">仙人类型数量柱状图</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4">各类型仙人意象数量</h3>
                                     <div id="immortalTypeBarChart" class="w-full h-80"></div>
                                 </div>
                             </div>
@@ -460,7 +463,7 @@
                             </h2>
                             <div class="prose max-w-none mb-8">
                                 <p class="text-gray-700 leading-relaxed mb-6">
-                                    基于唐代诗歌中仙人共现数据的社会网络分析，我们可以通过可视化网络图来探索不同仙人之间的关系。网络图中的节点代表仙人，节点的大小表示出现频率，连线表示仙人之间的共现关系，连线的粗细和颜色代表关系的强度。
+                                    基于唐代游仙诗中仙人意象共现数据的社会网络分析，我们可以通过可视化网络图来探索不同仙人之间的关系。网络图中的节点代表仙人，节点的大小表示出现频率，连线表示仙人之间的共现关系，连线的粗细和颜色代表关系的强度。
                                 </p>
                             </div>
 
@@ -468,18 +471,29 @@
                                 <!-- 网络图容器 -->
                                 <div class="flex-1 bg-white rounded-lg p-4 shadow-inner" style="min-height: 800px;">
                                     <div class="mb-4 flex flex-wrap gap-2">
-                                        <button class="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors ring-2 ring-purple-300" onclick="toggleLayout('force')" id="btn-force">力导向图 (聚类)</button>
-                                        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" onclick="toggleLayout('circular')" id="btn-circular">环形布局</button>
-                                        <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" onclick="highlightCoreImmortals()">高亮核心仙人</button>
-                                        <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" onclick="resetHighlight()">重置显示</button>
+                                        <button
+                                            class="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors ring-2 ring-purple-300"
+                                            onclick="toggleLayout('force')" id="btn-force">力导向图 (聚类)</button>
+                                        <button
+                                            class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                                            onclick="toggleLayout('circular')" id="btn-circular">环形布局</button>
+                                        <button
+                                            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                                            onclick="highlightCoreImmortals()">高亮核心仙人</button>
+                                        <button
+                                            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                                            onclick="resetHighlight()">重置显示</button>
                                     </div>
                                     <div id="networkChart" style="width: 100%; height: 90%; min-height: 700px;"></div>
                                 </div>
 
                                 <!-- 侧边栏 -->
-                                <div class="w-full lg:w-80 bg-gray-50 rounded-lg p-6 overflow-y-auto" style="max-height: 800px;">
+                                <div class="w-full lg:w-80 bg-gray-50 rounded-lg p-6 overflow-y-auto"
+                                    style="max-height: 800px;">
                                     <div class="mb-6">
-                                        <h3 class="text-lg font-medium text-gray-700 mb-4 border-b border-gray-300 pb-2">网络统计</h3>
+                                        <h3
+                                            class="text-lg font-medium text-gray-700 mb-4 border-b border-gray-300 pb-2">
+                                            网络统计</h3>
                                         <div class="grid grid-cols-2 gap-4">
                                             <div class="bg-white p-4 rounded-lg text-center shadow-sm">
                                                 <div class="text-2xl font-bold text-purple-600">135</div>
@@ -501,19 +515,25 @@
                                     </div>
 
                                     <div class="mb-6">
-                                        <h3 class="text-lg font-medium text-gray-700 mb-4 border-b border-gray-300 pb-2">核心仙人（按分类排序）</h3>
+                                        <h3
+                                            class="text-lg font-medium text-gray-700 mb-4 border-b border-gray-300 pb-2">
+                                            核心仙人（按分类排序）</h3>
                                         <div class="mb-4">
-                                            <h4 class="text-sm font-semibold text-yellow-700 mb-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">個性鮮明的天界眾仙</h4>
+                                            <h4 class="text-sm font-semibold text-yellow-700 mb-2"
+                                                style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">個性鮮明的天界眾仙</h4>
                                             <ul class="space-y-2">
-                                                <li class="bg-white p-3 rounded border-l-4 border-yellow-600 flex justify-between items-center shadow-sm" style="border-left-color: #DAA520; background: linear-gradient(90deg, rgba(218,165,32,0.1), transparent);">
+                                                <li class="bg-white p-3 rounded border-l-4 border-yellow-600 flex justify-between items-center shadow-sm"
+                                                    style="border-left-color: #DAA520; background: linear-gradient(90deg, rgba(218,165,32,0.1), transparent);">
                                                     <span class="font-medium text-gray-800">西王母</span>
                                                     <span class="text-red-600 font-bold">129</span>
                                                 </li>
-                                                <li class="bg-white p-3 rounded border-l-4 border-yellow-600 flex justify-between items-center shadow-sm">
+                                                <li
+                                                    class="bg-white p-3 rounded border-l-4 border-yellow-600 flex justify-between items-center shadow-sm">
                                                     <span class="font-medium text-gray-800">玉皇大帝</span>
                                                     <span class="text-red-600 font-bold">53</span>
                                                 </li>
-                                                <li class="bg-white p-3 rounded border-l-4 border-yellow-600 flex justify-between items-center shadow-sm">
+                                                <li
+                                                    class="bg-white p-3 rounded border-l-4 border-yellow-600 flex justify-between items-center shadow-sm">
                                                     <span class="font-medium text-gray-800">上元夫人</span>
                                                     <span class="text-red-600 font-bold">43</span>
                                                 </li>
@@ -521,17 +541,21 @@
                                         </div>
 
                                         <div class="mb-4">
-                                            <h4 class="text-sm font-semibold text-blue-700 mb-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">凡人成仙者</h4>
+                                            <h4 class="text-sm font-semibold text-blue-700 mb-2"
+                                                style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">凡人成仙者</h4>
                                             <ul class="space-y-2">
-                                                <li class="bg-white p-3 rounded border-l-4 border-blue-600 flex justify-between items-center shadow-sm" style="border-left-color: #4682B4; background: linear-gradient(90deg, rgba(70,130,180,0.1), transparent);">
+                                                <li class="bg-white p-3 rounded border-l-4 border-blue-600 flex justify-between items-center shadow-sm"
+                                                    style="border-left-color: #4682B4; background: linear-gradient(90deg, rgba(70,130,180,0.1), transparent);">
                                                     <span class="font-medium text-gray-800">麻姑</span>
                                                     <span class="text-red-600 font-bold">42</span>
                                                 </li>
-                                                <li class="bg-white p-3 rounded border-l-4 border-blue-600 flex justify-between items-center shadow-sm">
+                                                <li
+                                                    class="bg-white p-3 rounded border-l-4 border-blue-600 flex justify-between items-center shadow-sm">
                                                     <span class="font-medium text-gray-800">安期生</span>
                                                     <span class="text-red-600 font-bold">39</span>
                                                 </li>
-                                                <li class="bg-white p-3 rounded border-l-4 border-blue-600 flex justify-between items-center shadow-sm">
+                                                <li
+                                                    class="bg-white p-3 rounded border-l-4 border-blue-600 flex justify-between items-center shadow-sm">
                                                     <span class="font-medium text-gray-800">劉晨</span>
                                                     <span class="text-red-600 font-bold">38</span>
                                                 </li>
@@ -539,9 +563,11 @@
                                         </div>
 
                                         <div>
-                                            <h4 class="text-sm font-semibold text-purple-700 mb-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">類型化仙人</h4>
+                                            <h4 class="text-sm font-semibold text-purple-700 mb-2"
+                                                style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">類型化仙人</h4>
                                             <ul class="space-y-2">
-                                                <li class="bg-white p-3 rounded border-l-4 border-purple-600 flex justify-between items-center shadow-sm" style="border-left-color: #7B68EE; background: linear-gradient(90deg, rgba(123,104,238,0.1), transparent);">
+                                                <li class="bg-white p-3 rounded border-l-4 border-purple-600 flex justify-between items-center shadow-sm"
+                                                    style="border-left-color: #7B68EE; background: linear-gradient(90deg, rgba(123,104,238,0.1), transparent);">
                                                     <span class="font-medium text-gray-800">許飛瓊</span>
                                                     <span class="text-red-600 font-bold">40</span>
                                                 </li>
@@ -550,14 +576,24 @@
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg font-medium text-gray-700 mb-4 border-b border-gray-300 pb-2">关键共现关系</h3>
+                                        <h3
+                                            class="text-lg font-medium text-gray-700 mb-4 border-b border-gray-300 pb-2">
+                                            关键共现关系</h3>
                                         <ul class="space-y-2">
                                             <li class="bg-white p-3 rounded border-l-4 border-green-600 shadow-sm">
-                                                <div class="font-medium text-gray-800">東方朔 - 西王母</div>
+                                                <div class="font-medium text-gray-800">劉晨 - 阮肇</div>
                                                 <div class="text-purple-600 font-bold text-sm mt-1">共现强度: 5</div>
                                             </li>
                                             <li class="bg-white p-3 rounded border-l-4 border-green-600 shadow-sm">
-                                                <div class="font-medium text-gray-800">三官大帝 - 西王母</div>
+                                                <div class="font-medium text-gray-800">西王母 - 東方朔</div>
+                                                <div class="text-purple-600 font-bold text-sm mt-1">共现强度: 5</div>
+                                            </li>
+                                            <li class="bg-white p-3 rounded border-l-4 border-green-600 shadow-sm">
+                                                <div class="font-medium text-gray-800">西王母 - 玉皇大帝</div>
+                                                <div class="text-purple-600 font-bold text-sm mt-1">共现强度: 5</div>
+                                            </li>
+                                            <li class="bg-white p-3 rounded border-l-4 border-green-600 shadow-sm">
+                                                <div class="font-medium text-gray-800">西王母 - 三官大帝</div>
                                                 <div class="text-purple-600 font-bold text-sm mt-1">共现强度: 5</div>
                                             </li>
                                         </ul>
@@ -585,15 +621,20 @@
                             <!-- 地图容器 -->
                             <div class="mb-6 relative" style="z-index: 1; isolation: isolate;">
                                 <!-- 地图切换按钮 -->
-                                <div class="map-control-buttons absolute top-4 right-4 bg-white rounded-lg shadow-lg p-2 flex gap-2">
-                                    <button id="modernMapBtn" class="px-4 py-2 bg-celestial-blue text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">
+                                <div
+                                    class="map-control-buttons absolute top-4 right-4 bg-white rounded-lg shadow-lg p-2 flex gap-2">
+                                    <button id="modernMapBtn"
+                                        class="px-4 py-2 bg-celestial-blue text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">
                                         <i class="fa fa-map mr-2"></i>现代地图
                                     </button>
-                                    <button id="ancientMapBtn" class="px-4 py-2 bg-ochre text-white rounded-md hover:bg-orange-700 transition-colors text-sm font-medium">
+                                    <button id="ancientMapBtn"
+                                        class="px-4 py-2 bg-ochre text-white rounded-md hover:bg-orange-700 transition-colors text-sm font-medium">
                                         <i class="fa fa-scroll mr-2"></i>古代地图
                                     </button>
                                 </div>
-                                <div id="immortalLocationMap" style="width: 100%; height: 700px; border-radius: 8px; overflow: hidden; position: relative; z-index: 1;"></div>
+                                <div id="immortalLocationMap"
+                                    style="width: 100%; height: 700px; border-radius: 8px; overflow: hidden; position: relative; z-index: 1;">
+                                </div>
                             </div>
 
                             <!-- 图例 -->
@@ -601,23 +642,31 @@
                                 <h3 class="text-lg font-medium text-gray-700 mb-4">图例</h3>
                                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="mapLegend">
                                     <div class="flex items-center">
-                                        <img src="./images/map/core_mount.png" alt="核心仙山" class="w-10 h-10 mr-3 object-contain" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
+                                        <img src="./images/map/core_mount.png" alt="核心仙山"
+                                            class="w-10 h-10 mr-3 object-contain"
+                                            style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
                                         <span class="text-sm text-gray-700">核心仙山</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <img src="./images/map/sky.png" alt="天界仙境" class="w-10 h-10 mr-3 object-contain" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
+                                        <img src="./images/map/sky.png" alt="天界仙境" class="w-10 h-10 mr-3 object-contain"
+                                            style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
                                         <span class="text-sm text-gray-700">天界仙境</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <img src="./images/map/green_mount.png" alt="山川秘境" class="w-10 h-10 mr-3 object-contain" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
+                                        <img src="./images/map/green_mount.png" alt="山川秘境"
+                                            class="w-10 h-10 mr-3 object-contain"
+                                            style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
                                         <span class="text-sm text-gray-700">山川秘境</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <img src="./images/map/sea.png" alt="水域秘境" class="w-10 h-10 mr-3 object-contain" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
+                                        <img src="./images/map/sea.png" alt="水域秘境" class="w-10 h-10 mr-3 object-contain"
+                                            style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
                                         <span class="text-sm text-gray-700">水域秘境</span>
                                     </div>
                                     <div class="flex items-center">
-                                        <img src="./images/map/dao_mount.png" alt="道教圣地" class="w-10 h-10 mr-3 object-contain" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
+                                        <img src="./images/map/dao_mount.png" alt="道教圣地"
+                                            class="w-10 h-10 mr-3 object-contain"
+                                            style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));">
                                         <span class="text-sm text-gray-700">道教圣地</span>
                                     </div>
                                 </div>
@@ -912,7 +961,7 @@
                 console.error('数据加载失败，无法初始化图表');
                 return;
             }
-            
+
             // 获取当前主题的文字颜色
             const themeTextColor = getThemeTextColor();
             // 1. 前20名仙人柱状图
@@ -1880,85 +1929,85 @@
 
                 // 核心仙人列表
                 const coreImmortals = ['西王母', '玉皇大帝', '上元夫人', '麻姑', '許飛瓊',
-                                    '安期生', '紫陽真人', '劉晨', '阮肇', '三茅真君',
-                                    '蕭史', '弄玉', '三官大帝', '董雙成'];
+                    '安期生', '紫陽真人', '劉晨', '阮肇', '三茅真君',
+                    '蕭史', '弄玉', '三官大帝', '董雙成'];
 
                 // 节点数据
                 const nodes = [
-                    {name: '西王母', value: 42, category: 0, symbolSize: 35, isCore: true},
-                    {name: '玉皇大帝', value: 10, category: 0, symbolSize: 25, isCore: true},
-                    {name: '上元夫人', value: 5, category: 0, symbolSize: 20, isCore: true},
-                    {name: '浮丘公', value: 6, category: 0, symbolSize: 17, isCore: false},
-                    {name: '織女', value: 3, category: 0, symbolSize: 15, isCore: false},
-                    {name: '廣成子', value: 3, category: 0, symbolSize: 15, isCore: false},
-                    {name: '三官大帝', value: 3, category: 0, symbolSize: 18, isCore: true},
-                    {name: '瑤姬', value: 4, category: 0, symbolSize: 16, isCore: false},
-                    {name: '東王公', value: 5, category: 0, symbolSize: 18, isCore: false},
-                    {name: '九天真妃', value: 3, category: 0, symbolSize: 15, isCore: false},
-                    {name: '木公', value: 4, category: 0, symbolSize: 16, isCore: false},
-                    {name: '青女', value: 3, category: 0, symbolSize: 15, isCore: false},
-                    {name: '三清', value: 5, category: 0, symbolSize: 18, isCore: false},
-                    {name: '太乙救苦天尊', value: 3, category: 0, symbolSize: 15, isCore: false},
-                    {name: '五老', value: 4, category: 0, symbolSize: 16, isCore: false},
-                    {name: '玉晨君', value: 3, category: 0, symbolSize: 15, isCore: false},
-                    {name: '雲英', value: 3, category: 0, symbolSize: 15, isCore: false},
+                    { name: '西王母', value: 42, category: 0, symbolSize: 35, isCore: true },
+                    { name: '玉皇大帝', value: 10, category: 0, symbolSize: 25, isCore: true },
+                    { name: '上元夫人', value: 5, category: 0, symbolSize: 20, isCore: true },
+                    { name: '浮丘公', value: 6, category: 0, symbolSize: 17, isCore: false },
+                    { name: '織女', value: 3, category: 0, symbolSize: 15, isCore: false },
+                    { name: '廣成子', value: 3, category: 0, symbolSize: 15, isCore: false },
+                    { name: '三官大帝', value: 3, category: 0, symbolSize: 18, isCore: true },
+                    { name: '瑤姬', value: 4, category: 0, symbolSize: 16, isCore: false },
+                    { name: '東王公', value: 5, category: 0, symbolSize: 18, isCore: false },
+                    { name: '九天真妃', value: 3, category: 0, symbolSize: 15, isCore: false },
+                    { name: '木公', value: 4, category: 0, symbolSize: 16, isCore: false },
+                    { name: '青女', value: 3, category: 0, symbolSize: 15, isCore: false },
+                    { name: '三清', value: 5, category: 0, symbolSize: 18, isCore: false },
+                    { name: '太乙救苦天尊', value: 3, category: 0, symbolSize: 15, isCore: false },
+                    { name: '五老', value: 4, category: 0, symbolSize: 16, isCore: false },
+                    { name: '玉晨君', value: 3, category: 0, symbolSize: 15, isCore: false },
+                    { name: '雲英', value: 3, category: 0, symbolSize: 15, isCore: false },
 
-                    {name: '麻姑', value: 13, category: 1, symbolSize: 28, isCore: true},
-                    {name: '王子喬', value: 18, category: 1, symbolSize: 24, isCore: false},
-                    {name: '弄玉', value: 9, category: 1, symbolSize: 22, isCore: true},
-                    {name: '黃帝', value: 8, category: 1, symbolSize: 20, isCore: false},
-                    {name: '安期生', value: 7, category: 1, symbolSize: 20, isCore: true},
-                    {name: '東方朔', value: 6, category: 1, symbolSize: 18, isCore: false},
-                    {name: '劉晨', value: 7, category: 1, symbolSize: 20, isCore: true},
-                    {name: '阮肇', value: 6, category: 1, symbolSize: 19, isCore: true},
-                    {name: '三茅真君', value: 4, category: 1, symbolSize: 18, isCore: true},
-                    {name: '蕭史', value: 5, category: 1, symbolSize: 19, isCore: true},
-                    {name: '紫陽真人', value: 3, category: 1, symbolSize: 17, isCore: true},
-                    {name: '董雙成', value: 3, category: 1, symbolSize: 17, isCore: true},
+                    { name: '麻姑', value: 13, category: 1, symbolSize: 28, isCore: true },
+                    { name: '王子喬', value: 18, category: 1, symbolSize: 24, isCore: false },
+                    { name: '弄玉', value: 9, category: 1, symbolSize: 22, isCore: true },
+                    { name: '黃帝', value: 8, category: 1, symbolSize: 20, isCore: false },
+                    { name: '安期生', value: 7, category: 1, symbolSize: 20, isCore: true },
+                    { name: '東方朔', value: 6, category: 1, symbolSize: 18, isCore: false },
+                    { name: '劉晨', value: 7, category: 1, symbolSize: 20, isCore: true },
+                    { name: '阮肇', value: 6, category: 1, symbolSize: 19, isCore: true },
+                    { name: '三茅真君', value: 4, category: 1, symbolSize: 18, isCore: true },
+                    { name: '蕭史', value: 5, category: 1, symbolSize: 19, isCore: true },
+                    { name: '紫陽真人', value: 3, category: 1, symbolSize: 17, isCore: true },
+                    { name: '董雙成', value: 3, category: 1, symbolSize: 17, isCore: true },
 
-                    {name: '許飛瓊', value: 4, category: 2, symbolSize: 18, isCore: true},
-                    {name: '青童君', value: 3, category: 2, symbolSize: 15, isCore: false},
-                    {name: '玉女', value: 4, category: 2, symbolSize: 16, isCore: false},
-                    {name: '羽人', value: 3, category: 2, symbolSize: 15, isCore: false},
-                    {name: '萼綠華', value: 3, category: 2, symbolSize: 15, isCore: false},
-                    {name: '羲和', value: 3, category: 2, symbolSize: 15, isCore: false},
-                    {name: '明星玉女', value: 3, category: 2, symbolSize: 15, isCore: false},
-                    {name: '禺強', value: 4, category: 2, symbolSize: 16, isCore: false}
+                    { name: '許飛瓊', value: 4, category: 2, symbolSize: 18, isCore: true },
+                    { name: '青童君', value: 3, category: 2, symbolSize: 15, isCore: false },
+                    { name: '玉女', value: 4, category: 2, symbolSize: 16, isCore: false },
+                    { name: '羽人', value: 3, category: 2, symbolSize: 15, isCore: false },
+                    { name: '萼綠華', value: 3, category: 2, symbolSize: 15, isCore: false },
+                    { name: '羲和', value: 3, category: 2, symbolSize: 15, isCore: false },
+                    { name: '明星玉女', value: 3, category: 2, symbolSize: 15, isCore: false },
+                    { name: '禺強', value: 4, category: 2, symbolSize: 16, isCore: false }
                 ];
 
                 // 链接数据
                 const links = [
-                    {source: '西王母', target: '東方朔', value: 5},
-                    {source: '西王母', target: '三官大帝', value: 5},
-                    {source: '西王母', target: '玉皇大帝', value: 5},
-                    {source: '西王母', target: '上元夫人', value: 5},
-                    {source: '西王母', target: '麻姑', value: 4},
-                    {source: '西王母', target: '許飛瓊', value: 4},
-                    {source: '西王母', target: '禺強', value: 4},
-                    {source: '西王母', target: '董雙成', value: 3},
-                    {source: '西王母', target: '安期生', value: 3},
-                    {source: '西王母', target: '織女', value: 3},
-                    {source: '西王母', target: '紫陽真人', value: 3},
-                    {source: '西王母', target: '劉晨', value: 3},
-                    {source: '劉晨', target: '阮肇', value: 5},
-                    {source: '三官大帝', target: '禺強', value: 4},
-                    {source: '王子喬', target: '浮丘公', value: 4},
-                    {source: '弄玉', target: '蕭史', value: 3},
-                    {source: '上元夫人', target: '許飛瓊', value: 3},
-                    {source: '玉皇大帝', target: '黃帝', value: 2},
-                    {source: '麻姑', target: '上元夫人', value: 2},
-                    {source: '安期生', target: '黃帝', value: 2}
+                    { source: '西王母', target: '東方朔', value: 5 },
+                    { source: '西王母', target: '三官大帝', value: 5 },
+                    { source: '西王母', target: '玉皇大帝', value: 5 },
+                    { source: '西王母', target: '上元夫人', value: 5 },
+                    { source: '西王母', target: '麻姑', value: 4 },
+                    { source: '西王母', target: '許飛瓊', value: 4 },
+                    { source: '西王母', target: '禺強', value: 4 },
+                    { source: '西王母', target: '董雙成', value: 3 },
+                    { source: '西王母', target: '安期生', value: 3 },
+                    { source: '西王母', target: '織女', value: 3 },
+                    { source: '西王母', target: '紫陽真人', value: 3 },
+                    { source: '西王母', target: '劉晨', value: 3 },
+                    { source: '劉晨', target: '阮肇', value: 5 },
+                    { source: '三官大帝', target: '禺強', value: 4 },
+                    { source: '王子喬', target: '浮丘公', value: 4 },
+                    { source: '弄玉', target: '蕭史', value: 3 },
+                    { source: '上元夫人', target: '許飛瓊', value: 3 },
+                    { source: '玉皇大帝', target: '黃帝', value: 2 },
+                    { source: '麻姑', target: '上元夫人', value: 2 },
+                    { source: '安期生', target: '黃帝', value: 2 }
                 ];
 
                 const categories = [
-                    {name: '個性鮮明的天界眾仙'},
-                    {name: '凡人成仙者'},
-                    {name: '類型化仙人'}
+                    { name: '個性鮮明的天界眾仙' },
+                    { name: '凡人成仙者' },
+                    { name: '類型化仙人' }
                 ];
 
                 const networkOption = {
                     title: {
-                        text: '仙人共现关系网络图',
+                        text: '仙人意象共现关系网络图',
                         subtext: '节点大小表示出现频率，线条颜色代表关系来源',
                         left: 'center',
                         textStyle: {
@@ -1967,11 +2016,11 @@
                     },
                     tooltip: {
                         trigger: 'item',
-                        formatter: function(params) {
+                        formatter: function (params) {
                             if (params.dataType === 'node') {
                                 return `<div style="font-weight:bold">${params.name}</div>` +
-                                       `分类: ${categories[params.data.category].name}<br/>` +
-                                       `共现次数: ${params.data.value}`;
+                                    `分类: ${categories[params.data.category].name}<br/>` +
+                                    `出现次数: ${params.data.value}`;
                             } else {
                                 return `${params.data.source} <span style="color:#999">--</span> ${params.data.target}<br/>强度: ${params.data.value}`;
                             }
@@ -2033,13 +2082,13 @@
                 };
 
                 charts.networkChart.setOption(networkOption);
-                
+
                 // 布局切换函数
-                window.toggleLayout = function(layoutType) {
+                window.toggleLayout = function (layoutType) {
                     // 更新按钮状态
                     const btnForce = document.getElementById('btn-force');
                     const btnCircular = document.getElementById('btn-circular');
-                    
+
                     if (layoutType === 'force') {
                         btnForce.classList.remove('bg-purple-600');
                         btnForce.classList.add('bg-purple-700', 'ring-2', 'ring-purple-300');
@@ -2078,7 +2127,7 @@
                 };
 
                 // 高亮核心仙人函数
-                window.highlightCoreImmortals = function() {
+                window.highlightCoreImmortals = function () {
                     const newData = nodes.map(node => {
                         return {
                             ...node,
@@ -2114,7 +2163,7 @@
                 };
 
                 // 重置高亮函数
-                window.resetHighlight = function() {
+                window.resetHighlight = function () {
                     charts.networkChart.setOption({
                         series: [{
                             data: nodes.map(node => ({
@@ -2141,7 +2190,7 @@
                     });
                 };
 
-                window.addEventListener('resize', function() {
+                window.addEventListener('resize', function () {
                     charts.networkChart.resize();
                 });
             }
@@ -2149,14 +2198,14 @@
             // 10. 仙人所在地GIS地图
             if (document.getElementById('immortalLocationMap')) {
                 console.log('开始初始化地图...');
-                
+
                 // 确保地图容器的z-index设置正确
                 const mapContainer = document.getElementById('immortalLocationMap');
                 if (mapContainer) {
                     mapContainer.style.position = 'relative';
                     mapContainer.style.zIndex = '1';
                 }
-                
+
                 // 初始化地图，中心点设为中国中部
                 const map = L.map('immortalLocationMap', {
                     center: [35.0, 105.0],
@@ -2164,16 +2213,16 @@
                     zoomControl: true,
                     attributionControl: true
                 });
-                
+
                 // 地图加载后，确保所有控件的z-index都正确设置
-                map.whenReady(function() {
+                map.whenReady(function () {
                     // 设置所有Leaflet控件的z-index
                     const controls = document.querySelectorAll('.leaflet-control-container, .leaflet-top, .leaflet-bottom, .leaflet-control, .leaflet-control-zoom, .leaflet-control-attribution');
-                    controls.forEach(function(control) {
+                    controls.forEach(function (control) {
                         control.style.zIndex = '10';
                     });
                 });
-                
+
                 console.log('地图对象已创建:', map);
 
                 // ========== 现代地图图层 ==========
@@ -2204,11 +2253,11 @@
                 // 注意：如果用户有古代地图图片，请将图片放在 images/map/ancient_map.jpg 或相应路径
                 // 这里提供一个示例，用户可以根据实际情况修改图片路径
                 let ancientImageLayer = null;
-                
+
                 // 尝试加载古代地图图片（如果存在）
                 // 用户可以替换为实际的古代地图图片路径
                 const ancientMapImageUrl = './images/map/ancient_map.jpg'; // 用户可以替换为自己的古代地图图片
-                
+
                 // 创建古代地图图层（使用图片叠加层）
                 // 如果图片不存在，将使用备选方案（历史地图瓦片服务）
                 ancientImageLayer = L.imageOverlay(ancientMapImageUrl, ancientMapBounds, {
@@ -2231,10 +2280,10 @@
 
                 // 初始化：加载现代地图
                 modernLayer.addTo(map);
-                
+
                 // 监听现代地图加载错误，自动切换到备选方案
                 let errorCount = 0;
-                modernLayer.on('tileerror', function(error, tile) {
+                modernLayer.on('tileerror', function (error, tile) {
                     errorCount++;
                     if (errorCount > 3 && isModernMap) {
                         console.log('高德地图加载失败，切换到OpenStreetMap');
@@ -2258,7 +2307,7 @@
                         if (map.hasLayer(ancientTileLayer)) {
                             map.removeLayer(ancientTileLayer);
                         }
-                        
+
                         // 添加现代地图图层
                         if (!map.hasLayer(modernLayer) && !map.hasLayer(osmLayer)) {
                             modernLayer.addTo(map);
@@ -2266,7 +2315,7 @@
                         } else if (map.hasLayer(osmLayer)) {
                             currentBaseLayer = osmLayer;
                         }
-                        
+
                         isModernMap = true;
                         updateButtonStyles();
                     }
@@ -2282,12 +2331,12 @@
                         if (map.hasLayer(osmLayer)) {
                             map.removeLayer(osmLayer);
                         }
-                        
+
                         // 尝试加载古代地图图片
                         // 如果图片加载失败，使用历史地图瓦片服务
                         const img = new Image();
                         img.crossOrigin = 'anonymous'; // 允许跨域加载图片
-                        img.onload = function() {
+                        img.onload = function () {
                             // 图片存在，使用图片叠加层
                             if (map.hasLayer(ancientTileLayer)) {
                                 map.removeLayer(ancientTileLayer);
@@ -2297,7 +2346,7 @@
                             // 调整地图视图以适应古代地图边界（已向右下偏移）
                             map.fitBounds(ancientMapBounds, { padding: [20, 20] });
                         };
-                        img.onerror = function() {
+                        img.onerror = function () {
                             // 图片不存在，使用历史地图瓦片服务
                             console.log('古代地图图片不存在，使用历史地图瓦片服务');
                             if (map.hasLayer(ancientImageLayer)) {
@@ -2307,7 +2356,7 @@
                             currentBaseLayer = ancientTileLayer;
                         };
                         img.src = ancientMapImageUrl;
-                        
+
                         isModernMap = false;
                         updateButtonStyles();
                     }
@@ -2373,12 +2422,12 @@
                     if (!iconPath) {
                         iconPath = './images/map/core_mount.png';
                     }
-                    
+
                     // 确保路径正确（如果已经是完整路径则直接使用，否则添加 ./ 前缀）
                     if (!iconPath.startsWith('./') && !iconPath.startsWith('http') && !iconPath.startsWith('/')) {
                         iconPath = './' + iconPath;
                     }
-                    
+
                     return L.icon({
                         iconUrl: iconPath,
                         iconSize: [size, size],
@@ -2391,31 +2440,31 @@
                 // 获取图标路径的辅助函数
                 function getIconPath(location) {
                     let iconPath = null;
-                    
+
                     // 1. 优先使用 location.style.icon
                     if (location.style?.icon) {
                         const iconValue = location.style.icon;
-                        
+
                         // 如果是完整路径（包含 / 或 .png/.jpg 等）
                         if (iconValue.includes('/') || iconValue.includes('.png') || iconValue.includes('.jpg') || iconValue.includes('.svg')) {
                             iconPath = iconValue;
-                        } 
+                        }
                         // 如果是图标名称，从映射中获取
                         else if (iconNameMap[iconValue]) {
                             iconPath = iconNameMap[iconValue];
                         }
                     }
-                    
+
                     // 2. 如果没有指定图标，使用类别的默认图标
                     if (!iconPath && categoryIcons[location.category]) {
                         iconPath = categoryIcons[location.category];
                     }
-                    
+
                     // 3. 如果还是没有，使用默认图标
                     if (!iconPath) {
                         iconPath = './images/map/core_mount.png';
                     }
-                    
+
                     return iconPath;
                 }
 
@@ -2430,15 +2479,15 @@
                             // 优先使用地点自身的颜色，如果没有则使用类别颜色
                             const color = location.style?.color || categoryColors[location.category] || '#808080';
                             const size = location.style?.size || 32; // 图标默认大小改为32px
-                            
+
                             // 获取图标路径
                             const iconPath = getIconPath(location);
-                            
+
                             // 创建标记（使用图标）
                             const marker = L.marker([location.latitude, location.longitude], {
                                 icon: createCustomIcon(iconPath, size)
                             }).addTo(map);
-                            
+
                             // 将标记添加到数组中
                             markers.push(marker);
 
@@ -2457,11 +2506,11 @@
                                     <p style="margin: 10px 0 5px 0; color: #333; font-size: 14px; line-height: 1.6;">
                                         ${location.introduction}
                                     </p>
-                                    ${location.poem && location.poem !== '暂无相关诗句' ? 
-                                        `<p style="margin: 10px 0 0 0; color: #666; font-size: 13px; font-style: italic; border-top: 1px solid #eee; padding-top: 10px;">
+                                    ${location.poem && location.poem !== '暂无相关诗句' ?
+                                    `<p style="margin: 10px 0 0 0; color: #666; font-size: 13px; font-style: italic; border-top: 1px solid #eee; padding-top: 10px;">
                                             ${location.poem}
                                         </p>` : ''
-                                    }
+                                }
                                 </div>
                             `;
 
@@ -2478,7 +2527,7 @@
                     .catch(error => {
                         console.error('加载地图数据失败:', error);
                         // 显示错误信息
-                        document.getElementById('immortalLocationMap').innerHTML = 
+                        document.getElementById('immortalLocationMap').innerHTML =
                             '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999;">地图数据加载失败，请检查 json/map.json 文件</div>';
                     });
             }
