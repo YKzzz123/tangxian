@@ -112,7 +112,7 @@ const footerComponent = `
                     <li class="flex items-center"><i class="fa fa-envelope-o mr-2"></i> zxy812120@163.com</li>
                     <li class="flex items-center"><i class="fa fa-map-marker mr-2"></i> <span data-i18n="footer.location">中国·香港·香港理工大学</span></li>
                     <li class="flex items-center mt-3">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-golden transition-colors flex items-center">
+                        <a href="https://github.com/YKzzz123/tangxian.git" target="_blank" rel="noopener noreferrer" class="hover:text-golden transition-colors flex items-center">
                             <i class="fa fa-github mr-2"></i><span data-i18n="footer.github">GitHub 仓库</span>
                         </a>
                     </li>
