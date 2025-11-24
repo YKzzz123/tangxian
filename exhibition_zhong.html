@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
         rel="stylesheet">
 
 
@@ -54,15 +54,20 @@
         <div class="container mx-auto px-4">
             <div class="flex overflow-x-auto items-center justify-center py-1" style="gap: 0;">
                 <a href="exhibition_all.html"
-                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">全唐</a>
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all"
+                    data-i18n="period.nav.all">全唐</a>
                 <a href="exhibition_chu.html"
-                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">初唐</a>
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all"
+                    data-i18n="period.nav.chu">初唐</a>
                 <a href="exhibition_sheng.html"
-                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">盛唐</a>
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all"
+                    data-i18n="period.nav.sheng">盛唐</a>
                 <a href="exhibition_zhong.html"
-                    class="period-btn active whitespace-nowrap px-4 py-1 rounded-full bg-golden text-ink font-medium text-sm md:text-base transition-all">中唐</a>
+                    class="period-btn active whitespace-nowrap px-4 py-1 rounded-full bg-golden text-ink font-medium text-sm md:text-base transition-all"
+                    data-i18n="period.nav.zhong">中唐</a>
                 <a href="exhibition_wan.html"
-                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all">晚唐</a>
+                    class="period-btn whitespace-nowrap px-4 py-1 rounded-full hover:bg-white/20 text-sm md:text-base transition-all"
+                    data-i18n="period.nav.wan">晚唐</a>
             </div>
         </div>
     </div>
@@ -73,32 +78,32 @@
         <aside
             class="w-full md:w-64 bg-white/80 backdrop-blur-sm shadow-md md:h-[calc(100vh-7rem)] md:sticky md:top-28 overflow-y-auto">
             <div class="p-6">
-                <h3 class="font-calligraphy text-xl text-celestial-blue mb-4 pb-2 border-b border-gray-200">可视化分析</h3>
+                <h3 class="font-calligraphy text-xl text-celestial-blue mb-4 pb-2 border-b border-gray-200" data-i18n="period.nav.visualization">可视化分析</h3>
 
                 <!-- 朝代导航 -->
                 <ul id="period-nav" class="space-y-1">
                     <li>
                         <a href="#overview"
                             class="visual-nav nav-active block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                            <i class="fa fa-info-circle mr-2 text-golden"></i> 整体概览
+                            <i class="fa fa-info-circle mr-2 text-golden"></i> <span data-i18n="period.nav.overview">整体概览</span>
                         </a>
                     </li>
                     <li>
                         <a href="#representative-poems"
                             class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                            <i class="fa fa-book mr-2 text-celestial-blue"></i> 代表性诗歌
+                            <i class="fa fa-book mr-2 text-celestial-blue"></i> <span data-i18n="period.nav.poems">代表性诗歌</span>
                         </a>
                     </li>
                     <li>
                         <a href="#development-status"
                             class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                            <i class="fa fa-line-chart mr-2 text-ochre"></i> 发展状态
+                            <i class="fa fa-line-chart mr-2 text-ochre"></i> <span data-i18n="period.nav.development">发展状态</span>
                         </a>
                     </li>
                     <li>
                         <a href="#image-analysis"
                             class="visual-nav block px-4 py-3 text-ink hover:bg-gray-100 rounded-lg transition-colors">
-                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要仙人意象来源
+                            <i class="fa fa-picture-o mr-2 text-jade-green"></i> <span data-i18n="period.nav.image">主要仙人意象来源</span>
                         </a>
                     </li>
                 </ul>
@@ -111,11 +116,13 @@
                 <!-- 页面标题 -->
                 <div class="mb-10 text-center">
                     <h1
-                        class="font-calligraphy text-[clamp(1.8rem,4vw,3rem)] text-celestial-blue mb-4 text-shadow-gold">
+                        class="font-calligraphy text-[clamp(1.8rem,4vw,3rem)] text-celestial-blue mb-4 text-shadow-gold"
+                        data-i18n="period.zhong.title">
                         中唐游仙诗——折翅云端，坠入人间
                     </h1>
-                    <p class="text-gray-600 max-w-3xl mx-auto">
-                        探索中唐时期游仙诗的创作特点、主题分布与艺术特色，揭示这一时期游仙诗的独特风貌
+                    <p class="text-gray-600 max-w-3xl mx-auto"
+                        data-i18n="period.zhong.subtitle">
+                        探索中唐时期游仙诗的发展状态、仙人意象分布及其来源，领略这一时期游仙诗的独特风貌。
                     </p>
                     <div class="w-32 h-1 bg-golden mx-auto mt-6"></div>
                 </div>
@@ -126,51 +133,54 @@
                     <section id="overview" class="mb-16 scroll-mt-28">
                         <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
                             <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                                <i class="fa fa-info-circle mr-2 text-golden"></i> 整体概览
+                                <i class="fa fa-info-circle mr-2 text-golden"></i> <span data-i18n="period.nav.overview">整体概览</span>
                             </h2>
 
                             <!-- 历史背景使用古朴底色背景 -->
                             <div class="mb-6">
                                 <div class="bg-paper-texture p-5 rounded-lg">
                                     <h3 class="text-lg font-medium text-gray-700 mb-3 flex items-center">
-                                        <i class="fa fa-history mr-2 text-golden"></i> 历史背景
+                                        <i class="fa fa-history mr-2 text-golden"></i> <span data-i18n="period.history">历史背景</span>
                                     </h3>
-                                    <p class="text-gray-700 leading-relaxed">
+                                    <p class="text-gray-700 leading-relaxed"
+                                        data-i18n="period.zhong.history">
                                         中唐时期（公元771-835年），安史之乱的创伤尚未平复，藩镇割据、宦官专权等政治乱象频发，文人普遍陷入理想与现实的双重困境。在这一历史背景下，游仙诗成为文人宣泄内心焦虑、寻求精神寄托的重要文学形式。
                                     </p>
                                 </div>
                             </div>
 
                             <div class="prose max-w-none">
-                                <p class="text-gray-700 leading-relaxed mb-4">
+                                <p class="text-gray-700 leading-relaxed mb-4"
+                                    data-i18n="period.zhong.overview">
                                     安史之乱的战火终结了盛唐的繁华，使唐王朝陷入由盛转衰的历史拐点。社会动荡引发的政治格局更迭、经济凋敝与民生疾苦，深刻重塑了文人的精神世界——盛唐时期昂扬自信的入世情怀逐渐消解，取而代之的是惶惑、焦虑与对精神慰藉的迫切渴求。
                                 </p>
-                                <p class="text-gray-700 leading-relaxed mb-4">
+                                <p class="text-gray-700 leading-relaxed mb-4"
+                                    data-i18n="period.zhong.overview2">
                                     道教作为彼时重要的精神寄托载体，其内涵被中唐文人重新解读：他们不再执着于老庄玄学的浪漫超越，转而从道教义理、仙话传说中寻觅心灵安顿的路径，或借仙话阐释修道理念，或化用仙人意象映射现实困境，或赋予仙人凡俗情感以寄托个人情志。
                                 </p>
                                 <!-- 右下角特征悬停 -->
                                 <div class="flex justify-end items-center">
                                     <div class="tooltip-trigger relative cursor-help inline-flex items-center">
-                                        <span class="text-xs text-gray-600 mr-1">特征</span>
+                                        <span class="text-xs text-gray-600 mr-1" data-i18n="period.feature">特征</span>
                                         <i class="fa fa-question-circle text-golden text-xl"></i>
                                         <span
                                             class="tooltip-content absolute hidden right-full mr-2 top-1/2 transform -translate-y-1/2 bg-celestial-blue text-white p-4 rounded-lg shadow-lg w-64 z-10">
                                             <ul class="space-y-2">
                                                 <li class="flex items-start">
                                                     <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>现实关怀与精神超越并存</span>
+                                                    <span data-i18n="period.zhong.feature.1">现实关怀与精神超越并存</span>
                                                 </li>
                                                 <li class="flex items-start">
                                                     <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>仙话传说与个人情志融合</span>
+                                                    <span data-i18n="period.zhong.feature.2">仙话传说与个人情志融合</span>
                                                 </li>
                                                 <li class="flex items-start">
                                                     <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>对心灵安顿与精神慰藉的追寻</span>
+                                                    <span data-i18n="period.zhong.feature.3">对心灵安顿与精神慰藉的追寻</span>
                                                 </li>
                                                 <li class="flex items-start">
                                                     <i class="fa fa-star mt-1 mr-2 text-golden"></i>
-                                                    <span>对仙境的描绘更趋世俗化</span>
+                                                    <span data-i18n="period.zhong.feature.4">对仙境的描绘更趋世俗化</span>
                                                 </li>
                                             </ul>
                                         </span>
@@ -184,7 +194,7 @@
                     <section id="representative-poems" class="mb-16 scroll-mt-28">
                         <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
                             <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                                <i class="fa fa-book mr-2 text-celestial-blue"></i> 代表性诗歌
+                                <i class="fa fa-book mr-2 text-celestial-blue"></i> <span data-i18n="period.nav.poems">代表性诗歌</span>
                             </h2>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <!-- 诗歌卡片 1 -->
@@ -236,36 +246,39 @@
                     <section id="development-status" class="mb-16 scroll-mt-28">
                         <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
                             <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                                <i class="fa fa-line-chart mr-2 text-ochre"></i> 发展状态
+                                <i class="fa fa-line-chart mr-2 text-ochre"></i> <span data-i18n="period.nav.development">发展状态</span>
                             </h2>
-                            <p class="text-gray-700 leading-relaxed mb-4">
+                            <p class="text-gray-700 leading-relaxed mb-4"
+                                data-i18n="period.zhong.development.text1">
                                 中唐时期的游仙诗数目相比盛唐下降到67首，仙人意向出现的次数和数量分别为72和43。<br>
-                            <p class="text-gray-700 leading-relaxed mb-6">
+                            <p class="text-gray-700 leading-relaxed mb-6"
+                                data-i18n="period.zhong.development.text2">
                                 中唐的诗人数量达到了四个时期的最高峰，有作品记载的游仙诗人数量达到了29名。</p>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <!-- 饼图：67/282 -->
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">中唐游仙诗占比</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center" data-i18n="period.zhong.chart.percentage">中唐游仙诗占比</h3>
                                     <div id="zhongPoemPercentageChart" class="w-full h-80"></div>
                                 </div>
                                 <!-- 诗人排名 -->
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">中唐诗人游仙诗作品数量排名</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center" data-i18n="period.zhong.chart.poets">中唐诗人游仙诗作品数量排名</h3>
                                     <div id="zhongTopPoetsChart" class="w-full h-80"></div>
                                 </div>
                                 <!-- 仙人排名 -->
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人意象出现次数排名</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center" data-i18n="period.chart.immortals">仙人意象出现次数排名</h3>
                                     <div id="zhongTopImmortalsChart" class="w-full h-80"></div>
                                 </div>
                                 <!-- Type和Gender数据可视化 -->
                                 <div>
-                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center">仙人意象类型与性别分布</h3>
+                                    <h3 class="text-lg font-medium text-gray-700 mb-4 text-center" data-i18n="period.chart.typeGender">仙人意象类型与性别分布</h3>
                                     <div id="zhongImmortalTypeGenderChart" class="w-full h-80"></div>
                                 </div>
                             </div><br>
-                            <p class="text-gray-700 leading-relaxed mb-4">
-                                中唐时期的游仙诗数目相比盛唐下降到67首，仙人意象出现的次数和数量分别为72和43。这一时期，新出现的仙人意象有“嫦娥”、“广成子”等。如李贺《牡丹种曲》中的“月中桂树高多少，试问西河斫树人。嫦娥捣药无时已，玉女投壶不放还。”，孟郊《求仙曲》中的“广成爱神鼎，淮南好丹经。”从仙人类型上来看，游仙诗中首次出现了丑恶仙人意象，即在外貌、动作、性格等方面被刻意丑化，最终遭到诗人否定批判的仙人意象。此外，女性仙人意象明显增多，且呈现出艳情化倾向。遍览中唐游仙诗，我们会发现女性仙人意象的数量即将超过男性仙人意象的数量。
+                            <p class="text-gray-700 leading-relaxed mb-4"
+                                data-i18n="period.zhong.development.text3">
+                                中唐时期的游仙诗数目相比盛唐下降到67首，仙人意象出现的次数和数量分别为72和43。这一时期，新出现的仙人意象有"嫦娥"、"广成子"等。如李贺《牡丹种曲》中的"月中桂树高多少，试问西河斫树人。嫦娥捣药无时已，玉女投壶不放还。"，孟郊《求仙曲》中的"广成爱神鼎，淮南好丹经。"从仙人类型上来看，游仙诗中首次出现了丑恶仙人意象，即在外貌、动作、性格等方面被刻意丑化，最终遭到诗人否定批判的仙人意象。此外，女性仙人意象明显增多，且呈现出艳情化倾向。遍览中唐游仙诗，我们会发现女性仙人意象的数量即将超过男性仙人意象的数量。
                             </p>
                         </div>
                     </section>
@@ -274,7 +287,7 @@
                     <section id="image-analysis" class="mb-16 scroll-mt-28">
                         <div class="bg-white rounded-xl shadow-md p-6 visualization-card">
                             <h2 class="font-calligraphy text-2xl text-celestial-blue mb-6 flex items-center">
-                                <i class="fa fa-picture-o mr-2 text-jade-green"></i> 主要仙人意象来源
+                                <i class="fa fa-picture-o mr-2 text-jade-green"></i> <span data-i18n="period.nav.image">主要仙人意象来源</span>
                             </h2>
                             <div class="space-y-12">
                                 <!-- 嫦娥 -->
@@ -289,29 +302,30 @@
                                                 <ul class="space-y-2">
                                                     <li class="flex items-start">
                                                         <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
-                                                        <span>中国古代神话中的月中仙子</span>
+                                                        <span data-i18n="period.zhong.changE.tooltip.1">中国古代神话中的月中仙子</span>
                                                     </li>
                                                     <li class="flex items-start">
                                                         <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
-                                                        <span>因偷吃不死药而奔月</span>
+                                                        <span data-i18n="period.zhong.changE.tooltip.2">因偷吃不死药而奔月</span>
                                                     </li>
                                                     <li class="flex items-start">
                                                         <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
-                                                        <span>象征长生却孤寂的矛盾</span>
+                                                        <span data-i18n="period.zhong.changE.tooltip.3">象征长生却孤寂的矛盾</span>
                                                     </li>
                                                     <li class="flex items-start">
                                                         <i class="fa fa-moon-o mt-1 mr-2 text-golden"></i>
-                                                        <span>中唐时期成为文人情感寄托</span>
+                                                        <span data-i18n="period.zhong.changE.tooltip.4">中唐时期成为文人情感寄托</span>
                                                     </li>
                                                 </ul>
                                             </span>
                                         </div>
                                     </h3>
-                                    <p class="text-gray-700 leading-relaxed mb-4">
-                                        嫦娥的神话原型最早见于《山海经》，其初始形象为“帝俊妻常羲”，掌日月星辰之序；至汉代，《淮南子·览冥训》首次完整记载“嫦娥奔月”传说：“羿请不死之药于西王母，姮娥窃以奔月，怅然有丧，无以续之。”此时的嫦娥尚是“窃药奔月”后满怀怅惘的凡女，未完全脱离人间情感；魏晋南北朝时期，道教对其形象进行改造，《搜神记》将其与“蟾蜍”意象关联，赋予“长生却孤寂”的矛盾属性；初盛唐时期，嫦娥多以“月中仙子”的缥缈形象出现在游仙诗中，如李白《把酒问月》“白兔捣药秋复春，嫦娥孤栖与谁邻”，虽提及孤寂，却未深入刻画其内心世界。中唐文人继承了“奔月”“孤寂”的核心原型，但突破前代单一的形象框架，结合时代心境赋予其更复杂的情感内涵与现实隐喻，使“嫦娥”从单纯的“月仙符号”转变为承载文人生命体验的意象载体。
+                                    <p class="text-gray-700 leading-relaxed mb-4"
+                                        data-i18n="period.zhong.changE.description">
+                                        嫦娥的神话原型最早见于《山海经》，其初始形象为"帝俊妻常羲"，掌日月星辰之序；至汉代，《淮南子·览冥训》首次完整记载"嫦娥奔月"传说："羿请不死之药于西王母，姮娥窃以奔月，怅然有丧，无以续之。"此时的嫦娥尚是"窃药奔月"后满怀怅惘的凡女，未完全脱离人间情感；魏晋南北朝时期，道教对其形象进行改造，《搜神记》将其与"蟾蜍"意象关联，赋予"长生却孤寂"的矛盾属性；初盛唐时期，嫦娥多以"月中仙子"的缥缈形象出现在游仙诗中，如李白《把酒问月》"白兔捣药秋复春，嫦娥孤栖与谁邻"，虽提及孤寂，却未深入刻画其内心世界。中唐文人继承了"奔月""孤寂"的核心原型，但突破前代单一的形象框架，结合时代心境赋予其更复杂的情感内涵与现实隐喻，使"嫦娥"从单纯的"月仙符号"转变为承载文人生命体验的意象载体。
                                     </p>
                                     <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
-                                        <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
+                                        <h4 class="text-lg font-medium text-gray-700 mb-3" data-i18n="period.literature.title">相关文献记载（原文）</h4>
                                         <ul class="space-y-3">
                                             <li class="text-gray-700 italic">
                                                 《淮南子·览冥训》：“羿请不死之药于西王母，羿妻姮娥窃之奔月，托身于月，是为蟾蜍，而为月精。旧言月中有桂，有蟾蜍。故异书言：月桂高五百丈，下有一人，常斫之，树创随合。人姓吴，名刚，西河人，学仙有过，谪令伐树。”
@@ -332,29 +346,30 @@
                                                 <ul class="space-y-2">
                                                     <li class="flex items-start">
                                                         <i class="fa fa-book mt-1 mr-2 text-golden"></i>
-                                                        <span>道家无为而治理念的化身</span>
+                                                        <span data-i18n="period.zhong.guangChengZi.tooltip.1">道家无为而治理念的化身</span>
                                                     </li>
                                                     <li class="flex items-start">
                                                         <i class="fa fa-book mt-1 mr-2 text-golden"></i>
-                                                        <span>居崆峒山，传黄帝修道之法</span>
+                                                        <span data-i18n="period.zhong.guangChengZi.tooltip.2">居崆峒山，传黄帝修道之法</span>
                                                     </li>
                                                     <li class="flex items-start">
                                                         <i class="fa fa-book mt-1 mr-2 text-golden"></i>
-                                                        <span>主张"抱神以静"的修炼方法</span>
+                                                        <span data-i18n="period.zhong.guangChengZi.tooltip.3">主张"抱神以静"的修炼方法</span>
                                                     </li>
                                                     <li class="flex items-start">
                                                         <i class="fa fa-book mt-1 mr-2 text-golden"></i>
-                                                        <span>中唐时期成为修道典范</span>
+                                                        <span data-i18n="period.zhong.guangChengZi.tooltip.4">中唐时期成为修道典范</span>
                                                     </li>
                                                 </ul>
                                             </span>
                                         </div>
                                     </h3>
-                                    <p class="text-gray-700 leading-relaxed mb-4">
-                                        广成子的原型出自《庄子·在宥》，是道家“无为而治”与“修道养生”理念的化身：传说其居崆峒山，黄帝曾前往问道，广成子答以“至道之精，窈窈冥冥；至道之极，昏昏默默。无视无听，抱神以静，形将自正”，主张“去欲存真”“与道合一”，此时的形象尚是“道家圣人”，未完全纳入道教神仙谱系。道教兴起后，广成子的形象被逐步“仙化”：东晋葛洪《抱朴子·内篇》将其列为“仙人”，称其“服金液，乘云驾龙，上升太清”；南北朝《元始上真众仙记》进一步赋予其“道教仙官”身份，与“元始天尊”“太上老君”并列；中唐时期，道教“内丹道”兴起，文人对“修道”的认知从“服食金丹”转向“内心存静”，广成子“抱神以静”的核心思想被重新发掘，成为文人对抗现实焦虑、追求精神安顿的重要象征——其意象也从“遥远的仙官”转变为“可感的修道典范”。
+                                    <p class="text-gray-700 leading-relaxed mb-4"
+                                        data-i18n="period.zhong.guangChengZi.description">
+                                        广成子的原型出自《庄子·在宥》，是道家"无为而治"与"修道养生"理念的化身：传说其居崆峒山，黄帝曾前往问道，广成子答以"至道之精，窈窈冥冥；至道之极，昏昏默默。无视无听，抱神以静，形将自正"，主张"去欲存真""与道合一"，此时的形象尚是"道家圣人"，未完全纳入道教神仙谱系。道教兴起后，广成子的形象被逐步"仙化"：东晋葛洪《抱朴子·内篇》将其列为"仙人"，称其"服金液，乘云驾龙，上升太清"；南北朝《元始上真众仙记》进一步赋予其"道教仙官"身份，与"元始天尊""太上老君"并列；中唐时期，道教"内丹道"兴起，文人对"修道"的认知从"服食金丹"转向"内心存静"，广成子"抱神以静"的核心思想被重新发掘，成为文人对抗现实焦虑、追求精神安顿的重要象征——其意象也从"遥远的仙官"转变为"可感的修道典范"。
                                     </p>
                                     <div class="bg-moon-white/70 border-l-4 border-golden p-4 rounded-r-lg">
-                                        <h4 class="text-lg font-medium text-gray-700 mb-3">相关文献记载（原文）</h4>
+                                        <h4 class="text-lg font-medium text-gray-700 mb-3" data-i18n="period.literature.title">相关文献记载（原文）</h4>
                                         <ul class="space-y-3">
                                             <li class="text-gray-700 italic">
                                                 《庄子・外篇・在宥》：“黄帝立为天子十九年，令行天下，闻广成子在于空同之山，故往见之，曰：“我闻吾子达于至道，敢问至道之精。吾欲取天地之精，以佐五谷，以养民人，吾又欲官阴阳，以遂群生，为之柰何？”广成子曰：“而所欲问者，物之质也；而所欲官者，物之残也。自而治天下，云气不待族而雨，草木不待黄而落，日月之光益以荒矣。而佞人之心翦翦者，又奚足以语至道？”
@@ -553,6 +568,13 @@
 
         // 初始化中唐相关图表
         function initCharts() {
+            // 定义图表翻译函数
+            const getChartText = (key) => {
+                if (!window.i18n || !window.i18n.translate) return key;
+                const lang = window.i18n.getCurrentLanguage ? window.i18n.getCurrentLanguage() : (localStorage.getItem('language') || 'zh');
+                return window.i18n.translate(key, lang);
+            };
+            
             // 1. 游仙诗占比饼图 (67/282)
             if (document.getElementById('zhongPoemPercentageChart')) {
                 charts.zhongPoemPercentageChart = echarts.init(document.getElementById('zhongPoemPercentageChart'));
@@ -571,7 +593,7 @@
                     },
                     series: [
                         {
-                            name: '游仙诗占比',
+                            name: getChartText('chart.series.period.percentage'),
                             type: 'pie',
                             radius: ['40%', '70%'],
                             avoidLabelOverlap: false,
@@ -595,8 +617,8 @@
                                 show: false
                             },
                             data: [
-                                { value: 67, name: '中唐', itemStyle: { color: '#D4AF37' } },
-                                { value: 282, name: '全唐', itemStyle: { color: '#4A6FA5' } }
+                                { value: 67, name: getChartText('chart.period.zhong'), itemStyle: { color: '#D4AF37' } },
+                                { value: 282, name: getChartText('period.nav.all'), itemStyle: { color: '#4A6FA5' } }
                             ]
                         }
                     ]
@@ -635,7 +657,7 @@
                     },
                     series: [
                         {
-                            name: '作品数量',
+                            name: getChartText('chart.series.poem.count'),
                             type: 'bar',
                             data: [4, 4, 6, 6, 6, 9],
                             itemStyle: {
@@ -648,7 +670,7 @@
                             label: {
                                 show: true,
                                 position: 'right',
-                                formatter: '{c} 次'
+                                formatter: '{c} ' + getChartText('chart.tooltip.times')
                             }
                         }
                     ]
@@ -687,7 +709,7 @@
                     },
                     series: [
                         {
-                            name: '出现次数',
+                            name: getChartText('chart.axis.occurrence'),
                             type: 'bar',
                             data: [2, 2, 3, 5, 16],
                             itemStyle: {
@@ -700,7 +722,7 @@
                             label: {
                                 show: true,
                                 position: 'right',
-                                formatter: '{c} 次'
+                                formatter: '{c} ' + getChartText('chart.tooltip.times')
                             }
                         }
                     ]
@@ -719,7 +741,7 @@
                         }
                     },
                     legend: {
-                        data: ['男性', '女性'],
+                        data: [getChartText('chart.legend.male'), getChartText('chart.legend.female')],
                         textStyle: {
                             color: '#2D2D2D'
                         }
@@ -732,7 +754,7 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['凡人成仙者', '個性鮮明的天界眾仙', '類型化仙人'],
+                        data: [getChartText('chart.legend.mortal.immortal'), getChartText('chart.legend.distinct.immortals'), getChartText('chart.legend.typed.immortals')],
                         axisLabel: {
                             color: '#2D2D2D',
                             interval: 0,
@@ -747,13 +769,13 @@
                     },
                     series: [
                         {
-                            name: '男性',
+                            name: getChartText('chart.legend.male'),
                             type: 'bar',
                             data: [17, 4, 4],
                             itemStyle: { color: '#4A6FA5' }
                         },
                         {
-                            name: '女性',
+                            name: getChartText('chart.legend.female'),
                             type: 'bar',
                             data: [3, 4, 11],
                             itemStyle: { color: '#EC4899' }
@@ -777,11 +799,61 @@
             }
         }
 
+        // 更新图表语言
+        function updateChartsLanguage() {
+            if (!window.i18n || !window.i18n.translate) return;
+            const lang = window.i18n.getCurrentLanguage ? window.i18n.getCurrentLanguage() : (localStorage.getItem('language') || 'zh');
+            const getChartText = (key) => window.i18n.translate(key, lang);
+            
+            // 更新游仙诗占比饼图
+            if (charts.zhongPoemPercentageChart) {
+                const option = charts.zhongPoemPercentageChart.getOption();
+                option.series[0].name = getChartText('chart.series.period.percentage');
+                option.series[0].data = [
+                    { value: 67, name: getChartText('chart.period.zhong'), itemStyle: { color: '#D4AF37' } },
+                    { value: 282, name: getChartText('period.nav.all'), itemStyle: { color: '#4A6FA5' } }
+                ];
+                charts.zhongPoemPercentageChart.setOption(option);
+            }
+            
+            // 更新诗人排名图表
+            if (charts.zhongTopPoetsChart) {
+                const option = charts.zhongTopPoetsChart.getOption();
+                option.series[0].name = getChartText('chart.series.poem.count');
+                option.series[0].label.formatter = '{c} ' + getChartText('chart.tooltip.times');
+                charts.zhongTopPoetsChart.setOption(option);
+            }
+            
+            // 更新仙人排名图表
+            if (charts.zhongTopImmortalsChart) {
+                const option = charts.zhongTopImmortalsChart.getOption();
+                option.series[0].name = getChartText('chart.axis.occurrence');
+                option.series[0].label.formatter = '{c} ' + getChartText('chart.tooltip.times');
+                charts.zhongTopImmortalsChart.setOption(option);
+            }
+            
+            // 更新类型与性别分布图表
+            if (charts.zhongImmortalTypeGenderChart) {
+                const option = charts.zhongImmortalTypeGenderChart.getOption();
+                option.legend.data = [getChartText('chart.legend.male'), getChartText('chart.legend.female')];
+                option.xAxis.data = [getChartText('chart.legend.mortal.immortal'), getChartText('chart.legend.distinct.immortals'), getChartText('chart.legend.typed.immortals')];
+                option.series[0].name = getChartText('chart.legend.male');
+                option.series[1].name = getChartText('chart.legend.female');
+                charts.zhongImmortalTypeGenderChart.setOption(option);
+            }
+        }
+        
+        // 监听语言切换事件
+        document.addEventListener('languageChanged', function() {
+            setTimeout(updateChartsLanguage, 100);
+        });
+
         // 页面加载完成后初始化图表和交互功能
         document.addEventListener('DOMContentLoaded', function () {
             initPage('exhibition_all');
             initCharts();
             initTooltipInteractions();
+            setTimeout(updateChartsLanguage, 500);
         });
     </script>
 </body>

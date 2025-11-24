@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
         rel="stylesheet">
 
     <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
@@ -262,10 +262,12 @@
             <div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
                 <div class="fade-in">
                     <h1
-                        class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold leading-tight">
+                        class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold leading-tight"
+                        data-i18n="us.page.title">
                         关于我们
                     </h1>
-                    <p class="text-[clamp(1rem,2vw,1.2rem)] text-gray-700 mb-8 max-w-2xl mx-auto">
+                    <p class="text-[clamp(1rem,2vw,1.2rem)] text-gray-700 mb-8 max-w-2xl mx-auto"
+                        data-i18n="us.page.subtitle">
                         寻仙唐迹团队致力于用数字人文方法探索唐代游仙诗中的仙人世界
                     </p>
                 </div>
@@ -276,7 +278,8 @@
         <section class="py-20 px-6 md:px-12 bg-moon-white/80 relative">
             <div class="container mx-auto max-w-5xl">
                 <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4"
+                        data-i18n="us.team.title">
                         项目团队
                     </h2>
                     <div class="w-32 h-1 bg-golden mx-auto"></div>
@@ -413,7 +416,7 @@
                             </div>
                         </div>
                         <div class="team-nav">
-                            <button type="button" id="teamPrev" aria-label="上一位成员">
+                            <button type="button" id="teamPrev" aria-label="上一位成员" data-i18n-aria-label="us.team.prev">
                                 <i class="fa fa-angle-left"></i>
                             </button>
                             <div class="team-dots" aria-hidden="true">
@@ -425,7 +428,7 @@
                                 <span class="team-dot" data-team-dot="5"></span>
                                 <span class="team-dot" data-team-dot="6"></span>
                             </div>
-                            <button type="button" id="teamNext" aria-label="下一位成员">
+                            <button type="button" id="teamNext" aria-label="下一位成员" data-i18n-aria-label="us.team.next">
                                 <i class="fa fa-angle-right"></i>
                             </button>
                         </div>
@@ -439,7 +442,8 @@
             <div class="container mx-auto max-w-5xl space-y-16">
                 <div class="space-y-8 scroll-reveal">
                     <div class="text-center">
-                        <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                        <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4"
+                            data-i18n="us.research.title">
                             研究目的与数据来源
                         </h2>
                         <div class="w-32 h-1 bg-golden mx-auto"></div>
@@ -447,9 +451,9 @@
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-lg">
                             <h3 class="text-xl font-semibold text-celestial-blue mb-4 flex items-center">
-                                <i class="fa fa-bullseye text-golden mr-3"></i>研究目的
+                                <i class="fa fa-bullseye text-golden mr-3"></i><span data-i18n="us.research.purpose.title">研究目的</span>
                             </h3>
-                            <p class="text-gray-700 leading-relaxed">
+                            <p class="text-gray-700 leading-relaxed" data-i18n="us.research.purpose.text">
                                 游仙诗以仙人、仙境、仙术等虚幻意象为核心，而仙人意象又是核心之核心。
                                 对仙人意象的分析有助于深入理解唐代文人游仙诗的精神气象，洞察时代风气与人文思想。
                                 将分析结果进行可视化，可以清晰呈现仙人意象的流变脉络，进一步探讨道教发展与社会变迁对游仙诗创作的影响。
@@ -457,9 +461,9 @@
                         </div>
                         <div class="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-lg">
                             <h3 class="text-xl font-semibold text-celestial-blue mb-4 flex items-center">
-                                <i class="fa fa-database text-golden mr-3"></i>数据集来源
+                                <i class="fa fa-database text-golden mr-3"></i><span data-i18n="us.research.datasource.title">数据集来源</span>
                             </h3>
-                            <p class="text-gray-700 leading-relaxed">
+                            <p class="text-gray-700 leading-relaxed" data-i18n="us.research.datasource.text">
                                 我们在GitHub上发现了按卷数整理、格式规范的《全唐诗》JSON数据集，并结合颜进雄《唐代游仙诗研究》与人工校对，
                                 提取出280余首唐代游仙诗。数据集同时提供JSON与CSV两种格式，为后续的语料分析与可视化奠定基础。
                             </p>
@@ -469,21 +473,22 @@
 
                 <div class="scroll-reveal">
                     <div class="text-center mb-8">
-                        <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                        <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4"
+                            data-i18n="us.workflow.title">
                             工作流（方法论 & 使用工具）
                         </h2>
                         <div class="w-32 h-1 bg-golden mx-auto"></div>
-                        <p class="text-gray-600 mt-4">
+                        <p class="text-gray-600 mt-4" data-i18n="us.workflow.desc">
                             点击不同阶段查看对应描述与所用方法，进度条将同步展示项目推进情况。
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-3 justify-center mb-6">
-                        <button class="workflow-tab active" data-workflow-step="0">29/09-12/10 数据筛选</button>
-                        <button class="workflow-tab" data-workflow-step="1">13/10-26/10 数据分析</button>
-                        <button class="workflow-tab" data-workflow-step="2">27/10-09/11 研究结论</button>
-                        <button class="workflow-tab" data-workflow-step="3">27/10-09/11 网站搭建</button>
-                        <button class="workflow-tab" data-workflow-step="4">03/11-16/11 游戏制作</button>
+                        <button class="workflow-tab active" data-workflow-step="0" data-i18n="us.workflow.step.0">29/09-12/10 数据筛选</button>
+                        <button class="workflow-tab" data-workflow-step="1" data-i18n="us.workflow.step.1">13/10-26/10 数据分析</button>
+                        <button class="workflow-tab" data-workflow-step="2" data-i18n="us.workflow.step.2">27/10-09/11 研究结论</button>
+                        <button class="workflow-tab" data-workflow-step="3" data-i18n="us.workflow.step.3">27/10-09/11 网站搭建</button>
+                        <button class="workflow-tab" data-workflow-step="4" data-i18n="us.workflow.step.4">03/11-16/11 游戏制作</button>
                     </div>
 
                     <div class="relative h-2 bg-white/70 rounded-full overflow-hidden mb-8">
@@ -493,20 +498,20 @@
                     </div>
 
                     <div class="bg-white/85 backdrop-blur rounded-3xl p-8 shadow-xl space-y-4" id="workflowContent">
-                        <p class="text-sm text-gray-500" id="workflowRange">29/09/2025 - 12/10/2025</p>
-                        <h3 class="text-2xl font-semibold text-celestial-blue" id="workflowTitle">数据集整理与仙人意象提炼</h3>
-                        <p class="text-gray-700 leading-relaxed" id="workflowDescription">
+                        <p class="text-sm text-gray-500" id="workflowRange" data-i18n="us.workflow.step0.range">29/09/2025 - 12/10/2025</p>
+                        <h3 class="text-2xl font-semibold text-celestial-blue" id="workflowTitle" data-i18n="us.workflow.step0.title">数据集整理与仙人意象提炼</h3>
+                        <p class="text-gray-700 leading-relaxed" id="workflowDescription" data-i18n="us.workflow.step0.desc">
                             基于GitHub全唐诗JSON数据集与《唐代游仙诗研究》，筛选出282首唐代游仙诗，并按四个时期分类，
                             同时按照类型学分析需求整理诗中出现的仙人意象。
                         </p>
                         <div>
                             <h4 class="text-lg font-semibold text-celestial-blue mb-2 flex items-center">
-                                <i class="fa fa-wrench text-golden mr-2"></i>方法论 & 使用工具
+                                <i class="fa fa-wrench text-golden mr-2"></i><span data-i18n="us.workflow.step0.tools.title">方法论 & 使用工具</span>
                             </h4>
                             <ul class="list-disc pl-5 text-gray-700 space-y-1" id="workflowTools">
-                                <li>豆包 AI OCR：识别《唐代游仙诗研究》中所有游仙诗信息。</li>
-                                <li>Python + 全唐诗 JSON：匹配诗名、诗人、卷次，生成 JSON/CSV 数据集。</li>
-                                <li>接入 DeepSeek 的飞书多维表格：提炼游仙诗中的仙人意象并整理为 CSV。</li>
+                                <li data-i18n="us.workflow.step0.tool1">豆包 AI OCR：识别《唐代游仙诗研究》中所有游仙诗信息。</li>
+                                <li data-i18n="us.workflow.step0.tool2">Python + 全唐诗 JSON：匹配诗名、诗人、卷次，生成 JSON/CSV 数据集。</li>
+                                <li data-i18n="us.workflow.step0.tool3">接入 DeepSeek 的飞书多维表格：提炼游仙诗中的仙人意象并整理为 CSV。</li>
                             </ul>
                         </div>
                     </div>
@@ -615,55 +620,55 @@
             }
 
             // 工作流进度
-            const workflowSteps = [
+            const workflowStepKeys = [
                 {
-                    range: '29/09/2025 - 12/10/2025',
-                    title: '数据集整理与仙人意象提炼',
-                    description: '基于GitHub全唐诗JSON数据集和《唐代游仙诗研究》筛选出282首游仙诗，并按四个时期分类，同时按照类型学需求整理诗中出现的仙人意象，形成结构化语料库。',
+                    range: 'us.workflow.step0.range',
+                    title: 'us.workflow.step0.title',
+                    description: 'us.workflow.step0.desc',
                     tools: [
-                        '豆包 AI OCR：识别《唐代游仙诗研究》中所有游仙诗的诗名、诗人与卷数。',
-                        'Python 脚本：匹配诗歌信息，生成 JSON / CSV 格式的游仙诗数据集。',
-                        '接入 DeepSeek 的飞书多维表格：提炼仙人意象并整理成 CSV 表格。'
+                        'us.workflow.step0.tool1',
+                        'us.workflow.step0.tool2',
+                        'us.workflow.step0.tool3'
                     ]
                 },
                 {
-                    range: '13/10/2025 - 26/10/2025',
-                    title: '多维度数据分析与可视化',
-                    description: '围绕全唐、初唐、盛唐、中唐、晚唐各时期的仙人意象使用情况与代表性诗人展开数据分析，包括统计学分析、仙人意象共现分析和仙人所在地GIS分析。',
+                    range: 'us.workflow.step1.range',
+                    title: 'us.workflow.step1.title',
+                    description: 'us.workflow.step1.desc',
                     tools: [
-                        'R：进行数据清洗、统计与建模分析。',
-                        'Tableau：制作柱状图、扇形图、折线图、热力图等可视化成果。',
-                        'Python：进行数据清洗和分析，计算仙人意象共现关系。',
-                        'AI + ECharts：制作唐代游仙诗仙人意象共现网络图。',
-                        'AI + Leaflet：针对数据库中所有仙人，使用AI总结其所在地，再经手动消歧、筛选校对、制作对应图标后汇总成JSON文件，使用Leaflet导入地图。'
+                        'us.workflow.step1.tool1',
+                        'us.workflow.step1.tool2',
+                        'us.workflow.step1.tool3',
+                        'us.workflow.step1.tool4',
+                        'us.workflow.step1.tool5'
                     ]
                 },
                 {
-                    range: '27/10/2025 - 09/11/2025',
-                    title: '撰写研究发现与结论',
-                    description: '结合数据结果与相关文献，撰写各时期游仙诗仙人意象使用特点、高频意象来源及其背后文化语境，并讨论如女性仙人占比增加等衍生洞见。',
+                    range: 'us.workflow.step2.range',
+                    title: 'us.workflow.step2.title',
+                    description: 'us.workflow.step2.desc',
                     tools: [
-                        '对照史料与数据洞察，提炼研究观点。',
-                        '归纳分析，形成结构化的研究结论与解读。'
+                        'us.workflow.step2.tool1',
+                        'us.workflow.step2.tool2'
                     ]
                 },
                 {
-                    range: '27/10/2025 - 09/11/2025',
-                    title: '网站框架搭建',
-                    description: '搭建寻仙唐迹的整体信息架构与交互流程，让研究成果以数字人文的方式呈现。',
+                    range: 'us.workflow.step3.range',
+                    title: 'us.workflow.step3.title',
+                    description: 'us.workflow.step3.desc',
                     tools: [
-                        '方法论：以静态展示为主，侧重叙事性和可持续维护。',
-                        '技术栈：【前端】HTML5、Tailwind CSS、JavaScript；【后端】Python、 Flask；【数据库】JSON本地加载；【数据可视化】Chart.js；'
+                        'us.workflow.step3.tool1',
+                        'us.workflow.step3.tool2'
                     ]
                 },
                 {
-                    range: '03/11/2025 - 16/11/2025',
-                    title: '制作“仙卷创作”互动游戏',
-                    description: '设计“唐朝游仙志”小游戏，通过问答让用户找到与自己气质契合的诗人，并选择喜爱的仙人意象和仙境场景，生成属于自己的“唐代游仙诗”。',
+                    range: 'us.workflow.step4.range',
+                    title: 'us.workflow.step4.title',
+                    description: 'us.workflow.step4.desc',
                     tools: [
-                        'Figma：设计界面与交互流程。',
-                        '荣格八维决策树：进行诗人性格分类并设置适配题目。',
-                        'Deep Seek API + Doubao 生图 API：实时生成诗句与配图，实现沉浸式体验。'
+                        'us.workflow.step4.tool1',
+                        'us.workflow.step4.tool2',
+                        'us.workflow.step4.tool3'
                     ]
                 }
             ];
@@ -676,19 +681,38 @@
             const toolsEl = document.getElementById('workflowTools');
 
             const renderWorkflowStep = (index) => {
-                const step = workflowSteps[index];
-                rangeEl.textContent = step.range;
-                titleEl.textContent = step.title;
-                descEl.textContent = step.description;
+                const stepKeys = workflowStepKeys[index];
+                if (!stepKeys) return;
+                
+                // 使用翻译系统获取文本
+                const getTranslation = (key) => {
+                    if (window.i18n && window.i18n.translate) {
+                        return window.i18n.translate(key);
+                    }
+                    return key;
+                };
+                
+                rangeEl.textContent = getTranslation(stepKeys.range);
+                titleEl.textContent = getTranslation(stepKeys.title);
+                descEl.textContent = getTranslation(stepKeys.description);
                 toolsEl.innerHTML = '';
-                step.tools.forEach(tool => {
+                stepKeys.tools.forEach(toolKey => {
                     const li = document.createElement('li');
-                    li.textContent = tool;
+                    li.textContent = getTranslation(toolKey);
                     toolsEl.appendChild(li);
                 });
-                progressBar.style.width = `${(index) / (workflowSteps.length - 1) * 100}%`;
+                progressBar.style.width = `${(index) / (workflowStepKeys.length - 1) * 100}%`;
                 workflowTabs.forEach(tab => tab.classList.toggle('active', parseInt(tab.dataset.workflowStep, 10) === index));
             };
+            
+            // 监听语言切换事件，重新渲染当前步骤
+            window.addEventListener('languageChanged', function() {
+                const activeTab = document.querySelector('.workflow-tab.active');
+                if (activeTab) {
+                    const index = parseInt(activeTab.dataset.workflowStep, 10);
+                    renderWorkflowStep(index);
+                }
+            });
 
             workflowTabs.forEach(tab => {
                 tab.addEventListener('click', () => {

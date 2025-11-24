@@ -166,8 +166,8 @@ def doubao_image():
         
         import requests
         
-        api_url = os.getenv('DOUBAO_API_URL', 'https://ark.cn-beijing.volces.com/api/v3/images/generations')
-        model = os.getenv('DOUBAO_MODEL', 'doubao-seedream-4-0-250828')
+        api_url = os.getenv('DOUBAO_API_URL', 'https://ark.cn-shanghai.volces.com/api/v3/images/generations')
+        model = os.getenv('DOUBAO_MODEL', 'doubao-seedream-3-0-t2i-250415')
         auth_method = os.getenv('DOUBAO_AUTH_METHOD', 'bearer')
         
         headers = {'Content-Type': 'application/json'}
@@ -247,7 +247,7 @@ def health():
         'deepseekConfigured': bool(os.getenv('DEEPSEEK_API_KEY')),
         'doubaoConfigured': bool(os.getenv('DOUBAO_API_KEY')),
         'doubaoModel': os.getenv('DOUBAO_MODEL', 'doubao-seedream-4-0-250828'),
-        'doubaoApiUrl': os.getenv('DOUBAO_API_URL', 'https://ark.cn-beijing.volces.com/api/v3/images/generations')
+        'doubaoApiUrl': os.getenv('DOUBAO_API_URL', 'https://ark.cn-shanghai.volces.com/api/v3/images/generations')
     })
 
 

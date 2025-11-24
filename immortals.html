@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>仙镜图谱 - 寻仙唐迹</title>
+    <title>仙人图谱 - 寻仙唐迹</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./images/logo.png">
     <link rel="apple-touch-icon" href="./images/logo.png">
@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
         rel="stylesheet">
 
     <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
@@ -27,49 +27,57 @@
         <section class="py-28 px-6 md:px-12 bg-gradient-to-b from-moon-white/80 to-celestial-blue/10 relative">
             <div class="container mx-auto max-w-6xl text-center relative z-10">
                 <h1
-                    class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold scroll-reveal">
+                    class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold scroll-reveal"
+                    data-i18n="immortals.title">
                     唐代游仙诗仙人意象图谱
                 </h1>
-                <p class="text-gray-600 max-w-2xl mx-auto text-lg scroll-reveal">
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg scroll-reveal"
+                    data-i18n="immortals.subtitle">
                     探索唐代游仙诗中各类仙人形象，感受古人对仙境的丰富想象和对长生不死的向往
                 </p>
                 <div class="w-32 h-1 bg-golden mx-auto mt-6 scroll-reveal"></div>
             </div>
         </section>
 
-        <!-- 仙镜图谱内容 -->
+        <!-- 仙人图谱内容 -->
         <section class="py-16 px-6 md:px-12 bg-moon-white/80 relative">
             <div class="container mx-auto max-w-6xl">
                 <!-- 仙人分类标签 -->
-                <div class="flex flex-wrap justify-center gap-4 mb-12 scroll-reveal">
+                <div class="flex flex-nowrap justify-center gap-4 mb-12 scroll-reveal overflow-x-auto">
                     <button
-                        class="immortal-filter active px-6 py-2 rounded-full bg-celestial-blue text-white shadow-md hover:shadow-lg transition-all"
-                        data-filter="all">
+                        class="immortal-filter active px-4 py-2 rounded-full bg-celestial-blue text-white shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+                        data-filter="all"
+                        data-i18n="immortals.filter.all">
                         全部仙人
                     </button>
                     <button
-                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
-                        data-filter="個性鮮明的天界眾仙">
+                        class="immortal-filter px-4 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+                        data-filter="個性鮮明的天界眾仙"
+                        data-i18n="immortals.filter.distinct">
                         個性鮮明的天界眾仙
                     </button>
                     <button
-                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
-                        data-filter="凡人成仙者">
+                        class="immortal-filter px-4 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+                        data-filter="凡人成仙者"
+                        data-i18n="immortals.filter.mortal">
                         凡人成仙者
                     </button>
                     <button
-                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
-                        data-filter="類型化仙人">
+                        class="immortal-filter px-4 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+                        data-filter="類型化仙人"
+                        data-i18n="immortals.filter.typed">
                         類型化仙人
                     </button>
                     <button
-                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
-                        data-filter="女性">
+                        class="immortal-filter px-4 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+                        data-filter="女性"
+                        data-i18n="immortals.filter.female">
                         女性
                     </button>
                     <button
-                        class="immortal-filter px-6 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all"
-                        data-filter="男性">
+                        class="immortal-filter px-4 py-2 rounded-full bg-white/70 text-celestial-blue shadow-md hover:shadow-lg transition-all whitespace-nowrap"
+                        data-filter="男性"
+                        data-i18n="immortals.filter.male">
                         男性
                     </button>
                 </div>
@@ -78,37 +86,39 @@
                 <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 mb-8 shadow-md scroll-reveal">
                     <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                         <!-- 朝代筛选 -->
-                        <div class="flex flex-wrap gap-3 items-center">
-                            <span class="text-gray-700 font-medium">朝代筛选:</span>
-                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-celestial-blue bg-celestial-blue/10" data-period="all">
-                                全部
-                            </button>
-                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="chu">
-                                初唐
-                            </button>
-                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="sheng">
-                                盛唐
-                            </button>
-                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="zhong">
-                                中唐
-                            </button>
-                            <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent" data-period="wan">
-                                晚唐
-                            </button>
+                        <div class="flex flex-nowrap gap-3 items-center">
+                            <span class="text-gray-700 font-medium whitespace-nowrap" data-i18n="immortals.period.filter">朝代筛选:</span>
+                            <div class="flex flex-nowrap gap-3 items-center">
+                                <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-celestial-blue bg-celestial-blue/10 whitespace-nowrap" data-period="all" data-i18n="immortals.period.all">
+                                    全部
+                                </button>
+                                <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent whitespace-nowrap" data-period="chu" data-i18n="immortals.period.chu">
+                                    初唐
+                                </button>
+                                <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent whitespace-nowrap" data-period="sheng" data-i18n="immortals.period.sheng">
+                                    盛唐
+                                </button>
+                                <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent whitespace-nowrap" data-period="zhong" data-i18n="immortals.period.zhong">
+                                    中唐
+                                </button>
+                                <button class="period-filter px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-transparent whitespace-nowrap" data-period="wan" data-i18n="immortals.period.wan">
+                                    晚唐
+                                </button>
+                            </div>
                         </div>
 
                         <!-- 排序选项 -->
                         <div class="flex flex-wrap gap-3 items-center">
-                            <span class="text-gray-700 font-medium">排序方式:</span>
+                            <span class="text-gray-700 font-medium" data-i18n="immortals.sort.label">排序方式:</span>
                             <select id="sortOrder" class="px-4 py-2 rounded-lg bg-white/70 text-celestial-blue shadow-sm hover:shadow-md transition-all border-2 border-celestial-blue/30 focus:border-celestial-blue focus:outline-none">
-                                <option value="desc">降序 (从高到低)</option>
-                                <option value="asc">升序 (从低到高)</option>
+                                <option value="desc" data-i18n="immortals.sort.desc">降序 (从高到低)</option>
+                                <option value="asc" data-i18n="immortals.sort.asc">升序 (从低到高)</option>
                             </select>
                         </div>
 
                         <!-- 重置按钮 -->
                         <button id="resetFilters" class="px-6 py-2 rounded-lg bg-ochre text-white shadow-sm hover:shadow-md transition-all hover:bg-ochre/90">
-                            <i class="fa fa-refresh mr-2"></i>重置
+                            <i class="fa fa-refresh mr-2"></i><span data-i18n="immortals.reset">重置</span>
                         </button>
                     </div>
                 </div>
@@ -128,7 +138,7 @@
 
 
     <script>
-        // 初始化页面，设置当前页面为仙镜图谱
+            // 初始化页面，设置当前页面为仙人图谱
         window.addEventListener('DOMContentLoaded', function () {
             initPage('immortals');
 
@@ -406,6 +416,27 @@
             });
         }
 
+        // 更新排序选项的翻译
+        function updateSortOptionsTranslation() {
+            const sortOrderSelect = document.getElementById('sortOrder');
+            if (!sortOrderSelect) return;
+            
+            const getTranslation = (key) => {
+                if (window.i18n && window.i18n.translate) {
+                    return window.i18n.translate(key);
+                }
+                return key;
+            };
+            
+            const options = sortOrderSelect.querySelectorAll('option');
+            options.forEach(option => {
+                const key = option.getAttribute('data-i18n');
+                if (key) {
+                    option.textContent = getTranslation(key);
+                }
+            });
+        }
+
         // 初始化筛选和排序功能
         function initFilterAndSort() {
             // 朝代筛选按钮
@@ -440,6 +471,14 @@
                     applyFiltersAndSort();
                 }
             });
+            
+            // 监听语言切换事件，更新排序选项
+            window.addEventListener('languageChanged', function() {
+                updateSortOptionsTranslation();
+            });
+            
+            // 初始更新
+            updateSortOptionsTranslation();
 
             // 重置按钮
             const resetBtn = document.getElementById('resetFilters');

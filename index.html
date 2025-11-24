@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
         rel="stylesheet">
 
     <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
@@ -34,28 +34,27 @@
             <div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
                 <div class="fade-in">
                     <h1
-                        class="font-calligraphy text-[clamp(2.5rem,8vw,5rem)] text-celestial-blue mb-4 text-shadow-gold leading-tight">
+                        class="font-calligraphy text-[clamp(2.5rem,8vw,5rem)] text-celestial-blue mb-4 text-shadow-gold leading-tight"
+                        data-i18n="site.title">
                         寻仙唐迹
                     </h1>
-                    <p class="text-[clamp(1rem,3vw,1.5rem)] text-gray-700 mb-10 max-w-3xl mx-auto">
+                    <p class="text-[clamp(1rem,3vw,1.5rem)] text-gray-700 mb-10 max-w-3xl mx-auto"
+                        data-i18n="index.subtitle">
                         唐代文人游仙诗仙人意象分析
                     </p>
 
-                    <div class="flex flex-col sm:flex-row justify-center gap-6 mt-8">
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8 relative">
+                        <!-- 箭头指示器 - 位于副标题下方、两个按钮上方的中间位置，带动画 -->
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full -mt-4 -ml-0.5 hidden sm:flex items-center justify-center animate-bounce">
+                            <i class="fa fa-chevron-down text-celestial-blue/70 text-xl"></i>
+                        </div>
                         <a href="immortals.html"
                             class="bg-celestial-blue/90 hover:bg-celestial-blue text-white py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
-                            仙人图谱 <i class="fa fa-compass ml-2"></i>
+                            <span data-i18n="nav.immortals">仙人图谱</span> <i class="fa fa-compass ml-2"></i>
                         </a>
                         <a href="exhibition_all.html"
                             class="bg-transparent border-2 border-golden text-golden hover:bg-golden/10 py-3 px-8 rounded-full text-lg shadow-md hover:shadow-lg transition-all duration-300 hover-lift">
-                            数字展厅 <i class="fa fa-university ml-2"></i>
-                        </a>
-                    </div>
-
-                    <!-- 向下滚动指示 -->
-                    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                        <a href="#intro" class="text-celestial-blue/70 hover:text-celestial-blue transition-colors">
-                            <i class="fa fa-chevron-down text-2xl"></i>
+                            <span data-i18n="nav.exhibition">数字展厅</span> <i class="fa fa-university ml-2"></i>
                         </a>
                     </div>
                 </div>
@@ -66,7 +65,8 @@
         <section id="intro" class="py-20 px-6 md:px-12 bg-moon-white/80 relative">
             <div class="container mx-auto max-w-5xl">
                 <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4"
+                        data-i18n="index.about">
                         关于本项目
                     </h2>
                     <div class="w-32 h-1 bg-golden mx-auto"></div>
@@ -92,21 +92,24 @@
 
                         <!-- 文字内容 -->
                         <div class="relative z-10 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
-                            <p class="text-lg leading-relaxed mb-6 text-gray-800">
-                                唐代是中国诗歌史上一个光华四射的辉煌时代。因唐王朝与道教教主老子在姓氏上的“亲缘关系”，举国上下道教隆盛风靡。其信仰核心——神仙思想得以借机普遍传播和存在，并深入社会各个阶层。
+                            <p class="text-lg leading-relaxed mb-6 text-gray-800"
+                                data-i18n="index.about.text1">
+                                唐代是中国诗歌史上一个光华四射的辉煌时代。因唐王朝与道教教主老子在姓氏上的"亲缘关系"，举国上下道教隆盛风靡。其信仰核心——神仙思想得以借机普遍传播和存在，并深入社会各个阶层。
                             </p>
-                            <p class="text-lg leading-relaxed mb-6 text-gray-800">
+                            <p class="text-lg leading-relaxed mb-6 text-gray-800"
+                                data-i18n="index.about.text2">
                                 由于道教的长生宗旨与文人士大夫追求生命不朽的心理高度契合，其神话传说、宗教活动也蕴含了大量的素材和丰富的意象，唐代文人乐于尊崇道教。他们游仙的精神之花得到灌溉，因此极大地刺激了诗歌创作。
                             </p>
-                            <p class="text-lg leading-relaxed text-gray-800">
+                            <p class="text-lg leading-relaxed text-gray-800"
+                                data-i18n="index.about.text3">
                                 在这一背景下，唐代游仙诗走向空前兴盛。
                             </p>
 
                             <div class="flex items-center mt-8">
                                 <i class="fa fa-quote-left text-golden/50 text-4xl mr-4"></i>
                                 <p class="italic text-gray-600">
-                                    “霓为衣兮风为马，云之君兮纷纷而来下”
-                                    <span class="block text-right mt-2 text-sm">— 李白《梦游天姥吟留别》</span>
+                                    <span data-i18n="index.about.quote">"霓为衣兮风为马，云之君兮纷纷而来下"</span>
+                                    <span class="block text-right mt-2 text-sm" data-i18n="index.about.quote.author">— 李白《梦游天姥吟留别》</span>
                                 </p>
                             </div>
                         </div>
@@ -116,7 +119,8 @@
                         <img src="https://picsum.photos/id/29/800/600" alt="仙人意象图"
                             class="rounded-lg shadow-xl w-full h-auto object-cover">
                         <div class="absolute -bottom-6 -left-6 bg-white/90 p-4 rounded shadow-lg max-w-xs">
-                            <p class="text-sm text-gray-700">
+                            <p class="text-sm text-gray-700"
+                                data-i18n="index.about.image.caption">
                                 唐代游仙诗中的仙人意象，常与自然山川、云雾星辰融为一体
                             </p>
                         </div>
@@ -130,21 +134,21 @@
                         <div
                             class="relative z-10 text-5xl font-bold text-celestial-blue tracking-wide transition-transform duration-500 group-hover:scale-110">
                             80+</div>
-                        <div class="relative z-10 text-gray-600 text-lg">唐代诗人</div>
+                        <div class="relative z-10 text-gray-600 text-lg" data-i18n="index.stats.poets">唐代诗人</div>
                     </div>
                     <div
                         class="relative bg-white/80 backdrop-blur-sm px-8 py-10 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 w-full max-w-sm flex flex-col items-center text-center gap-3 group overflow-hidden before:absolute before:inset-[18%] before:rounded-full before:bg-gradient-to-br before:from-golden/20 before:to-celestial-blue/10 before:blur-3xl before:opacity-0 before:transition-all before:duration-500 before:content-[''] group-hover:before:opacity-70">
                         <div
                             class="relative z-10 text-5xl font-bold text-jade-green tracking-wide transition-transform duration-500 group-hover:scale-110">
                             280+</div>
-                        <div class="relative z-10 text-gray-600 text-lg">游仙诗作</div>
+                        <div class="relative z-10 text-gray-600 text-lg" data-i18n="index.stats.poems">游仙诗作</div>
                     </div>
                     <div
                         class="relative bg-white/80 backdrop-blur-sm px-8 py-10 rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 w-full max-w-sm flex flex-col items-center text-center gap-3 group overflow-hidden before:absolute before:inset-[18%] before:rounded-full before:bg-gradient-to-br before:from-golden/20 before:to-celestial-blue/10 before:blur-3xl before:opacity-0 before:transition-all before:duration-500 before:content-[''] group-hover:before:opacity-70">
                         <div
                             class="relative z-10 text-5xl font-bold text-ochre tracking-wide transition-transform duration-500 group-hover:scale-110">
                             130+</div>
-                        <div class="relative z-10 text-gray-600 text-lg">仙人意象</div>
+                        <div class="relative z-10 text-gray-600 text-lg" data-i18n="index.stats.immortals">仙人意象</div>
                     </div>
                 </div>
             </div>
@@ -154,17 +158,19 @@
         <section class="py-20 px-6 md:px-12 bg-gradient-to-b from-moon-white/80 to-celestial-blue/10 relative">
             <div class="container mx-auto max-w-6xl">
                 <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4">
+                    <h2 class="font-calligraphy text-[clamp(1.8rem,5vw,3rem)] text-celestial-blue mb-4"
+                        data-i18n="index.explore">
                         探索内容
                     </h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">
+                    <p class="text-gray-600 max-w-2xl mx-auto"
+                        data-i18n="index.explore.desc">
                         深入了解唐代游仙诗中的仙人世界，感受古人丰富的想象力与精神追求
                     </p>
                     <div class="w-32 h-1 bg-golden mx-auto mt-4"></div>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- 仙镜图谱预览 -->
+                    <!-- 仙人图谱预览 -->
                     <a href="immortals.html" class="scroll-reveal group">
                         <div
                             class="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full">
@@ -174,17 +180,18 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70">
                                 </div>
                                 <div class="absolute bottom-6 left-6 text-white">
-                                    <h3 class="font-calligraphy text-2xl mb-1">仙人图谱</h3>
-                                    <p class="text-sm opacity-90">探索各类仙人形象与传说</p>
+                                    <h3 class="font-calligraphy text-2xl mb-1" data-i18n="index.immortals.title">仙人图谱</h3>
+                                    <p class="text-sm opacity-90" data-i18n="index.immortals.desc">探索各类仙人形象与传说</p>
                                 </div>
                             </div>
                             <div class="p-6">
-                                <p class="text-gray-600 text-sm mb-4">
+                                <p class="text-gray-600 text-sm mb-4"
+                                    data-i18n="index.immortals.detail">
                                     基于性别、类型和出现次数系统梳理唐代游仙诗中的仙人意象，从个性鲜明的天界众仙到类型化仙人，展现丰富多彩的仙人世界。
                                 </p>
                                 <div
                                     class="flex items-center text-golden hover:text-celestial-blue transition-colors text-sm">
-                                    进入探索 <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all"></i>
+                                    <span data-i18n="index.immortals.enter">进入探索</span> <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all"></i>
                                 </div>
                             </div>
                         </div>
@@ -200,17 +207,18 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70">
                                 </div>
                                 <div class="absolute bottom-6 left-6 text-white">
-                                    <h3 class="font-calligraphy text-2xl mb-1">数字展厅</h3>
-                                    <p class="text-sm opacity-90">唐代游仙诗中的仙人意象</p>
+                                    <h3 class="font-calligraphy text-2xl mb-1" data-i18n="index.exhibition.title">数字展厅</h3>
+                                    <p class="text-sm opacity-90" data-i18n="index.exhibition.desc">唐代游仙诗中的仙人意象</p>
                                 </div>
                             </div>
                             <div class="p-6">
-                                <p class="text-gray-600 text-sm mb-4">
+                                <p class="text-gray-600 text-sm mb-4"
+                                    data-i18n="index.exhibition.detail">
                                     探索全唐及唐代各个时期游仙诗的发展状态、仙人意象分布及其来源，领略这一时期游仙诗的独特风貌。
                                 </p>
                                 <div
                                     class="flex items-center text-golden hover:text-celestial-blue transition-colors text-sm">
-                                    进入展厅 <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all"></i>
+                                    <span data-i18n="index.exhibition.enter">进入展厅</span> <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all"></i>
                                 </div>
                             </div>
                         </div>
@@ -226,17 +234,18 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70">
                                 </div>
                                 <div class="absolute bottom-6 left-6 text-white">
-                                    <h3 class="font-calligraphy text-2xl mb-1">仙卷创作</h3>
-                                    <p class="text-sm opacity-90">生成你的专属游仙诗</p>
+                                    <h3 class="font-calligraphy text-2xl mb-1" data-i18n="index.create.title">仙卷创作</h3>
+                                    <p class="text-sm opacity-90" data-i18n="index.create.desc">生成你的专属游仙诗</p>
                                 </div>
                             </div>
                             <div class="p-6">
-                                <p class="text-gray-600 text-sm mb-4">
-                                    完成“唐朝游仙志”测试，找到与你气质契合的诗人，选择喜爱的仙人意象和仙境场景，生成属于自己的“唐代游仙诗”。
+                                <p class="text-gray-600 text-sm mb-4"
+                                    data-i18n="index.create.detail">
+                                    完成"唐朝游仙志"测试，找到与你气质契合的诗人，选择喜爱的仙人意象和仙境场景，生成属于自己的"唐代游仙诗"。
                                 </p>
                                 <div
                                     class="flex items-center text-golden hover:text-celestial-blue transition-colors text-sm">
-                                    开始创作 <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all"></i>
+                                    <span data-i18n="index.create.enter">开始创作</span> <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all"></i>
                                 </div>
                             </div>
                         </div>
@@ -250,6 +259,41 @@
         // 初始化页面，设置当前页面为首页
         window.addEventListener('DOMContentLoaded', function () {
             initPage('index');
+            
+            // 动态调整箭头位置，使其精确居中于两个按钮之间
+            function adjustArrowPosition() {
+                const buttonContainer = document.querySelector('div.flex.flex-col.sm\\:flex-row.justify-center.items-center.gap-6.mt-8.relative');
+                if (!buttonContainer) return;
+                
+                const arrow = buttonContainer.querySelector('div.absolute.top-0');
+                const buttons = buttonContainer.querySelectorAll('a');
+                
+                if (arrow && buttons && buttons.length >= 2) {
+                    const rect1 = buttons[0].getBoundingClientRect();
+                    const rect2 = buttons[1].getBoundingClientRect();
+                    const containerRect = buttonContainer.getBoundingClientRect();
+                    
+                    // 计算两个按钮中心点之间的中点
+                    const center1 = rect1.left + rect1.width / 2 - containerRect.left;
+                    const center2 = rect2.left + rect2.width / 2 - containerRect.left;
+                    const midpoint = (center1 + center2) / 2;
+                    
+                    // 设置箭头位置（往左偏移10px）
+                    arrow.style.left = (midpoint - 10) + 'px';
+                    arrow.style.transform = 'translateX(-50%) translateY(-100%)';
+                }
+            }
+            
+            // 初始调整
+            setTimeout(adjustArrowPosition, 100);
+            
+            // 监听语言切换事件
+            window.addEventListener('languageChanged', function() {
+                setTimeout(adjustArrowPosition, 100);
+            });
+            
+            // 监听窗口大小变化
+            window.addEventListener('resize', adjustArrowPosition);
         });
     </script>
 </body>

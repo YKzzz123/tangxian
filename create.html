@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
         rel="stylesheet">
 
     <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
@@ -41,6 +41,10 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+        }
+
+        #creationPanel.english-mode {
+            font-family: 'Inter', sans-serif;
         }
 
         #creationPanel h3 {
@@ -116,6 +120,10 @@
             transition: background-color 0.25s ease, transform 0.2s ease;
         }
 
+        #creationPanel.english-mode button.generate {
+            font-family: 'Inter', sans-serif;
+        }
+
         #creationPanel button.generate:hover:not(:disabled) {
             background-color: #a0522d;
             transform: translateY(-1px);
@@ -167,33 +175,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        #soulQuizApp .language-switcher {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            z-index: 5;
-        }
-
-        #soulQuizApp .lang-btn {
-            background-color: #8b4513;
-            color: white;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 999px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        #soulQuizApp.english-mode .lang-btn {
-            font-family: 'Inter', sans-serif;
-        }
-
-        #soulQuizApp .lang-btn:hover {
-            background-color: #a0522d;
-        }
+        /* 语言切换按钮已移除，使用全局语言切换系统 */
 
         #soulQuizApp header {
             text-align: center;
@@ -313,6 +295,10 @@
             font-family: 'Ma Shan Zheng', cursive;
             transition: all 0.25s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #soulQuizApp.english-mode button {
+            font-family: 'Inter', sans-serif;
         }
 
         #soulQuizApp button:hover:not(:disabled) {
@@ -463,10 +449,12 @@
         <section class="py-28 px-6 md:px-12 bg-gradient-to-b from-moon-white/80 to-celestial-blue/10 relative">
             <div class="container mx-auto max-w-6xl text-center relative z-10">
                 <h1
-                    class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold scroll-reveal">
+                    class="font-calligraphy text-[clamp(2rem,6vw,4rem)] text-celestial-blue mb-4 text-shadow-gold scroll-reveal"
+                    data-i18n="create.page.title">
                     仙卷创作
                 </h1>
-                <p class="text-gray-600 max-w-2xl mx-auto text-lg scroll-reveal">
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg scroll-reveal"
+                    data-i18n="create.page.description">
                     先完成唐朝游仙志测试，找到与你气质契合的诗人，再以其风格挑选仙人意象与仙境场景，生成属于你的五言绝句。
                 </p>
                 <div class="w-32 h-1 bg-golden mx-auto mt-6 scroll-reveal"></div>
@@ -480,23 +468,19 @@
                     <!-- 唐朝游仙志 -->
                     <div class="scroll-reveal">
                         <div id="soulQuizApp">
-                            <div class="language-switcher">
-                                <button id="lang-btn" class="lang-btn">English</button>
-                            </div>
-
                             <header>
-                                <h1 id="main-title">唐朝游仙志</h1>
-                                <p class="subtitle" id="main-subtitle">与唐代诗人的精神对话</p>
+                                <h1 id="main-title" data-i18n="create.title">唐朝游仙志</h1>
+                                <p class="subtitle" id="main-subtitle" data-i18n="create.subtitle">与唐代诗人的精神对话</p>
                             </header>
 
-                            <div class="intro chinese-text">
-                                <p>在盛唐的诗意星空下，游仙诗如璀璨星河，</p>
-                                <p>照亮了文人墨客的精神归途。</p>
-                                <p>李白的天马行空，李商隐的朦胧深邃，</p>
-                                <p>李贺的诡奇想象，白居易的入世超然——</p>
-                                <p>每一种游仙方式都是独特的精神写照。</p>
-                                <p>这个测试将带你穿越千年诗境，</p>
-                                <p>找到与你气质最契合的唐代诗人知己。</p>
+                            <div class="intro">
+                                <p data-i18n="create.intro.1">在盛唐的诗意星空下，游仙诗如璀璨星河，</p>
+                                <p data-i18n="create.intro.2">照亮了文人墨客的精神归途。</p>
+                                <p data-i18n="create.intro.3">李白的天马行空，李商隐的朦胧深邃，</p>
+                                <p data-i18n="create.intro.4">李贺的诡奇想象，白居易的入世超然——</p>
+                                <p data-i18n="create.intro.5">每一种游仙方式都是独特的精神写照。</p>
+                                <p data-i18n="create.intro.6">这个测试将带你穿越千年诗境，</p>
+                                <p data-i18n="create.intro.7">找到与你气质最契合的唐代诗人知己。</p>
                             </div>
 
                             <div class="progress-bar">
@@ -505,100 +489,100 @@
 
                             <!-- 8 个问题 -->
                             <div class="question-container active" id="question1">
-                                <div class="question-number">第1题/共8题</div>
-                                <div class="question">1. 你心中理想的超凡体验是：</div>
+                                <div class="question-number" data-i18n="create.question.1.number">第1题/共8题</div>
+                                <div class="question" data-i18n="create.question.1.text">1. 你心中理想的超凡体验是：</div>
                                 <div class="options">
-                                    <div class="option" data-value="EN">与群仙共饮，畅游九霄</div>
-                                    <div class="option" data-value="IS">独坐云间，静观星移</div>
-                                    <div class="option" data-value="FJ">在人间修行，普度众生</div>
-                                    <div class="option" data-value="TP">探索宇宙，思考真理</div>
+                                    <div class="option" data-value="EN" data-i18n="create.question.1.option.1">与群仙共饮，畅游九霄</div>
+                                    <div class="option" data-value="IS" data-i18n="create.question.1.option.2">独坐云间，静观星移</div>
+                                    <div class="option" data-value="FJ" data-i18n="create.question.1.option.3">在人间修行，普度众生</div>
+                                    <div class="option" data-value="TP" data-i18n="create.question.1.option.4">探索宇宙，思考真理</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question2">
-                                <div class="question-number">第2题/共8题</div>
-                                <div class="question">2. 你更相信仙境存在于：</div>
+                                <div class="question-number" data-i18n="create.question.2.number">第2题/共8题</div>
+                                <div class="question" data-i18n="create.question.2.text">2. 你更相信仙境存在于：</div>
                                 <div class="options">
-                                    <div class="option" data-value="SJ">现实中的名山大川</div>
-                                    <div class="option" data-value="NP">想象构建的奇幻世界</div>
-                                    <div class="option" data-value="FI">内心的觉悟与修行</div>
-                                    <div class="option" data-value="TE">哲理思辨的境界</div>
+                                    <div class="option" data-value="SJ" data-i18n="create.question.2.option.1">现实中的名山大川</div>
+                                    <div class="option" data-value="NP" data-i18n="create.question.2.option.2">想象构建的奇幻世界</div>
+                                    <div class="option" data-value="FI" data-i18n="create.question.2.option.3">内心的觉悟与修行</div>
+                                    <div class="option" data-value="TE" data-i18n="create.question.2.option.4">哲理思辨的境界</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question3">
-                                <div class="question-number">第3题/共8题</div>
-                                <div class="question">3. 面对人生困境，你倾向于：</div>
+                                <div class="question-number" data-i18n="create.question.3.number">第3题/共8题</div>
+                                <div class="question" data-i18n="create.question.3.text">3. 面对人生困境，你倾向于：</div>
                                 <div class="options">
-                                    <div class="option" data-value="TJ">理性分析，寻找根本原因</div>
-                                    <div class="option" data-value="FE">寻求情感支持，共同面对</div>
-                                    <div class="option" data-value="JS">制定计划，逐步解决</div>
-                                    <div class="option" data-value="PN">随缘应对，相信转机</div>
+                                    <div class="option" data-value="TJ" data-i18n="create.question.3.option.1">理性分析，寻找根本原因</div>
+                                    <div class="option" data-value="FE" data-i18n="create.question.3.option.2">寻求情感支持，共同面对</div>
+                                    <div class="option" data-value="JS" data-i18n="create.question.3.option.3">制定计划，逐步解决</div>
+                                    <div class="option" data-value="PN" data-i18n="create.question.3.option.4">随缘应对，相信转机</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question4">
-                                <div class="question-number">第4题/共8题</div>
-                                <div class="question">4. 你的生活方式更接近：</div>
+                                <div class="question-number" data-i18n="create.question.4.number">第4题/共8题</div>
+                                <div class="question" data-i18n="create.question.4.text">4. 你的生活方式更接近：</div>
                                 <div class="options">
-                                    <div class="option" data-value="JT">井井有条，目标明确</div>
-                                    <div class="option" data-value="PF">随性自在，享受过程</div>
-                                    <div class="option" data-value="FJ">服务他人，承担责任</div>
-                                    <div class="option" data-value="TI">独立思考，保持距离</div>
+                                    <div class="option" data-value="JT" data-i18n="create.question.4.option.1">井井有条，目标明确</div>
+                                    <div class="option" data-value="PF" data-i18n="create.question.4.option.2">随性自在，享受过程</div>
+                                    <div class="option" data-value="FJ" data-i18n="create.question.4.option.3">服务他人，承担责任</div>
+                                    <div class="option" data-value="TI" data-i18n="create.question.4.option.4">独立思考，保持距离</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question5">
-                                <div class="question-number">第5题/共8题</div>
-                                <div class="question">5. 在诗歌创作中，你更看重：</div>
+                                <div class="question-number" data-i18n="create.question.5.number">第5题/共8题</div>
+                                <div class="question" data-i18n="create.question.5.text">5. 在诗歌创作中，你更看重：</div>
                                 <div class="options">
-                                    <div class="option" data-value="FE">情感的真诚表达</div>
-                                    <div class="option" data-value="NP">想象的奇特瑰丽</div>
-                                    <div class="option" data-value="SI">现实的深刻反映</div>
-                                    <div class="option" data-value="TJ">哲理的深邃表达</div>
+                                    <div class="option" data-value="FE" data-i18n="create.question.5.option.1">情感的真诚表达</div>
+                                    <div class="option" data-value="NP" data-i18n="create.question.5.option.2">想象的奇特瑰丽</div>
+                                    <div class="option" data-value="SI" data-i18n="create.question.5.option.3">现实的深刻反映</div>
+                                    <div class="option" data-value="TJ" data-i18n="create.question.5.option.4">哲理的深邃表达</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question6">
-                                <div class="question-number">第6题/共8题</div>
-                                <div class="question">6. 你希望被后人记住的是：</div>
+                                <div class="question-number" data-i18n="create.question.6.number">第6题/共8题</div>
+                                <div class="question" data-i18n="create.question.6.text">6. 你希望被后人记住的是：</div>
                                 <div class="options">
-                                    <div class="option" data-value="EN">豪迈奔放的个性</div>
-                                    <div class="option" data-value="IT">深邃内敛的智慧</div>
-                                    <div class="option" data-value="SJ">踏实可靠的品格</div>
-                                    <div class="option" data-value="PF">自由不羁的灵魂</div>
+                                    <div class="option" data-value="EN" data-i18n="create.question.6.option.1">豪迈奔放的个性</div>
+                                    <div class="option" data-value="IT" data-i18n="create.question.6.option.2">深邃内敛的智慧</div>
+                                    <div class="option" data-value="SJ" data-i18n="create.question.6.option.3">踏实可靠的品格</div>
+                                    <div class="option" data-value="PF" data-i18n="create.question.6.option.4">自由不羁的灵魂</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question7">
-                                <div class="question-number">第7题/共8题</div>
-                                <div class="question">7. 在社交中，你通常是：</div>
+                                <div class="question-number" data-i18n="create.question.7.number">第7题/共8题</div>
+                                <div class="question" data-i18n="create.question.7.text">7. 在社交中，你通常是：</div>
                                 <div class="options">
-                                    <div class="option" data-value="EF">主动交流，热情洋溢</div>
-                                    <div class="option" data-value="IT">安静观察，深度交谈</div>
-                                    <div class="option" data-value="FE">关注氛围，促进和谐</div>
-                                    <div class="option" data-value="TI">理性分析，提供见解</div>
+                                    <div class="option" data-value="EF" data-i18n="create.question.7.option.1">主动交流，热情洋溢</div>
+                                    <div class="option" data-value="IT" data-i18n="create.question.7.option.2">安静观察，深度交谈</div>
+                                    <div class="option" data-value="FE" data-i18n="create.question.7.option.3">关注氛围，促进和谐</div>
+                                    <div class="option" data-value="TI" data-i18n="create.question.7.option.4">理性分析，提供见解</div>
                                 </div>
                             </div>
 
                             <div class="question-container" id="question8">
-                                <div class="question-number">第8题/共8题</div>
-                                <div class="question">8. 面对理想与现实冲突，你选择：</div>
+                                <div class="question-number" data-i18n="create.question.8.number">第8题/共8题</div>
+                                <div class="question" data-i18n="create.question.8.text">8. 面对理想与现实冲突，你选择：</div>
                                 <div class="options">
-                                    <div class="option" data-value="NP">坚守理想，不改初心</div>
-                                    <div class="option" data-value="SJ">调整目标，务实前进</div>
-                                    <div class="option" data-value="FJ">寻求平衡，兼顾两者</div>
-                                    <div class="option" data-value="TJ">重新规划，系统解决</div>
+                                    <div class="option" data-value="NP" data-i18n="create.question.8.option.1">坚守理想，不改初心</div>
+                                    <div class="option" data-value="SJ" data-i18n="create.question.8.option.2">调整目标，务实前进</div>
+                                    <div class="option" data-value="FJ" data-i18n="create.question.8.option.3">寻求平衡，兼顾两者</div>
+                                    <div class="option" data-value="TJ" data-i18n="create.question.8.option.4">重新规划，系统解决</div>
                                 </div>
                             </div>
 
                             <div class="navigation">
-                                <button id="prev-btn" disabled>上一题</button>
-                                <button id="next-btn">下一题</button>
+                                <button id="prev-btn" disabled data-i18n="create.prevBtn">上一题</button>
+                                <button id="next-btn" data-i18n="create.nextBtn">下一题</button>
                             </div>
 
                             <div class="result-container" id="result-container">
-                                <h2 id="result-title">诗魂测试结果</h2>
+                                <h2 id="result-title" data-i18n="create.resultTitle">诗魂测试结果</h2>
                                 <div class="immortal-realm" id="immortal-realm">浪漫飞升型</div>
                                 <div class="realm-subtitle" id="realm-subtitle">直上九霄揽明月</div>
 
@@ -617,9 +601,9 @@
                                 <div class="poem-example" id="poem-example"></div>
                                 <div class="modern-guide" id="modern-guide"></div>
 
-                                <div class="data-source" id="data-source">数据来源：《全唐诗》游仙诗数据集</div>
+                                <div class="data-source" id="data-source" data-i18n="create.dataSource">数据来源：《全唐诗》游仙诗数据集</div>
 
-                                <button class="restart-btn" id="restart-btn">重新测试</button>
+                                <button class="restart-btn" id="restart-btn" data-i18n="create.restartBtn">重新测试</button>
                             </div>
                         </div>
                     </div>
@@ -627,27 +611,28 @@
                     <!-- 仙卷创作 -->
                     <div class="scroll-reveal">
                         <div id="creationPanel">
-                            <h3>仙卷创作</h3>
-                            <p class="description">请先完成测试，继承诗人风骨，再选定意象与场景生成专属仙卷。</p>
+                            <h3 data-i18n="index.create.title">仙卷创作</h3>
+                            <p class="description" data-i18n="create.panel.description">请先完成测试，继承诗人风骨，再选定意象与场景生成专属仙卷。</p>
                             <div class="creation-meta">
-                                <span>当前诗人：<span id="currentPoetBadge">待完成测试</span></span>
+                                <span data-i18n="create.panel.currentPoet">当前诗人：</span><span id="currentPoetBadge" data-i18n="create.generate.pending">待完成测试</span>
                                 <button class="text-sm text-celestial-blue hover:text-golden transition-colors"
-                                    type="button" onclick="scrollToQuiz()">返回测试</button>
+                                    type="button" onclick="scrollToQuiz()" data-i18n="create.panel.backToTest">返回测试</button>
                             </div>
                             <div class="creation-field">
-                                <label for="imagerySelect">仙人意象</label>
+                                <label for="imagerySelect" data-i18n="create.panel.imagery">仙人意象</label>
                                 <select id="imagerySelect" class="creation-select"></select>
                             </div>
                             <div class="creation-field">
-                                <label for="sceneSelect">仙境场景</label>
+                                <label for="sceneSelect" data-i18n="create.panel.scene">仙境场景</label>
                                 <select id="sceneSelect" class="creation-select"></select>
                             </div>
                             <div class="creation-meta text-sm">
-                                <span>意象：<span id="selectedImageryLabel">仙娥</span></span>
-                                <span>场景：<span id="selectedSceneLabel">云海</span></span>
+                                <span><span data-i18n="create.panel.selected.imagery">意象：</span><span id="selectedImageryLabel">仙娥</span></span>
+                                <span><span data-i18n="create.panel.selected.scene">场景：</span><span id="selectedSceneLabel">云海</span></span>
                             </div>
                             <div class="creation-actions">
-                                <button id="generatePoemBtn" class="generate" type="button">
+                                <button id="generatePoemBtn" class="generate" type="button"
+                                    data-i18n="create.generate.btn">
                                     生成仙卷
                                 </button>
                                 <div
@@ -663,12 +648,12 @@
                                         </div>
                                         <!-- 图片显示区域，放在诗句下方 -->
                                         <div class="creation-image" id="creationImageWrapper">
-                                            <p class="placeholder" id="imagePlaceholder">生成仙卷后，可同步调用豆包生图展示仙境意象。</p>
+                                            <p class="placeholder" id="imagePlaceholder" data-i18n="create.generate.placeholder">生成仙卷后，可同步调用豆包生图展示仙境意象。</p>
                                             <img id="creationImage" alt="仙卷意象图" style="display:none;">
                                         </div>
                                         <div class="text-right text-xs text-gray-500 space-y-1 mt-auto">
                                             <p id="poemSignature">辛丑年秋 制于唐境仙踪</p>
-                                            <p id="poetStyleLabel" class="text-celestial-blue/70">风格：待定</p>
+                                            <p id="poetStyleLabel" class="text-celestial-blue/70"><span data-i18n="create.generate.style">风格：</span><span data-i18n="create.generate.style.pending">待定</span></p>
                                         </div>
                                     </div>
                                     <div class="absolute left-0 top-0 bottom-0 w-4 bg-amber-200"></div>
@@ -689,11 +674,12 @@
             <div class="w-16 h-16 bg-jade-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fa fa-check text-2xl text-jade-green"></i>
             </div>
-            <h3 class="font-calligraphy text-2xl text-celestial-blue mb-2">仙卷已生成</h3>
-            <p class="text-gray-600 mb-6">根据诗魂风格与所选意象，诗句与仙境图稿均已同步生成。</p>
+            <h3 class="font-calligraphy text-2xl text-celestial-blue mb-2" data-i18n="create.generate.success.title">仙卷已生成</h3>
+            <p class="text-gray-600 mb-6" data-i18n="create.generate.success.text">根据诗魂风格与所选意象，诗句与仙境图稿均已同步生成。</p>
             <button
                 class="w-full py-3 bg-celestial-blue text-white rounded-full hover:bg-celestial-blue/90 transition-all duration-300"
-                onclick="closeSuccessModal()">
+                onclick="closeSuccessModal()"
+                data-i18n="create.generate.success.confirm">
                 确定
             </button>
         </div>
@@ -749,209 +735,7 @@
         const DOUBAO_PROXY_ENDPOINT = '/api/doubao-image';
         const DEEPSEEK_API_ENDPOINT = '/api/deepseek-poem';
 
-        /* ====== 唐朝游仙志：双语文本 ====== */
-        const translations = {
-            zh: {
-                title: "唐朝游仙志",
-                subtitle: "与唐代诗人的精神对话",
-                intro: [
-                    "在盛唐的诗意星空下，游仙诗如璀璨星河，",
-                    "照亮了文人墨客的精神归途。",
-                    "李白的天马行空，李商隐的朦胧深邃，",
-                    "李贺的诡奇想象，白居易的入世超然——",
-                    "每一种游仙方式都是独特的精神写照。",
-                    "这个测试将带你穿越千年诗境，",
-                    "找到与你气质最契合的唐代诗人知己。"
-                ],
-                langBtn: "English",
-                prevBtn: "上一题",
-                nextBtn: "下一题",
-                resultBtn: "查看结果",
-                restartBtn: "重新测试",
-                resultTitle: "诗魂测试结果",
-                dataSource: "数据来源：《全唐诗》游仙诗数据集",
-                questions: [
-                    {
-                        number: "第1题/共8题",
-                        text: "1. 你心中理想的超凡体验是：",
-                        options: [
-                            "与群仙共饮，畅游九霄",
-                            "独坐云间，静观星移",
-                            "在人间修行，普度众生",
-                            "探索宇宙，思考真理"
-                        ]
-                    },
-                    {
-                        number: "第2题/共8题",
-                        text: "2. 你更相信仙境存在于：",
-                        options: [
-                            "现实中的名山大川",
-                            "想象构建的奇幻世界",
-                            "内心的觉悟与修行",
-                            "哲理思辨的境界"
-                        ]
-                    },
-                    {
-                        number: "第3题/共8题",
-                        text: "3. 面对人生困境，你倾向于：",
-                        options: [
-                            "理性分析，寻找根本原因",
-                            "寻求情感支持，共同面对",
-                            "制定计划，逐步解决",
-                            "随缘应对，相信转机"
-                        ]
-                    },
-                    {
-                        number: "第4题/共8题",
-                        text: "4. 你的生活方式更接近：",
-                        options: [
-                            "井井有条，目标明确",
-                            "随性自在，享受过程",
-                            "服务他人，承担责任",
-                            "独立思考，保持距离"
-                        ]
-                    },
-                    {
-                        number: "第5题/共8题",
-                        text: "5. 在诗歌创作中，你更看重：",
-                        options: [
-                            "情感的真诚表达",
-                            "想象的奇特瑰丽",
-                            "现实的深刻反映",
-                            "哲理的深邃表达"
-                        ]
-                    },
-                    {
-                        number: "第6题/共8题",
-                        text: "6. 你希望被后人记住的是：",
-                        options: [
-                            "豪迈奔放的个性",
-                            "深邃内敛的智慧",
-                            "踏实可靠的品格",
-                            "自由不羁的灵魂"
-                        ]
-                    },
-                    {
-                        number: "第7题/共8题",
-                        text: "7. 在社交中，你通常是：",
-                        options: [
-                            "主动交流，热情洋溢",
-                            "安静观察，深度交谈",
-                            "关注氛围，促进和谐",
-                            "理性分析，提供见解"
-                        ]
-                    },
-                    {
-                        number: "第8题/共8题",
-                        text: "8. 面对理想与现实冲突，你选择：",
-                        options: [
-                            "坚守理想，不改初心",
-                            "调整目标，务实前进",
-                            "寻求平衡，兼顾两者",
-                            "重新规划，系统解决"
-                        ]
-                    }
-                ]
-            },
-            en: {
-                title: "Discover Your Tang Dynasty Poet Soul",
-                subtitle: "Which Poet's Spiritual Journey Matches Yours?",
-                intro: [
-                    "Under the poetic starry sky of the High Tang, wonderland-traveling poems shine like a galaxy, illuminating the spiritual journeys of literati.",
-                    "Li Bai's unbridled imagination, Li Shangyin's misty profundity, Li He's bizarre fantasy, Bai Juyi's worldly transcendence—each way of wonderland traveling is a unique spiritual portrait.",
-                    "This test will guide you through a millennium of poetic realms to find the Tang Dynasty poet that best matches your inner self."
-                ],
-                langBtn: "中文",
-                prevBtn: "Previous",
-                nextBtn: "Next",
-                resultBtn: "View Result",
-                restartBtn: "Restart Test",
-                resultTitle: "Poetic Soul Test Result",
-                dataSource: "Data Source: Quan Tang Shi Wonderland Poems Dataset",
-                questions: [
-                    {
-                        number: "Question 1 of 8",
-                        text: "1. Your ideal transcendent experience is:",
-                        options: [
-                            "Feasting with immortals, roaming the highest heavens",
-                            "Sitting alone among clouds, watching stars shift in silence",
-                            "Cultivating in the human world, delivering all beings from suffering",
-                            "Exploring the universe, contemplating truth"
-                        ]
-                    },
-                    {
-                        number: "Question 2 of 8",
-                        text: "2. You believe wonderland exists in:",
-                        options: [
-                            "Famous mountains and great rivers in reality",
-                            "Fantasy worlds constructed by imagination",
-                            "Inner enlightenment and spiritual practice",
-                            "The realm of philosophical speculation"
-                        ]
-                    },
-                    {
-                        number: "Question 3 of 8",
-                        text: "3. When facing life difficulties, you tend to:",
-                        options: [
-                            "Analyze rationally, find root causes",
-                            "Seek emotional support, face together",
-                            "Make plans, solve step by step",
-                            "Go with the flow, believe in turnaround"
-                        ]
-                    },
-                    {
-                        number: "Question 4 of 8",
-                        text: "4. Your lifestyle is closer to:",
-                        options: [
-                            "Orderly, with clear goals",
-                            "Spontaneous, enjoying the process",
-                            "Serving others, taking responsibility",
-                            "Independent thinking, keeping distance"
-                        ]
-                    },
-                    {
-                        number: "Question 5 of 8",
-                        text: "5. In poetry creation, you value more:",
-                        options: [
-                            "Sincere expression of emotion",
-                            "Strange and magnificent imagination",
-                            "Profound reflection of reality",
-                            "Deep expression of philosophy"
-                        ]
-                    },
-                    {
-                        number: "Question 6 of 8",
-                        text: "6. You hope to be remembered by posterity for:",
-                        options: [
-                            "Bold and unrestrained personality",
-                            "Profound and reserved wisdom",
-                            "Reliable and steadfast character",
-                            "Free and untamed soul"
-                        ]
-                    },
-                    {
-                        number: "Question 7 of 8",
-                        text: "7. In social situations, you are usually:",
-                        options: [
-                            "Proactive in communication, enthusiastic",
-                            "Quiet observer, deep conversation",
-                            "Focus on atmosphere, promote harmony",
-                            "Rational analysis, provide insights"
-                        ]
-                    },
-                    {
-                        number: "Question 8 of 8",
-                        text: "8. Facing conflict between ideal and reality, you choose:",
-                        options: [
-                            "Hold fast to ideals, remain true to original aspiration",
-                            "Adjust goals, advance practically",
-                            "Seek balance, consider both",
-                            "Replan, solve systematically"
-                        ]
-                    }
-                ]
-            }
-        };
+        /* ====== 翻译系统已整合到全局 components.js ====== */
 
         /* ====== 问题与人格映射 ====== */
         const questions = [
@@ -1397,7 +1181,6 @@
         };
 
         /* ====== 状态与元素引用 ====== */
-        let currentLang = 'zh';
         let currentQuestionIndex = 0;
         let userAnswers = Array(8).fill(null);
         let dimensionScores = {
@@ -1413,12 +1196,14 @@
             initPage('create');
             setupQuiz();
             setupSelectionPanel();
+            // 初始化时应用语言样式
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            updateContainerClass(lang);
         });
 
         function setupQuiz() {
             quizElements = {
                 mainContainer: document.getElementById('soulQuizApp'),
-                langBtn: document.getElementById('lang-btn'),
                 questionContainers: document.querySelectorAll('#soulQuizApp .question-container'),
                 prevBtn: document.getElementById('prev-btn'),
                 nextBtn: document.getElementById('next-btn'),
@@ -1428,14 +1213,16 @@
                 progressBar: document.getElementById('progress')
             };
 
-            initLanguage();
+            // 监听全局语言变化事件
+            window.addEventListener('languageChanged', handleLanguageChange);
+            // 初始化时更新一次
+            handleLanguageChange();
+            
             setupQuizEvents();
-            updateQuestionContent();
             updateButtonState();
         }
 
         function setupQuizEvents() {
-            quizElements.langBtn.addEventListener('click', switchLanguage);
             quizElements.prevBtn.addEventListener('click', goToPreviousQuestion);
             quizElements.nextBtn.addEventListener('click', goToNextQuestion);
             quizElements.restartBtn.addEventListener('click', restartTest);
@@ -1447,57 +1234,45 @@
             });
         }
 
-        function initLanguage() {
-            updateTextContent();
-            updateContainerClass();
-        }
-
-        function switchLanguage() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            updateTextContent();
-            updateContainerClass();
-            updateQuestionContent();
-            if (quizElements.resultContainer.style.display === 'block') {
+        function handleLanguageChange() {
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            updateContainerClass(lang);
+            updateButtonState();
+            // 如果结果页面已显示，更新结果内容
+            if (quizElements.resultContainer && quizElements.resultContainer.style.display === 'block') {
                 updateResultContent();
+            }
+            // 确保英文模式下隐藏包含中文的段落（备用方案）
+            if (lang === 'en') {
+                setTimeout(() => {
+                    const introParagraphs = document.querySelectorAll('#soulQuizApp .intro p[data-i18n]');
+                    introParagraphs.forEach(p => {
+                        const text = p.textContent || p.innerText;
+                        // 如果段落包含中文字符，隐藏它
+                        if (/[\u4e00-\u9fa5]/.test(text)) {
+                            p.style.display = 'none';
+                        } else {
+                            p.style.display = '';
+                        }
+                    });
+                }, 100);
+            } else {
+                // 中文模式下显示所有段落
+                const introParagraphs = document.querySelectorAll('#soulQuizApp .intro p[data-i18n]');
+                introParagraphs.forEach(p => {
+                    p.style.display = '';
+                });
             }
         }
 
-        function updateTextContent() {
-            const langData = translations[currentLang];
-            document.getElementById('main-title').textContent = langData.title;
-            document.getElementById('main-subtitle').textContent = langData.subtitle;
-            quizElements.introContainer.innerHTML = '';
-            langData.intro.forEach(line => {
-                const p = document.createElement('p');
-                p.textContent = line;
-                quizElements.introContainer.appendChild(p);
-            });
-            quizElements.langBtn.textContent = langData.langBtn;
-            quizElements.prevBtn.textContent = langData.prevBtn;
-            quizElements.nextBtn.textContent = currentQuestionIndex === quizElements.questionContainers.length - 1
-                ? langData.resultBtn : langData.nextBtn;
-            quizElements.restartBtn.textContent = langData.restartBtn;
-            document.getElementById('result-title').textContent = langData.resultTitle;
-            document.getElementById('data-source').textContent = langData.dataSource;
-        }
-
-        function updateQuestionContent() {
-            const langData = translations[currentLang];
-            quizElements.questionContainers.forEach((container, index) => {
-                const questionData = langData.questions[index];
-                container.querySelector('.question-number').textContent = questionData.number;
-                container.querySelector('.question').textContent = questionData.text;
-                container.querySelectorAll('.option').forEach((option, optIndex) => {
-                    option.textContent = questionData.options[optIndex];
-                });
-            });
-        }
-
-        function updateContainerClass() {
-            if (currentLang === 'en') {
+        function updateContainerClass(lang) {
+            const creationPanel = document.getElementById('creationPanel');
+            if (lang === 'en') {
                 quizElements.mainContainer.classList.add('english-mode');
+                if (creationPanel) creationPanel.classList.add('english-mode');
             } else {
                 quizElements.mainContainer.classList.remove('english-mode');
+                if (creationPanel) creationPanel.classList.remove('english-mode');
             }
         }
 
@@ -1511,14 +1286,12 @@
         }
 
         function updateButtonState() {
-            const langData = translations[currentLang];
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
             quizElements.prevBtn.disabled = currentQuestionIndex === 0;
             const currentContainer = quizElements.questionContainers[currentQuestionIndex];
             const answered = currentContainer.querySelector('.option.selected');
             if (currentQuestionIndex === quizElements.questionContainers.length - 1) {
-                quizElements.nextBtn.textContent = langData.resultBtn;
-            } else {
-                quizElements.nextBtn.textContent = langData.nextBtn;
+                // 按钮文本由全局翻译系统处理
             }
             quizElements.nextBtn.disabled = !answered;
         }
@@ -1567,19 +1340,20 @@
         function updateResultContent() {
             const personality = findMatchedPersonality();
             const data = immortalRealms[personality.type];
-            document.getElementById('immortal-realm').textContent = data.realm[currentLang];
-            document.getElementById('realm-subtitle').textContent = data.subtitle[currentLang];
-            document.getElementById('poet-name').textContent = data.poet[currentLang];
-            document.getElementById('personality-type').textContent = `${personality.type} ${data.name[currentLang]}`;
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            document.getElementById('immortal-realm').textContent = data.realm[lang];
+            document.getElementById('realm-subtitle').textContent = data.subtitle[lang];
+            document.getElementById('poet-name').textContent = data.poet[lang];
+            document.getElementById('personality-type').textContent = `${personality.type} ${data.name[lang]}`;
             document.getElementById('poet-period').innerHTML =
-                `${data.period[currentLang]} · <span id="realm-type">${data.realm[currentLang]}</span>`;
-            document.getElementById('realm-description').innerHTML = data.realmDescription[currentLang];
-            document.getElementById('poet-description').innerHTML = data.poetDescription[currentLang];
-            document.getElementById('modern-guide').innerHTML = data.modernGuide[currentLang];
+                `${data.period[lang]} · <span id="realm-type">${data.realm[lang]}</span>`;
+            document.getElementById('realm-description').innerHTML = data.realmDescription[lang];
+            document.getElementById('poet-description').innerHTML = data.poetDescription[lang];
+            document.getElementById('modern-guide').innerHTML = data.modernGuide[lang];
 
             const traitsContainer = document.getElementById('personality-traits');
             traitsContainer.innerHTML = '';
-            data.traits[currentLang].forEach(trait => {
+            data.traits[lang].forEach(trait => {
                 const span = document.createElement('div');
                 span.className = 'trait';
                 span.textContent = trait;
@@ -1592,11 +1366,11 @@
                 poetImage.style.display = 'none';
             };
             poetImage.src = data.image;
-            poetImage.alt = data.poet[currentLang];
+            poetImage.alt = data.poet[lang];
 
             const poemExample = document.getElementById('poem-example');
             poemExample.innerHTML = '';
-            if (currentLang === 'en') {
+            if (lang === 'en') {
                 const translationDiv = document.createElement('div');
                 translationDiv.className = 'poem-translation';
                 translationDiv.innerHTML = data.poem.translation;
@@ -1646,8 +1420,12 @@
             updateButtonState();
             currentPoet = null;
             currentPersonalityData = null;
-            document.getElementById('currentPoetBadge').textContent = '待完成测试';
-            document.getElementById('poetStyleLabel').textContent = '风格：待定';
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            const pendingText = window.i18n ? window.i18n.translate('create.generate.pending') : '待完成测试';
+            const styleLabel = lang === 'zh' ? '风格：' : 'Style: ';
+            const stylePending = window.i18n ? window.i18n.translate('create.generate.style.pending') : '待定';
+            document.getElementById('currentPoetBadge').textContent = pendingText;
+            document.getElementById('poetStyleLabel').innerHTML = `<span data-i18n="create.generate.style">${styleLabel}</span><span data-i18n="create.generate.style.pending">${stylePending}</span>`;
             resetCreationPanel();
         }
 
@@ -1696,10 +1474,18 @@
             resetImagePreview();
         }
 
-        function resetImagePreview(message = '生成仙卷后，可同步调用豆包生图展示仙境意象。') {
+        function resetImagePreview(message = null) {
             const placeholder = document.getElementById('imagePlaceholder');
             const imageEl = document.getElementById('creationImage');
-            if (placeholder) placeholder.textContent = message;
+            if (placeholder) {
+                if (message) {
+                    placeholder.textContent = message;
+                } else {
+                    // 使用翻译系统
+                    const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                    placeholder.textContent = window.i18n ? window.i18n.translate('create.generate.placeholder') : '生成仙卷后，可同步调用豆包生图展示仙境意象。';
+                }
+            }
             if (imageEl) {
                 imageEl.style.display = 'none';
                 imageEl.src = '';
@@ -1712,17 +1498,21 @@
         }
 
         function updateCreativePanelStatus(personalityData) {
-            const poetName = personalityData.poet[currentLang];
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            const poetName = personalityData.poet[lang];
             document.getElementById('currentPoetBadge').textContent =
-                `${poetName} · ${personalityData.realm[currentLang]}`;
+                `${poetName} · ${personalityData.realm[lang]}`;
+            const styleLabel = lang === 'zh' ? '风格：' : 'Style: ';
             document.getElementById('poetStyleLabel').textContent =
-                `风格：${personalityData.poet.zh}（${personalityData.realm.zh}）`;
+                `${styleLabel}${personalityData.poet[lang]}（${personalityData.realm[lang]}）`;
             currentPersonalityData = personalityData;
         }
 
         async function generatePoem() {
             if (!currentPoet) {
-                alert('请先完成游仙志测试，获取诗人身份。');
+                const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                const msg = lang === 'zh' ? '请先完成游仙志测试，获取诗人身份。' : 'Please complete the Wonderland Poetry Test first to get your poet identity.';
+                alert(msg);
                 return;
             }
             setGenerateButtonState(true);
@@ -1751,17 +1541,23 @@
                     await generateIllustration(poemLines);
                 } catch (error) {
                     console.error('生成仙境意象图失败（不影响诗句显示）:', error);
-                    resetImagePreview('诗句已生成，但仙境图生成失败，请稍后重试。');
+                    const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                    const msg = lang === 'zh' ? '诗句已生成，但仙境图生成失败，请稍后重试。' : 'Poem generated, but wonderland image generation failed. Please try again later.';
+                    resetImagePreview(msg);
                 }
                 
                 // 图片生成完成后再显示成功弹窗
                 openSuccessModal();
             } catch (error) {
                 console.error('生成仙卷失败：', error);
-                alert('生成仙卷时出现问题，请稍后再试。' + (error.message ? '\n' + error.message : ''));
+                const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                const errorMsg = lang === 'zh' ? '生成仙卷时出现问题，请稍后再试。' : 'An error occurred while generating the poetry. Please try again later.';
+                alert(errorMsg + (error.message ? '\n' + error.message : ''));
                 // 如果 API 调用失败，使用备用模板生成
                 try {
-                    resetImagePreview('使用备用模板生成诗句...');
+                    const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                    const fallbackText = lang === 'zh' ? '使用备用模板生成诗句...' : 'Using fallback template to generate poem...';
+                    resetImagePreview(fallbackText);
                     const sceneLine = replaceTemplate(sceneTemplates, userSelections.scene);
                     const imageryLine = replaceTemplate(imageryTemplates, userSelections.imagery);
                     const signature = poetSignatures[currentPoet] || poetSignatures['默认'];
@@ -1780,14 +1576,18 @@
                         await generateIllustration(lines);
                     } catch (error) {
                         console.error('生成仙境意象图失败:', error);
-                        resetImagePreview('AI生成失败，已使用模板生成诗句。如需生成仙境图，请确保已配置豆包API。');
+                        const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                        const msg = lang === 'zh' ? 'AI生成失败，已使用模板生成诗句。如需生成仙境图，请确保已配置豆包API。' : 'AI generation failed, using template to generate poem. To generate wonderland image, please ensure Doubao API is configured.';
+                        resetImagePreview(msg);
                     }
                     
                     // 显示成功弹窗
                     openSuccessModal();
                 } catch (fallbackError) {
                     console.error('备用生成也失败：', fallbackError);
-                    resetImagePreview('生成失败，请检查网络连接和API配置。');
+                    const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                    const msg = lang === 'zh' ? '生成失败，请检查网络连接和API配置。' : 'Generation failed. Please check network connection and API configuration.';
+                    resetImagePreview(msg);
                 }
             } finally {
                 setGenerateButtonState(false);
@@ -1912,7 +1712,9 @@
         }
 
         async function generateIllustration(lines) {
-            resetImagePreview('仙境生成中，请稍候...');
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            const generatingText = lang === 'zh' ? '仙境生成中，请稍候...' : 'Generating wonderland, please wait...';
+            resetImagePreview(generatingText);
             try {
                 const prompt = buildImagePrompt(currentPoet, userSelections, lines);
                 const imageUrl = await callDoubaoImage(prompt);
@@ -1935,15 +1737,21 @@
                         // 图片加载失败
                         imageEl.onerror = function() {
                             console.error('仙境意象图加载失败');
-                            resetImagePreview('图片加载失败，请稍后重试。');
+                            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                            const msg = lang === 'zh' ? '图片加载失败，请稍后重试。' : 'Image loading failed. Please try again later.';
+                            resetImagePreview(msg);
                         };
                     }
                 } else {
-                    resetImagePreview('豆包生图暂不可用，请稍后重试。');
+                    const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                    const msg = lang === 'zh' ? '豆包生图暂不可用，请稍后重试。' : 'Doubao image generation is temporarily unavailable. Please try again later.';
+                    resetImagePreview(msg);
                 }
             } catch (error) {
                 console.error('生成仙境意象图时出错:', error);
-                resetImagePreview('生成仙境意象图时出现问题，请稍后重试。');
+                const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+                const msg = lang === 'zh' ? '生成仙境意象图时出现问题，请稍后重试。' : 'An error occurred while generating the wonderland image. Please try again later.';
+                resetImagePreview(msg);
             }
         }
 
@@ -2036,7 +1844,10 @@
             const btn = document.getElementById('generatePoemBtn');
             if (!btn) return;
             btn.disabled = isLoading;
-            btn.textContent = isLoading ? '生成中...' : '生成仙卷';
+            const lang = window.i18n ? window.i18n.currentLanguage() : 'zh';
+            const generatingText = window.i18n ? window.i18n.translate('create.generate.generating') : '生成中...';
+            const generateText = window.i18n ? window.i18n.translate('create.generate.btn') : '生成仙卷';
+            btn.textContent = isLoading ? generatingText : generateText;
         }
 
         function openSuccessModal() {
