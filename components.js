@@ -1,15 +1,15 @@
 // 导航栏组件
 const navbarComponent = `
-<nav id="navbar" class="fixed w-full py-4 px-6 md:px-12 z-50 transition-all duration-500">
-    <div class="container mx-auto flex items-center justify-between">
-        <a href="index.html" class="flex items-center -ml-14 md:-ml-12">
-            <img src="./images/logo.png" alt="寻仙唐迹" class="h-8 md:h-10 mr-2">
-            <span class="font-calligraphy text-2xl md:text-3xl text-celestial-blue text-shadow-gold lang-title" data-i18n="site.title">寻仙唐迹</span>
+<nav id="navbar" class="fixed w-full py-4 px-4 md:px-6 lg:px-8 z-50 transition-all duration-500">
+    <div class="container mx-auto flex items-center justify-between max-w-full">
+        <a href="index.html" class="flex items-center -ml-4 md:-ml-4 lg:-ml-6 flex-shrink-0">
+            <img src="./images/logo.png" alt="寻仙唐迹" class="h-7 md:h-9 lg:h-10 mr-1 md:mr-2 flex-shrink-0">
+            <span class="font-calligraphy text-lg md:text-xl lg:text-2xl text-celestial-blue text-shadow-gold lang-title flex-shrink-0" data-i18n="site.title">寻仙唐迹</span>
         </a>
         
-        <div class="flex items-center space-x-4 ml-12 md:ml-24">
+        <div class="flex items-center space-x-2 md:space-x-3 lg:space-x-4 ml-4 md:ml-6 lg:ml-8 flex-1 min-w-0">
             <!-- 桌面导航 -->
-            <div class="hidden md:flex space-x-8 items-center">
+            <div class="hidden md:flex space-x-4 lg:space-x-6 items-center nav-links-container">
                 <a href="index.html" class="nav-link text-base" data-page="index" data-i18n="nav.home">首页</a>
                 <a href="immortals.html" class="nav-link text-base" data-page="immortals" data-i18n="nav.immortals">仙人图谱</a>
                 <a href="exhibition_all.html" class="nav-link text-base" data-page="exhibition_all" data-i18n="nav.exhibition">数字展厅</a>
@@ -18,7 +18,7 @@ const navbarComponent = `
             </div>
 
             <!-- 桌面端主题切换 -->
-            <div class="hidden md:flex theme-toggle-group" role="group" aria-label="主题模式切换">
+            <div class="hidden md:flex theme-toggle-group flex-shrink-0" role="group" aria-label="主题模式切换">
                 <button class="theme-toggle-btn" data-theme-toggle="default" type="button" aria-pressed="false">
                     <i class="fa fa-sun-o"></i><span data-i18n="theme.default">默认</span>
                 </button>
@@ -31,7 +31,7 @@ const navbarComponent = `
             </div>
             
             <!-- 语言切换按钮 -->
-            <div class="hidden md:flex ml-2">
+            <div class="hidden md:flex ml-1 md:ml-2 flex-shrink-0">
                 <button id="langToggleBtn" class="theme-toggle-btn" type="button" aria-label="切换语言">
                     <i class="fa fa-language"></i><span id="langToggleText">EN</span>
                 </button>
@@ -390,8 +390,25 @@ const styleComponent = `
         }
         /* 英文模式下导航栏标题字体大小调整，确保一行显示 */
         body.lang-en .lang-title {
-            font-size: clamp(1.25rem, 1.5vw, 1.75rem) !important;
+            font-size: clamp(0.875rem, 1vw, 1.25rem) !important;
             white-space: nowrap;
+        }
+        /* 英文版导航栏容器优化 */
+        body.lang-en #navbar .container {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        @media (min-width: 768px) {
+            body.lang-en #navbar .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            body.lang-en #navbar .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
         }
         @keyframes cloudMove {
             0% { background-position: 0 0; }
@@ -441,6 +458,66 @@ const styleComponent = `
         /* 导航链接不换行 */
         .nav-link {
             white-space: nowrap;
+        }
+        /* 中文版导航链接右对齐 */
+        body:not(.lang-en) #navbar .flex.items-center.space-x-2 {
+            justify-content: flex-end;
+        }
+        body:not(.lang-en) .nav-links-container {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        /* 英文版导航栏优化 - 减小间距和字体 */
+        body.lang-en .nav-link {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.4rem;
+        }
+        /* 英文版导航链接容器间距优化 */
+        body.lang-en nav .hidden.md\\:flex {
+            gap: 0.4rem !important;
+        }
+        @media (min-width: 1024px) {
+            body.lang-en .nav-link {
+                font-size: 0.85rem;
+                padding: 0.25rem 0.5rem;
+            }
+            body.lang-en nav .hidden.md\\:flex {
+                gap: 0.6rem !important;
+            }
+        }
+        @media (min-width: 1280px) {
+            body.lang-en .nav-link {
+                font-size: 0.9rem;
+                padding: 0.25rem 0.6rem;
+            }
+            body.lang-en nav .hidden.md\\:flex {
+                gap: 0.8rem !important;
+            }
+        }
+        @media (min-width: 1536px) {
+            body.lang-en .nav-link {
+                font-size: 1rem;
+                padding: 0.25rem 0.75rem;
+            }
+            body.lang-en nav .hidden.md\\:flex {
+                gap: 1rem !important;
+            }
+        }
+        /* 英文版主题切换按钮组优化 */
+        body.lang-en .theme-toggle-group {
+            gap: 0.25rem;
+        }
+        body.lang-en .theme-toggle-btn {
+            padding: 0.35rem 0.6rem;
+            font-size: 0.7rem;
+        }
+        body.lang-en .theme-toggle-btn span {
+            display: none;
+        }
+        @media (min-width: 1280px) {
+            body.lang-en .theme-toggle-btn span {
+                display: inline;
+            }
         }
         /* 防止翻译前的闪烁 - 隐藏未翻译的内容直到翻译完成 */
         body:not(.i18n-ready) [data-i18n]:not([data-i18n=""]) {
@@ -701,6 +778,10 @@ const translations = {
         'page.title.create': '仙卷创作 - 寻仙唐迹',
         'page.title.us': '关于我们 - 寻仙唐迹',
         'page.title.references': '资源引用说明 - 寻仙唐迹',
+        'source.attribution.index': '本页文字来自人文分析和AI生成。',
+        'source.attribution.immortals': '本页所有仙人诗句来自数据库，仙人介绍来自AI生成。',
+        'source.attribution.exhibition': '本页所有文字来自人文分析。',
+        'source.attribution.create': '本页所有文字来自AI生成。',
         'index.about': '关于本项目',
         'index.explore': '探索内容',
         'index.immortals.title': '仙人图谱',
@@ -767,6 +848,7 @@ const translations = {
         'immortals.sort.desc': '降序 (从高到低)',
         'immortals.sort.asc': '升序 (从低到高)',
         'immortals.reset': '重置',
+        'immortals.card.mention': '提及次数',
         'exhibition.chart.period.percentage': '唐代各时期游仙诗占比',
         'exhibition.chart.period.count': '唐代各时期游仙诗数量',
         'exhibition.overview.quanTangShi': '《全唐诗》是清代康熙四十四年（1705年）在康熙帝的主导下编纂而成的唐诗合集。"得诗四万八千九百余首，凡二千二百余人，厘为九百卷"。基于颜进雄所著的《唐代游仙诗研究》，《全唐诗》中共有游仙诗282首，占比0.94%。其中初唐52首，盛唐79首，中唐67首，晚唐84首。',
@@ -805,7 +887,7 @@ const translations = {
         // Chart translations
         'chart.tooltip.occurrence': '出现次数',
         'chart.tooltip.gender': '性别',
-        'chart.tooltip.times': '次',
+        'chart.tooltip.times': '首',
         'chart.tooltip.poems': '首',
         'chart.tooltip.percentage': '占比',
         'chart.tooltip.people': '人',
@@ -895,7 +977,7 @@ const translations = {
         'period.sheng.chart.percentage.name': '游仙诗占比',
         'period.sheng.chart.poets.name': '作品数量',
         'period.sheng.chart.immortals.name': '出现次数',
-        'period.sheng.chart.times': '次',
+        'period.sheng.chart.times': '首',
         'period.sheng.chart.male': '男性',
         'period.sheng.chart.female': '女性',
         'period.sheng.chart.type.mortal': '凡人成仙者',
@@ -1186,7 +1268,7 @@ const translations = {
         // Chart translations
         'chart.tooltip.occurrence': 'Occurrence',
         'chart.tooltip.gender': 'Gender',
-        'chart.tooltip.times': 'times',
+        'chart.tooltip.times': 'poems',
         'chart.tooltip.poems': 'poems',
         'chart.tooltip.percentage': 'percentage',
         'chart.tooltip.people': 'immortals',
@@ -1237,9 +1319,10 @@ const translations = {
         'immortals.sort.desc': 'Descending (High to Low)',
         'immortals.sort.asc': 'Ascending (Low to High)',
         'immortals.reset': 'Reset',
+        'immortals.card.mention': 'Mentions',
         'exhibition.chart.period.percentage': 'Percentage of Wonderland Traveling Poems by Period in Tang Dynasty',
         'exhibition.chart.period.count': 'Number of Wonderland Traveling Poems by Period in Tang Dynasty',
-        'exhibition.overview.quanTangShi': 'Quan Tang Shi 《全唐詩》 is a comprehensive collection of Tang poetry compiled in 1705 under the patronage of the Kangxi Emperor during the Qing Dynasty. It encompasses over 48,900 poems by more than 2,200 authors, organized into 900 volumes (“得詩四萬八千九百餘首，凡貳仟貳佰餘人，釐為九百卷”). According to Yan Jinxiong\'s literature Research on Wonderland Traveling Poems in Tang Dynasty, the anthology contains 282 Wonderland Traveling Poems, accounting for about 0.94% of the total. These are distributed across the four periods of the Tang as follows: 52 from the Beginning Tang (初唐), 79 from the Flourishing Age (盛唐), 67 from the Middle Tang (中唐) , and 84 from the Late Tang (晚唐).According to Yan Jinxiong\'s literature Research on Wonderland Traveling Poems in Tang Dynasty, the anthology contains 282 Wonderland Traveling Poems, accounting for about 0.94% of the total. These are distributed across the four periods of the Tang as follows: 52 from the Beginning Tang (初唐), 79 from the Flourishing Age (盛唐), 67 from the Middle Tang (中唐) , and 84 from the Late Tang (晚唐).',
+        'exhibition.overview.quanTangShi': 'Quan Tang Shi 《全唐詩》 is a comprehensive collection of Tang poetry compiled in 1705 under the patronage of the Kangxi Emperor during the Qing Dynasty. It encompasses over 48,900 poems by more than 2,200 authors, organized into 900 volumes ("得詩四萬八千九百餘首，凡貳仟貳佰餘人，釐為九百卷"). According to Yan Jinxiong\'s literature Research on Wonderland Traveling Poems in Tang Dynasty, the anthology contains 282 Wonderland Traveling Poems, accounting for about 0.94% of the total. These are distributed across the four periods of the Tang as follows: 52 from the Beginning Tang (初唐), 79 from the Flourishing Age (盛唐), 67 from the Middle Tang (中唐) , and 84 from the Late Tang (晚唐).',
         'exhibition.poet.title': 'Number of Wonderland Traveling Poems by Tang Poets',
         'exhibition.poet.text1': 'The 282 Wonderland Traveling Poems were composed by 83 Tang literati.The distribution of poems among these authors is strikingly uneven. The “Immortal Poet” Li Bai leads by a remarkable margin with 57 Wonderland Traveling Poems, accounting for 20.2% of the total. This concentration underscores the profound role of individual genius and the outsized influence of a few literary masters within the genre.',
         'exhibition.poet.text2': 'The charts below displays the top 20 poets by number of Wonderland Traveling Poems. As the data reveals, only a small group—including Li Bai, Cao Tang, and Song Zhiwen—produced a significant body of work in this tradition, while the majority composed only one or two such poems.',
@@ -1332,7 +1415,7 @@ const translations = {
         'period.sheng.chart.percentage.name': 'Wonderland Traveling Poems Proportion',
         'period.sheng.chart.poets.name': 'Number of Works',
         'period.sheng.chart.immortals.name': 'Frequency of Appearance',
-        'period.sheng.chart.times': 'times',
+        'period.sheng.chart.times': 'poems',
         'period.sheng.chart.male': 'Male',
         'period.sheng.chart.female': 'Female',
         'period.sheng.chart.type.mortal': 'Ordinary Humans Who Becomes Immortals',
@@ -1472,6 +1555,10 @@ const translations = {
         'exhibition.gis.legend.water': 'Water Realm Secrets',
         'exhibition.gis.legend.taoist': 'Taoist Holy Sites',
         'exhibition.gis.text3': 'From the map distribution, it can be seen that immortal locations are mainly concentrated in the eastern and central regions of China, with core immortal mountains such as Kunlun Mountain, Penglai Mountain, and Zhongnan Mountain being the locations with the highest frequency of immortals image. Although celestial wonderlands are relatively concentrated geographically, they occupy an important position in literary imagination. These geographical distributions reflect Tang Dynasty poets\' understanding and imagination of traditional immortal mountains and Taoist holy sites.',
+        'source.attribution.index': 'The text on this page comes from humanities analysis and AI generation.',
+        'source.attribution.immortals': 'All immortal poem verses on this page come from the database, and immortal descriptions come from AI generation.',
+        'source.attribution.exhibition': 'All text on this page comes from humanities analysis.',
+        'source.attribution.create': 'All text on this page comes from AI generation.',
         'create.page.title': 'Poetry Creation',
         'create.title': 'Discover Your Tang Dynasty Poet Soul',
         'create.subtitle': 'Which Poet\'s Spiritual Journey Matches Yours?',

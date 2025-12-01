@@ -19,6 +19,36 @@
     <!-- 引入公共组件和样式（包含 Tailwind 配置） -->
     <script src="components.js"></script>
     <script>document.write(styleComponent);</script>
+    <style>
+        /* 仙人分类标签横向滚动样式 */
+        .immortal-filter-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(59, 130, 246, 0.5) transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+        .immortal-filter-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .immortal-filter-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .immortal-filter-container::-webkit-scrollbar-thumb {
+            background-color: rgba(59, 130, 246, 0.5);
+            border-radius: 3px;
+        }
+        .immortal-filter-container::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(59, 130, 246, 0.7);
+        }
+        /* 英文版仙人分类标签优化 */
+        body.lang-en .immortal-filter-container {
+            justify-content: flex-start;
+        }
+        body.lang-en .immortal-filter {
+            font-size: 0.875rem;
+            padding: 0.5rem 0.75rem;
+            min-width: fit-content;
+        }
+    </style>
 </head>
 
 <body class="bg-moon-white font-classic text-gray-800 overflow-x-hidden">
@@ -43,7 +73,7 @@
         <section class="py-16 px-6 md:px-12 bg-moon-white/80 relative">
             <div class="container mx-auto max-w-6xl">
                 <!-- 仙人分类标签 -->
-                <div class="flex flex-nowrap justify-center gap-4 mb-12 scroll-reveal overflow-x-auto">
+                <div class="flex flex-nowrap justify-start gap-4 mb-12 scroll-reveal overflow-x-auto immortal-filter-container px-2">
                     <button
                         class="immortal-filter active px-4 py-2 rounded-full bg-celestial-blue text-white shadow-md hover:shadow-lg transition-all whitespace-nowrap"
                         data-filter="all"
@@ -292,6 +322,27 @@
                 immortalsGrid.appendChild(card);
             });
             
+            // 应用翻译到动态生成的卡片
+            if (window.i18n && window.i18n.translate) {
+                const lang = window.i18n.currentLanguage();
+                // 只翻译mention-count元素
+                document.querySelectorAll('.mention-count').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (key) {
+                        const translated = window.i18n.translate(key);
+                        if (translated !== key) {
+                            el.textContent = translated;
+                        }
+                    }
+                });
+            }
+            
+            // 应用翻译到动态生成的卡片
+            if (window.i18n && typeof applyLanguage === 'function') {
+                const lang = window.i18n.currentLanguage();
+                applyLanguage(lang);
+            }
+            
             // 添加滚动动画效果
             setTimeout(() => {
                 const revealElements = document.querySelectorAll('.scroll-reveal');
@@ -353,7 +404,7 @@
                         ` : ''}
                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
                             <div class="flex items-center justify-between">
-                                <span class="text-white text-xs">提及次数: ${immortal.total}</span>
+                                <span class="text-white text-xs mention-count" data-i18n="immortals.card.mention">提及次数</span>: <span class="text-white text-xs">${immortal.total}</span>
                                 <span class="${immortal.gender === '女' ? 'bg-rose-pink' : 'bg-blue-600'} text-white text-xs px-2 py-0.5 rounded-full">${immortal.gender === '女' ? '女' : '男'}</span>
                             </div>
                         </div>
@@ -510,6 +561,12 @@
 
 
 
-    </script></body>
+    </script>
+    
+    <!-- 内容来源标注 -->
+    <div class="bg-gray-50 border-t border-gray-200 py-4 px-6 text-center">
+        <p class="text-sm text-gray-600" data-i18n="source.attribution.immortals">本页所有仙人诗句来自数据库，仙人介绍来自AI生成。</p>
+    </div>
+</body>
 
 </html>
